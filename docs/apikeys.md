@@ -959,226 +959,226 @@ The first step in using GDN is to establish a connection to a local region. When
 
     ``` js
     class APIRequest {
-        _headers = {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        };
-        
-        constructor(url) {
-        this._url = url;
-        }
-        
-        login(email, password) {
-        const endpoint = "/_open/auth";
-        
-        const self = this;
-        
-        return new Promise(function (resolve, reject) {
-        self
-        .req(endpoint, {
-        body: { email, password },
-        method: "POST",
-        })
-        .then(({ jwt, ...data }) => {
-        self._headers.authorization = bearer `${jwt}`;
-        resolve(data);
-        })
-        .catch(reject);
-        });
-        }
-        
-        _handleResponse(response, resolve, reject) {
-        if (response.ok) {
-        resolve(response.json());
-        } else {
-        reject(response);
-        }
-        }
-        
-        req(endpoint, { body, ...options } = {}) {
-        const self = this;
-        return new Promise(function (resolve, reject) {
-        fetch(self._url + endpoint, {
-        headers: self._headers,
-        body: body ? JSON.stringify(body) : undefined,
-        ...options,
-        }).then((response) => self._handleResponse(response, resolve, reject));
-        });
-        }
-        }
-        const EMAIL = "nemo@nautilus.com";
-        const PASSWORD = "xxxxxx";
-        const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
-        
-        const COLLECTION_NAME = "testCollection";
-        const STREAM_NAME = "testStream"
-        const KEY_ID = "id1"
-        const run = async function () {
-        try {
-        const connection = new APIRequest(FEDERATION_URL);
-        
-        /* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */
-        
-        await connection.login(EMAIL, PASSWORD);
-        
-        console.log("Login Successfully using", EMAIL);
-        
-        /* -------------------------- Create an API Key ------------------------- */
-        
-        const apiKey = await connection.req(
-        `/_fabric/_system/_api/key`,
-        {
-        method: "POST",
-        body: {
-            "keyid": KEY_ID
-        }
-        }
-        );
-        
-        console.log("API KEY CREATED SUCCESSFULLY", apiKey);
-        
-        /* ---------------------------- Get List of Accessible Databases and Streams ---------------------------- */
-        
-        const accessibleStreams = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream`,
-        {
-        method: "GET",
-        }
-        );
-        
-        console.log("ACCESSIBLE STREAMS", accessibleStreams);
+    _headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    };
 
-        const accessibleCollections = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection`,
-        {
-        method: "GET",
-        }
-        );
-        
-        console.log("ACCESSIBLE COLLECTIONS", accessibleCollections);
+    constructor(url) {
+    this._url = url;
+    }
 
-        const accessibleDatabases = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database`,
-        {
-        method: "GET",
-        }
-        );
+    login(email, password) {
+    const endpoint = "/_open/auth";
+
+    const self = this;
+
+    return new Promise(function (resolve, reject) {
+    self
+    .req(endpoint, {
+    body: { email, password },
+    method: "POST",
+    })
+    .then(({ jwt, ...data }) => {
+    self._headers.authorization = bearer `${jwt}`;
+    resolve(data);
+    })
+    .catch(reject);
+    });
+    }
+
+    _handleResponse(response, resolve, reject) {
+    if (response.ok) {
+    resolve(response.json());
+    } else {
+    reject(response);
+    }
+    }
+
+    req(endpoint, { body, ...options } = {}) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+    fetch(self._url + endpoint, {
+    headers: self._headers,
+    body: body ? JSON.stringify(body) : undefined,
+    ...options,
+    }).then((response) => self._handleResponse(response, resolve, reject));
+    });
+    }
+    }
+    const EMAIL = "nemo@nautilus.com";
+    const PASSWORD = "xxxxxx";
+    const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
+
+    const COLLECTION_NAME = "testCollection";
+    const STREAM_NAME = "testStream"
+    const KEY_ID = "id1"
+    const run = async function () {
+    try {
+    const connection = new APIRequest(FEDERATION_URL);
+
+    /* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */
+
+    await connection.login(EMAIL, PASSWORD);
+
+    console.log("Login Successfully using", EMAIL);
+
+    /* -------------------------- Create an API Key ------------------------- */
+
+    const apiKey = await connection.req(
+    `/_fabric/_system/_api/key`,
+    {
+    method: "POST",
+    body: {
+        "keyid": KEY_ID
+    }
+    }
+    );
+
+    console.log("API KEY CREATED SUCCESSFULLY", apiKey);
+
+    /* ---------------------------- Get List of Accessible Databases and Streams ---------------------------- */
+
+    const accessibleStreams = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream`,
+    {
+    method: "GET",
+    }
+    );
+
+    console.log("ACCESSIBLE STREAMS", accessibleStreams);
+
+    const accessibleCollections = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection`,
+    {
+    method: "GET",
+    }
+    );
+
+    console.log("ACCESSIBLE COLLECTIONS", accessibleCollections);
+
+    const accessibleDatabases = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database`,
+    {
+    method: "GET",
+    }
+    );
+
+    console.log("ACCESSIBLE DATABASES", accessibleDatabases);
         
-        console.log("ACCESSIBLE DATABASES", accessibleDatabases);
+
+    /* ----------------------------- Set Access Level ----------------------------- */
+    const setDatabaseAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
+    {
+    method: "PUT",
+    body:{
+        "grant": "rw"
+    }
+    }
+    );
+    console.log("SET DATABASE ACCESS LEVEL", setDatabaseAccessLevel);
+
+
+    const setCollectionAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
+    {
+    method: "PUT",
+    body:{
+        "grant": "rw"
+    }
+    }
+    );
+        
+    console.log("SET COLLECTION ACCESS LEVEL", setCollectionAccessLevel);
+
+    const setStreamAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
+    {
+    method: "PUT",
+    body:{
+        "grant": "rw"
+    }
+    }
+    );
+        
+    console.log("SET STREAM ACCESS LEVEL", setStreamAccessLevel);
+
+        
+    /* ---------------------------- Get Access Level ---------------------------- */
+
+    const getStreamAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
+    {
+    method: "GET",
+    }
+    );
+        
+    console.log("GET STREAM ACCESS LEVEL", getStreamAccessLevel);
+
+    const getCollectionAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
+    {
+    method: "GET",
+    }
+    );
+        
+    console.log("GET COLLECTION ACCESS LEVEL", getCollectionAccessLevel);
+
+    const getDatabaseAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
+    {
+    method: "GET",
+    }
+    );
+    console.log("SET DATABASE ACCESS LEVEL", getDatabaseAccessLevel);
+
+
+
+    /* -----------------------------Clear Access Level ----------------------------- */
+
+    const clearDatabaseAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
+    {
+    method: "DELETE",
+    }
+    );
+    console.log("CLEAR DATABASE ACCESS LEVEL", clearDatabaseAccessLevel);
+
+    const clearCollectionAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
+    {
+    method: "DELETE",
+    }
+    );
             
+    console.log("CLEAR COLLECTION ACCESS LEVEL", clearCollectionAccessLevel);
+
+    const clearStreamAccessLevel = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
+    {
+    method: "DELETE",
+    }
+    );
         
-        /* ----------------------------- Set Access Level ----------------------------- */
-        const setDatabaseAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
-        {
-        method: "PUT",
-        body:{
-            "grant": "rw"
-        }
-        }
-        );
-        console.log("SET DATABASE ACCESS LEVEL", setDatabaseAccessLevel);
+    console.log("CLEAR STREAM ACCESS LEVEL", clearStreamAccessLevel);
+    /* --------------------------- Delete API Key ---------------------------- */
 
-
-        const setCollectionAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
-        {
-        method: "PUT",
-        body:{
-            "grant": "rw"
-        }
-        }
-        );
-            
-        console.log("SET COLLECTION ACCESS LEVEL", setCollectionAccessLevel);
-
-        const setStreamAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
-        {
-        method: "PUT",
-        body:{
-            "grant": "rw"
-        }
-        }
-        );
-            
-        console.log("SET STREAM ACCESS LEVEL", setStreamAccessLevel);
-
-            
-        /* ---------------------------- Get Access Level ---------------------------- */
+    const removeApiKey = await connection.req(
+    `/_fabric/_system/_api/key/${KEY_ID}`,
+    {
+    method: "DELETE",
+    }
+    );
         
-        const getStreamAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
-        {
-        method: "GET",
-        }
-        );
-            
-        console.log("GET STREAM ACCESS LEVEL", getStreamAccessLevel);
+    console.log("CLEAR STREAM ACCESS LEVEL", removeApiKey);
 
-        const getCollectionAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
-        {
-        method: "GET",
-        }
-        );
-            
-        console.log("GET COLLECTION ACCESS LEVEL", getCollectionAccessLevel);
+        
+    } catch (e) {
+    console.error(e);
+    }
+    };
 
-        const getDatabaseAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
-        {
-        method: "GET",
-        }
-        );
-        console.log("SET DATABASE ACCESS LEVEL", getDatabaseAccessLevel);
-        
-        
-        
-        /* -----------------------------Clear Access Level ----------------------------- */
-        
-        const clearDatabaseAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system`,
-        {
-        method: "DELETE",
-        }
-        );
-        console.log("CLEAR DATABASE ACCESS LEVEL", clearDatabaseAccessLevel);
-
-        const clearCollectionAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/collection/${COLLECTION_NAME}`,
-        {
-        method: "DELETE",
-        }
-        );
-                
-        console.log("CLEAR COLLECTION ACCESS LEVEL", clearCollectionAccessLevel);
-
-        const clearStreamAccessLevel = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}/database/_system/stream/c8globals.${STREAM_NAME}`,
-        {
-        method: "DELETE",
-        }
-        );
-            
-        console.log("CLEAR STREAM ACCESS LEVEL", clearStreamAccessLevel);
-        /* --------------------------- Delete API Key ---------------------------- */
-        
-        const removeApiKey = await connection.req(
-        `/_fabric/_system/_api/key/${KEY_ID}`,
-        {
-        method: "DELETE",
-        }
-        );
-            
-        console.log("CLEAR STREAM ACCESS LEVEL", removeApiKey);
-
-            
-        } catch (e) {
-        console.error(e);
-        }
-        };
-        
-        run();
+    run();
 
     ```

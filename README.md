@@ -38,6 +38,10 @@ To deploy docs:
 
 ```bash
 mkdocs gh-deploy
+
+or
+
+python3 -m mkdocs gh-deploy
 ```
 
 That's it! Behind the scenes, MkDocs will build your docs and use the `ghp-import` tool to commit them to the `gh-pages` branch and push the `gh-pages` branch to GitHub.
