@@ -1,13 +1,13 @@
 # Project information
 site_name: Macrometa Docs
-site_url: https://macrometa.com
+site_url: https://macrometa.dev
 site_author: Durga
 site_description: Access data instantly across the globe in your Apps & APIs for exceptional performance and scale. <br> One interface, multiple data models!
-site_hero_title: Need Help?
+site_hero_title: Macrometa API Documentation
 
 # Repository
-# repo_name: macrometacorp/docs-gdn
-# repo_url: https://github.com/Macrometacorp/docs-gdn
+# repo_name: macrometacorp/docs
+# repo_url: https://github.com/Macrometacorp/docs
 # edit_uri: ""
 
 # Copyright
