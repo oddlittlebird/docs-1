@@ -955,7 +955,7 @@ The first step in using GDN is to establish a connection to a local region. When
 
     ```
 
-=== 'Rest API (Javascript)'
+=== "Rest API (Javascript)"
 
     ``` js
     class APIRequest {
