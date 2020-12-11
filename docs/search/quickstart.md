@@ -1,0 +1,248 @@
+# Quick Start with Search
+
+Macrometa GDN includes a fast and powerful geo-replicated full-text search engine natively integrated into its various data models-  `Key Value`, `Documents` and `Graphs`.
+
+The search engine allows users to combine two information retrieval techniques: `boolean` and `generalized ranking retrieval`. The search results `approved` by the boolean model are `ranked by relevance` to the respective query using the Vector Space Model in conjunction with `BM25` or `TFIDF` weighting schemes.
+
+The search engine provides following capabilities to its users:
+
+* Complex Searches with Boolean Operators
+* Relevance-Based Matching
+* Phrase and Prefix Matching
+* Custom Ranking and Relevance Tuning
+* Configurable Analyzers & Tokenization
+* Return whole documents or projections of documents.
+* Combinability of search queries with multiple supported data models & access patterns
+* Geo Replicated Search indexes for instant results.
+
+## Pre-requisite
+
+Let's assume your
+
+* tenant name is `nemo@nautilus.com` and 
+* user password is `xxxxxxx`.
+
+## Driver download
+
+=== "Python"
+
+    ``` py
+
+    pyC8 requires Python 3.5+. Python 3.6 or higher is recommended
+
+    To install pyC8, simply run
+
+        $ pip3 install pyC8
+
+    or, if you prefer to use conda:
+
+        conda install -c conda-forge pyC8
+
+    or pipenv:
+
+        pipenv install --pre pyC8
+
+    Once the installation process is finished, you can begin developing applications in Python.
+
+    ```
+
+=== "Javascript"
+
+    ``` js
+
+    With Yarn or NPM
+
+        yarn add jsc8
+        (or)
+        npm install jsc8
+
+    If you want to use the driver outside of the current directory, you can also install it globally using the `--global` flag:
+
+        npm install --global jsc8
+
+    From source,
+
+        git clone https://github.com/macrometacorp/jsc8.git
+        cd jsC8
+        npm install
+        npm run dist
+
+    ```
+
+## Connect to GDN
+
+The first step in using GDN is to establish a connection to a local region. When this code executes, it initializes the server connection to the URL you sepcified. You can create an API key from the GUI or REST API.
+
+=== "Python"
+
+    ``` py
+    from c8 import C8Client
+
+    # Simple Way
+    print("--- Connecting to C8")
+    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+                            email='nemo@nautilus.com', password="xxxxxx",
+                            geofabric='_system')
+
+    # OR Using token
+    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    token="XXXX")
+
+    # OR Using API Key
+    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    apikey="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d")
+    ```
+
+=== "Javascript"
+
+    ``` js
+    const jsc8 = require("jsc8");
+
+    // Simple Way
+    const client = new jsc8({url: "https://gdn1.macrometa.io", token: "", fabricName= '_system'});
+    // ----- OR -----
+    const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d", fabricName= '_system'});
+
+    // To use advanced options
+    const client = new jsc8("https://gdn1.macrometa.io"); 
+    ```
+
+## Create Collection
+
+Create a Collection for saving the Key Value Pairs
+
+=== "Python"
+
+    ``` py
+    from c8 import C8Client
+
+    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    collection_name = "students"
+
+    # Create a connection to gdn1
+    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    apikey=key)
+
+    # Create a new collection if it does not exist
+    if client.has_collection(collection_name):
+        print("Collection exists")
+    else:
+        client.create_collection_kv(name=collection_name)
+
+    ```
+
+=== "Javascript"
+
+    ``` js
+    // Add this snippet in previously created main function
+    let coll = await client.getKVCollections();
+    console.log("Existing Collections: ", coll.result);
+    try{
+        await client.createKVCollection(collectionName);
+        console.log("Collection Created Successfully");
+    }
+    catch(e){
+        console.log("Collection creation did not succeed due to " + e);
+    }
+    ```
+
+## Insert Key Value Pairs
+
+Insert key value pairs into the collection.
+
+=== "Python"
+
+    ``` py
+
+    from c8 import C8Client
+
+    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    collection_name = "students"
+
+    # Create a connection to gdn1
+    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    apikey=key)
+    # Insert Key Value pairs
+    data = [
+      {
+        "_key": "John",
+        "value": "Science",
+        "expireAt": 0
+      },
+      {
+        "_key": "Alice",
+        "value": "Maths",
+        "expireAt": 0
+      },
+      {
+        "_key": "Alex",
+        "value": "Physics",
+        "expireAt": 0
+      },
+      {
+        "_key": "Monika",
+        "value": "Chemistry",
+        "expireAt": 0
+      }
+    ]
+
+    client.insert_key_value_pair(collection_name, data)
+    print("KV Pairs Inserted")
+    ```
+
+=== "Javascript"
+
+    ``` js
+    // Insert Key Value pairs
+    var data = [
+      {
+        "_key": "John",
+        "value": "Science",
+        "expireAt": 0
+      },
+      {
+        "_key": "Alice",
+        "value": "Maths",
+        "expireAt": 0
+      },
+      {
+        "_key": "Alex",
+        "value": "Physics",
+        "expireAt": 0
+      },
+      {
+        "_key": "Monika",
+        "value": "Chemistry",
+        "expireAt": 0
+      }
+    ]
+    try{
+        await client.insertKVPairs(collectionName, data);
+        console.log("Key Value pairs inserted successfully.");
+    }
+    catch(e){
+        console.log("Key Value Pairs not inserted due to " + e);
+    }
+    ```
+
+## TBD
+
+### Enable Search
+
+### Basic Querying
+
+### Search vs Filter
+
+### Phrase Search
+
+### Proximity Search
+
+### Min Match
+
+### Analyzers
+
+### Ranking in Search
+
+### Relevance Tuning
+
+### Complete Example

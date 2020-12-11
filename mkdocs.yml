@@ -1,0 +1,282 @@
+# Project information
+site_name: Macrometa Docs
+site_url: https://macrometa.com
+site_author: Durga
+site_description: Access data instantly across the globe in your Apps & APIs for exceptional performance and scale. <br> One interface, multiple data models!
+site_hero_title: Need Help?
+
+# Repository
+# repo_name: macrometacorp/docs-gdn
+# repo_url: https://github.com/Macrometacorp/docs-gdn
+# edit_uri: ""
+
+# Copyright
+copyright: Copyright &copy; 2016 - 2020 Macrometa Corp
+
+# Configuration
+theme:
+  name: null
+  custom_dir: material
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  features:
+    - tabs
+    #- instant
+  palette:
+    scheme: default
+    primary: indigo
+    accent: indigo
+
+  font:
+    # text: Arial
+    # text: Arvo
+    text: Roboto
+    # text: B612
+    code: Roboto Mono
+  icon:
+    logo: logo
+  favicon: assets/favicon.png
+
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/macrometacorp
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/macrometa
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/macrometa-corporation/
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  # - pymdownx.highlight:
+  #     linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - attr_list
+
+# Page tree
+nav:
+  - Home: index.md
+  - Essentials:
+    - Quickstart: quickstart.md
+    - Essentials: essentials.md
+    - Authentication: authentication.md
+    - Drivers: apikeys.md
+    - Credits: credits.md
+  - Collections:
+    - Key Value:
+      - Quick Start: keyvalue/quickstart.md
+      - Using Rest API: keyvalue/tutorials/using-rest-api.md
+      - Tutorials:
+        - ToDo App (CloudFlare): keyvalue/tutorials/todo-app-cfworkers.md
+    - Documents:
+      - Quick Start: documents/quickstart.md
+      - Tutorials:
+        - Using Rest API: documents/tutorials/using_rest_api.md
+        - Working with Documents: documents/tutorials/working-with-documents.md
+        - Realtime Updates: documents/tutorials/using-realtime-updates.md
+        - Spot Collections: documents/tutorials/using-spotcollections.md
+        - Maps, Sets, SortedSets: documents/tutorials/maps_sets_sortedsets.md
+        - C8QL Tutorial: c8ql/c8ql-tutorial.md
+        - C8QL Examples: c8ql/examples.md
+      - Indexing:
+        - Overview: documents/indexing/overview.md
+        - Index Basics: documents/indexing/index-basics.md
+        - Working with Indexes: documents/indexing/working-with-indexes.md
+        - Index Utilization: documents/indexing/index-utilization.md
+      - GeoSpatial:
+        - Concepts: geospatial/concepts.md
+        - Tutorial: geospatial/tutorial.md
+        - Indexes: documents/indexing/working-with-indexes#geo-spatial-indexes
+        - C8QL Tutorial: c8ql/c8ql-tutorial.md
+        - C8QL Examples: c8ql/examples.md
+      - Transactions:
+        - Overivew: documents/transactions/overview.md
+        - Transaction Invocation: documents/transactions/transaction-invocation.md
+        - Passing Parameters: documents/transactions/passing-parameters.md
+        - Locking and Isolation: documents/transactions/locking-isolation.md
+        - Durability: documents/transactions/durability.md
+        - Limitations: documents/transactions/limitations.md
+    - DynamoMode:
+      - Using AWS Console CLI: dynamo/using-aws-cli.md
+      - AWS Javascript SDK (browser): dynamo/using-aws-js-browser.md
+      - AWS Javascript SDK (nodejs): dynamo/using-aws-js-nodejs.md
+      - AWS Python SDK:  dynamo/using-aws-boto3.md
+      - mmdynamo Javascript SDK (browser): dynamo/using-mmdynamo-browser.md
+    - Graphs:
+      - Quick Start: graphs/quickstart.md
+      - Concepts: graphs/concepts.md
+      - Tutorials:
+        - Using Rest API: graphs/tutorials/using_rest_api.md
+        - Graph Queries: graphs/tutorials/graph-queries.md
+        - C8QL Tutorial: c8ql/c8ql-tutorial.md
+        - C8QL Examples: c8ql/examples.md
+  - Search:
+    - Quick Start: search/quickstart.md
+    - Concepts: search/concepts.md
+    - Tutorials:
+      - Using Rest API: search/tutorials/using_rest_api.md
+      - C8QL Tutorial: c8ql/c8ql-tutorial.md
+      - C8QL Examples: c8ql/examples.md
+  - Query Workers:
+    - Concepts: restql/concepts.md
+    - RestQL Tutorial: restql/tutorial.md
+    - C8QL Tutorial: c8ql/c8ql-tutorial.md
+    - C8QL Examples: c8ql/examples.md
+  - Streams:
+    - Quick Start: streams/quickstart.md
+    - Concepts: streams/concepts.md
+    - Tutorials:
+      - Using Rest API: streams/tutorials/using_rest_api.md
+      - Pub-Sub with Streams: streams/tutorials/pub-sub-streams.md
+      - Realtime Updates: streams/tutorials/using-realtime-updates.md
+  - Stream Workers:
+    - Quick Start: cep/quickstart.md
+    - Tutorials:
+      - Using Rest API: cep/tutorials/using_rest_api.md
+      - Create Stream App: cep/tutorials/create-stream-app.md
+      - Consuming Data: cep/tutorials/consuming-data.md
+      - Transforming Data: cep/tutorials/transforming-data.md
+      - Enriching Data: cep/tutorials/enriching-data.md
+      - Filtering Data: cep/tutorials/filtering-data.md
+      - Summarizing Data: cep/tutorials/summarizing-data.md
+      - Correlating Data: cep/tutorials/correlating-data.md
+      - Publishing Data: cep/tutorials/publishing-data.md
+      - Triggering Flows: cep/tutorials/triggering-data.md
+      - Executing Scripts: cep/tutorials/executing-scripts.md
+    - Reference:
+      - Overview: cep/reference/overview.md
+      - Basics: cep/reference/basics.md
+      - Values & Types: cep/reference/values-n-types.md
+      - Data Cleansing: cep/reference/data-cleansing.md
+      - Enriching Data: cep/tutorials/enriching-data.md
+      - Data Transformations: cep/reference/data-transformation.md
+      - Data Summarizations: cep/reference/data-summarization.md
+      - Patterns & Trends: cep/reference/patterns-n-trends.md
+      - Data Pipelines: cep/reference/data-pipelining.md
+      - Error Handling: cep/reference/error-handling.md
+      - Query Guide: cep/reference/query-guide.md
+      - Functions: cep/reference/functions.md
+      - Extensions:
+        # - Overview: cep/reference/extensions/overview.md
+        - Execution:
+          - Context: cep/reference/extensions/execution/context.md
+          - Map: cep/reference/extensions/execution/map.md
+          - Json: cep/reference/extensions/execution/json.md
+          - List: cep/reference/extensions/execution/list.md
+          - Math: cep/reference/extensions/execution/math.md
+          - Regex: cep/reference/extensions/execution/regex.md
+          - Reorder: cep/reference/extensions/execution/reorder.md
+          - Time: cep/reference/extensions/execution/time.md
+          - Unique: cep/reference/extensions/execution/unique.md
+          - Streaming ML: cep/reference/extensions/execution/streamingml.md
+        - Connectors:
+          - HTTP: cep/reference/extensions/io/http.md
+          - Google Pub-Sub: cep/reference/extensions/io/gcp-pubsub.md
+          - AWS S3: cep/reference/extensions/io/s3.md
+        - Format Mappers:
+          - Json: cep/reference/extensions/mappers/json.md
+          - CSV: cep/reference/extensions/mappers/csv.md
+          - Key-Value: cep/reference/extensions/mappers/keyvalue.md
+          - Text: cep/reference/extensions/mappers/text.md
+  - C8 Query Language:
+    - Introduction: c8ql/introduction.md
+    - C8QL Tutorial: c8ql/c8ql-tutorial.md
+    - Additional Examples: c8ql/examples.md
+    - Coming from SQL: c8ql/coming-from-sql.md
+    - Fundamentals: c8ql/fundamentals.md
+    - Operators: c8ql/operators.md
+    - Data Queries: c8ql/data-queries.md
+    - Operations:
+      - Overview: c8ql/operations/overview.md
+      - FOR: c8ql/operations/for.md
+      - RETURN: c8ql/operations/return.md
+      - FILTER: c8ql/operations/filter.md
+      - SEARCH: c8ql/operations/search.md
+      - SORT: c8ql/operations/sort.md
+      - LIMIT: c8ql/operations/limit.md
+      - LET: c8ql/operations/let.md
+      - COLLECT: c8ql/operations/collect.md
+      - REMOVE: c8ql/operations/remove.md
+      - UPDATE: c8ql/operations/update.md
+      - REPLACE: c8ql/operations/replace.md
+      - INSERT: c8ql/operations/insert.md
+      - UPSERT: c8ql/operations/upsert.md
+      - WITH: c8ql/operations/with.md
+    - Functions:
+      - Overview: c8ql/functions/overview.md
+      - String: c8ql/functions/string.md
+      - Numeric: c8ql/functions/numeric.md
+      - Date: c8ql/functions/date.md
+      - Array: c8ql/functions/array.md
+      - Document: c8ql/functions/document.md
+      - Geo: c8ql/functions/geo.md
+      - Fulltext: c8ql/functions/fulltext.md
+      - Search: c8ql/functions/search.md
+      - Miscellaneous: c8ql/functions/miscellaneous.md
+      - Type Check & Cast: c8ql/functions/type-cast.md
+    - Array Operators: c8ql/array-operators.md
+    - Common Errors: c8ql/common-errors.md
+  - Demos:
+    - Interactive Command Line: repls_js.md
+    - Example Applications:
+      - Address Book: demos/address-book.md
+      - Credit Card Fraud: demos/credit-card-fraud.md
+      - Castle Knight Game: demos/castle-knight.md
+      - Dynamo Mode: demos/dynamo.md
+      - Crypto Trading: demos/crypto-trading.md
+      - Jamstack (Gatsby): demos/jamstack-gatsby.md
+      - C8QL Examples: demos/c8ql-examples.md
+
+
+# Google Analytics
+google_analytics:
+  - !!python/object/apply:os.getenv ["UA-133170545-1"]
+  - auto
