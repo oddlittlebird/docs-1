@@ -6,9 +6,9 @@ site_description: Access data instantly across the globe in your Apps & APIs for
 site_hero_title: Macrometa API Documentation
 
 # Repository
-# repo_name: macrometacorp/docs
-# repo_url: https://github.com/Macrometacorp/docs
-# edit_uri: ""
+repo_name: docs
+repo_url: https://github.com/Macrometacorp/docs
+edit_uri: edit/master/docs/
 
 # Copyright
 copyright: Copyright &copy; 2016 - 2020 Macrometa Corp
@@ -30,7 +30,7 @@ theme:
   language: en
   features:
     - tabs
-    #- instant
+    - instant
   palette:
     scheme: default
     primary: indigo
