@@ -1,6 +1,6 @@
 ## Deployed Site
 
-https://macrometacorp.github.io/docs-gdn/
+https://macrometa.dev
 
 ## How to build docs
 
