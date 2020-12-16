@@ -1,3 +1,5 @@
+Welcome to the Macrometa API Documentation. Feel free to 
+
 ## Deployed Site
 
 https://macrometa.dev

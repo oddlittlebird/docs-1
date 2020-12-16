@@ -4,61 +4,56 @@ template: overrides/main.html
 
 # Address Book App _Quickstart_
 
-Let’s take **5 minutes or less** to create a stateful-serverless backend for a simple Address Book. It's going to run globally distributed with local read-write latencies around 50ms.
-
-First things first, if you don't already have a Macrometa account go create a [free](https://macrometa.co/start) one and mosey on back.
+Let’s take **5 minutes** to create a stateful-serverless backend for a simple Address Book. It's going to run globally distributed with local read-write latencies around 50ms.
 
 We are going to walk through 3 steps:
 
-- Create a collection (like a table in SQL).
-- Write and save queries for Create, Update and Delete records.
-- Execute Query Workers.
+- Create a collection and add some data to it.
+- Query that data and save the query (A saved query is called a Query Worker).
+- Execute the Query Worker!
+
+First things first, if you don't already have a Macrometa account go create a [free](https://macrometa.co/start) one and mosey on back.
 
 ## Step 1: Create a Collection
 
-Let’s start by clicking the `COLLECTIONS`, select the `Document` option, give it the name `addresses`, and save it.
+Let’s start by clicking the `COLLECTIONS` tab in the left nav and then `New Collection` on the right. Select the `Document` option, give it the name `addresses`, and save it.
 
 Note: The collection `addresses` that you just created is now distributed to every location in the fabric!
 
 ![create-collection](/assets/images/addCollection.png)
-## Step 2: Save some queries
+## Step 2: Add some data to your new collection and query it
 
-To store addresses in our address book app, we will use the following document format (or schema) for each contact:
+Now, click the `QUERIES` tab in the left nav to open the `C8QL` query editor. Copy and paste the query below into the editor and click `Run Query` a couple times. 
 
-```json
-{
-  "firstname": "Captain",
-  "lastname": "Nemo",
-  "email": "nemo@nautilus.com",
-  "zipcode": 94608
-}
-```
-
-Now, click the `QUERIES` tab to open the `C8QL` query editor. Then create the query shown in the screenshot to the right.
-
-Name: `addAddress`
 ```SQL
-INSERT { firstname: @firstname,
-        lastname: @lastname,
-        email: @email,
-        zipcode: @zipcode }
+INSERT {"firstname": "Captain",
+        "lastname": "Nemo",
+        "email": "nemo@nautilus.com",
+        "zipcode": 94608 }
    INTO addresses
 ```
 
-Let's execute the query to make sure it works correctly. Do this by filling in some data in the form that's been generated to the right and then click the `Execute` button. You can do that a couple times if you like, but one entry will do the trick.
+Your `Query Result` will be empty brackets, but if you click on `Profile` button you can checkout what just happened along with some performance details. Your data was just written to the location you're currently logged into and replicated across all of the nodes in your fabric.
 
-![create-collection](/assets/images/addData.png)
+Now, let's query the data you just added to your collection. Copy the below query and replace the `INSERT` query currently in the editor with it.
 
-Now save the query with name `addAddress`.
+```SQL
+FOR docs IN addresses RETURN docs 
+```
 
-In **less then a second** you have a globally distributed stateful-serverless endpoint.
+You should see the data you just saved returned.
 
-![create-collection](/assets/images/savedQuery.png)
-## Step 3: Execute Query Worker
+Ok, now we are going to save this query. Saving it will turn it into a `Query Worker`.
 
-Click on the `API Reference` tab and scroll down and to `Query as API`.
+Click the `Save Query` button and name the saved query `getAddresses`
 
-Now let’s execute our `getAddresses` endpoint.  Select the second `POST` option to `Execute restQL by name`.  Click on `Try Out` and add `getAddresses` to `path`. Now click `Execute` and you'll see that a cURL command and REST endpoint is generated.
+Now, in **around 50ms**, you have a globally distributed stateful-serverless endpoint.
+
+## Step 3: Execute the Query Worker
+
+Click on the `API REFERENCE` tab on the left and scroll down and to `Query as API`.
+
+Select the second `POST` option to `Execute restQL by name`.  Click on `Try Out` and add `getAddresses` to `path` under `name`. Now click `Execute` down at the bottom and you'll see that a cURL command and REST endpoint is generated along with the result of the query.
 
 ![create-collection](/assets/images/queryWorkers.png)
 
