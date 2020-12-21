@@ -1,4 +1,6 @@
-Welcome to the Macrometa API Documentation. Feel free to 
+Welcome to the Macrometa API Documentation. 
+
+If you would like to suggest an edit or addition, please create an issue or fork this repo and submit a pull request.
 
 ## Deployed Site
 

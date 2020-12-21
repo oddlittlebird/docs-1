@@ -265,15 +265,15 @@ nav:
     - Array Operators: c8ql/array-operators.md
     - Common Errors: c8ql/common-errors.md
   - Demos:
-    - Interactive Command Line: repls_js.md
-    - Example Applications:
-      - Address Book: demos/address-book.md
-      - Credit Card Fraud: demos/credit-card-fraud.md
-      - Castle Knight Game: demos/castle-knight.md
-      - Dynamo Mode: demos/dynamo.md
-      - Crypto Trading: demos/crypto-trading.md
-      - Jamstack (Gatsby): demos/jamstack-gatsby.md
-      - C8QL Examples: demos/c8ql-examples.md
+    - Address Book: demos/address-book.md
+    - Crypto Trading: demos/crypto-trading.md
+    - Credit Card Fraud: demos/credit-card-fraud.md
+    - Castle Knight Game: demos/castle-knight.md
+    - Dynamo Mode: demos/dynamo.md
+    - Jamstack (Gatsby): demos/jamstack-gatsby.md
+    - C8QL Examples: demos/c8ql-examples.md
+    - Bookstore (CF Workers): demos/cf-bookstore.md
+    - Interactive Command Line: demos/repls_js.md
 
 
 # Google Analytics
