@@ -270,7 +270,6 @@ nav:
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Castle Knight Game: demos/castle-knight.md
     - Dynamo Mode: demos/dynamo.md
-    - Jamstack (Gatsby): demos/jamstack-gatsby.md
     - C8QL Examples: demos/c8ql-examples.md
     - Bookstore (CF Workers): demos/cf-bookstore.md
     - Interactive Command Line: demos/repls_js.md
