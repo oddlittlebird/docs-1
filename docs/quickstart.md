@@ -6,10 +6,11 @@ template: overrides/main.html
 
 Let’s take **5 minutes** to create a stateful-serverless backend for a simple Address Book. It's going to run globally distributed with local read-write latencies around 50ms.
 
-We are going to walk through 3 steps:
+We are going to walk through 4 steps:
 
 - Create a collection and add some data to it.
-- Query that data and save the query (A saved query is called a Query Worker).
+- Query that data.
+- Save the query (A saved query is called a Query Worker).
 - Execute the Query Worker!
 
 First things first, if you don't already have a Macrometa account go create a [free](https://macrometa.co/start) one and mosey on back.
@@ -45,11 +46,13 @@ You should see the data you just saved returned.
 
 Ok, now we are going to save this query. Saving it will turn it into a `Query Worker`.
 
+## Step 3: Save the Query
+
 Click the `Save Query` button and name the saved query `getAddresses`
 
 Now, in **around 50ms**, you have a globally distributed stateful-serverless endpoint.
 
-## Step 3: Execute the Query Worker
+## Step 4: Execute the Query Worker
 
 Click on the `API REFERENCE` tab on the left and scroll down and to `Query as API`.
 
