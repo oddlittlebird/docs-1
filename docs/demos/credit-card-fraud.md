@@ -40,22 +40,19 @@
 3. Zero in on `culpable merchant`
 
     ```js
-
-    // Query to identify culpable merchant
 	LET suspects = FLATTEN(
 	    FOR t IN txns
 		FILTER t.status == "Disputed"
-		RETURN (
-		    FOR prev IN txns
-			FILTER prev._from == t._from AND prev.time < t.time
-			RETURN DISTINCT prev._to
-		)
+		FOR prev IN txns
+		    FILTER prev._from == t._from AND prev.time < t.time
+		    COLLECT customer = t._from INTO info
+		    RETURN (FOR merchant IN info[*].prev._to RETURN DISTINCT merchant)  
 	)
 	FOR suspect IN suspects
 	    COLLECT merchant = suspect WITH COUNT INTO mentions
 	    SORT mentions DESC
-	    LIMIT 1
 	    //RETURN MERGE(DOCUMENT(merchant), {"mentions": mentions})
+	    LIMIT 1
 	    RETURN DOCUMENT(merchant)
     ```
 
