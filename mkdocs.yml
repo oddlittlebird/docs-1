@@ -273,6 +273,7 @@ nav:
     - C8QL Examples: demos/c8ql-examples.md
     - Bookstore (CF Workers): demos/cf-bookstore.md
     - Interactive Command Line: demos/repls_js.md
+    - Oxford Economics: demos/streamlit-oxford.md
 
 
 # Google Analytics
