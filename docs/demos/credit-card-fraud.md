@@ -37,10 +37,7 @@
 
     ```
 
-3. Zero in on `culpable merchant`
-
-Go through all current disputed transactions and find a common merchant where all these customers have made a transaction in the recent past. The idea is that this common merchant is where the credit card data of these customers of disputed transactions is stolen. 
-
+3. Zero in on `culpable merchant` - Go through all current disputed transactions and find a common merchant where all these customers have made a transaction in the recent past. The idea is that this common merchant is where the credit card data of these customers of disputed transactions is stolen. 
 
     ```js
 	LET suspects = FLATTEN(
