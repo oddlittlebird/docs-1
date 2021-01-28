@@ -42,14 +42,21 @@
     ```js
 
     // Query to identify culpable merchant
-    FOR x IN txns FILTER x.status == "Disputed"
-    FOR y in txns FILTER y.status == "Undisputed"  
-            FILTER y.time < x.time AND y._to != x._to AND y._from == x._from
-        FOR customer in customers FILTER customer._id == y._from
-        FOR merchant in merchants FILTER merchant._id == y._to
-        SORT customer.name
-        RETURN DISTINCT y
-
+	LET suspects = FLATTEN(
+	    FOR t IN txns
+		FILTER t.status == "Disputed"
+		RETURN (
+		    FOR prev IN txns
+			FILTER prev._from == t._from AND prev.time < t.time
+			RETURN DISTINCT prev._to
+		)
+	)
+	FOR suspect IN suspects
+	    COLLECT merchant = suspect WITH COUNT INTO mentions
+	    SORT mentions DESC
+	    LIMIT 1
+	    //RETURN MERGE(DOCUMENT(merchant), {"mentions": mentions})
+	    RETURN DOCUMENT(merchant)
     ```
 
 ## Sample Dataset
