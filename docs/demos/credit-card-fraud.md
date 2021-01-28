@@ -44,7 +44,7 @@
 	    FOR t IN txns
 		FILTER t.status == "Disputed"
 		FOR prev IN txns
-		    FILTER prev._from == t._from AND prev.time < t.time
+		    FILTER prev._from == t._from AND prev.time < t.time AND prev.status == "Undisputed"
 		    COLLECT customer = t._from INTO info
 		    RETURN (FOR merchant IN info[*].prev._to RETURN DISTINCT merchant)  
 	)
