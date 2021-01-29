@@ -40,20 +40,13 @@
 3. Zero in on `culpable merchant` - Go through all current disputed transactions and find a common merchant where all these customers have made a transaction in the recent past. The idea is that this common merchant is where the credit card data of these customers of disputed transactions is stolen. 
 
     ```js
-	LET suspects = FLATTEN(
-	    FOR t IN txns
-		FILTER t.status == "Disputed"
-		FOR prev IN txns
-		    FILTER prev._from == t._from AND prev.time < t.time AND prev.status == "Undisputed"
-		    COLLECT customer = t._from INTO info
-		    RETURN (FOR merchant IN info[*].prev._to RETURN DISTINCT merchant)  
-	)
-	FOR suspect IN suspects
-	    COLLECT merchant = suspect WITH COUNT INTO mentions
-	    SORT mentions DESC
-	    //RETURN MERGE(DOCUMENT(merchant), {"mentions": mentions})
-	    LIMIT 1
-	    RETURN DOCUMENT(merchant)
+	FOR x IN txns FILTER x.status == "Disputed"
+    	FOR y in txns FILTER y.status == "Undisputed"  
+            	FILTER y.time < x.time AND y._to != x._to AND y._from == x._from
+	   FOR customer in customers FILTER customer._id == y._from
+	   FOR merchant in merchants FILTER merchant._id == y._to
+           SORT customer.name
+	   RETURN DISTINCT y
     ```
 
 ## Sample Dataset
