@@ -45,7 +45,7 @@
             	FILTER y.time < x.time AND y._to != x._to AND y._from == x._from
 	   FOR customer in customers FILTER customer._id == y._from
 	   FOR merchant in merchants FILTER merchant._id == y._to
-           SORT customer.name
+	   SORT customer.name
 	   RETURN DISTINCT y
     ```
 
