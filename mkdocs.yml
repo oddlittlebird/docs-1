@@ -221,6 +221,7 @@ nav:
           - HTTP: cep/reference/extensions/io/http.md
           - Google Pub-Sub: cep/reference/extensions/io/gcp-pubsub.md
           - AWS S3: cep/reference/extensions/io/s3.md
+          - Kafka: cep/reference/extensions/io/kafka.md
         - Format Mappers:
           - Json: cep/reference/extensions/mappers/json.md
           - CSV: cep/reference/extensions/mappers/csv.md
