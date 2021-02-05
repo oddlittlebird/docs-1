@@ -13,7 +13,7 @@ A tenant account (and credentials) with Macrometa GDN.
 
 ## API Browser
 
-Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn1.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
+Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn.paas.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
 
 ![GDN API Browser](../../images/gdn-api-browser.png)
 
@@ -60,7 +60,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
     # Constants
 
-    FEDERATION = "api-gdn1.macrometa.io"
+    FEDERATION = "api-gdn.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"

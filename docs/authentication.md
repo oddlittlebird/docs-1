@@ -14,13 +14,13 @@ Users can authenticate with Macrometa GDN via `email and password` or via their 
 
 ``` python tab="Python"
 from c8 import C8Client
-client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443, 
+client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, 
                     email='nemo@nautilus.com', password='xxxxxx')
 ```
 
 ``` JavaScript tab="Javascript"
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn1.macrometa.io", token: "", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "", fabricName= '_system'});
 await client.login("nemo@nautilus.com", "xxxxxx");
 ```
 
@@ -32,12 +32,12 @@ Users can also authenticate with Macrometa GDN via `Json web tokens`. The `JWT T
 
 ``` python tab="Python"
 from c8 import C8Client
-client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443, token=<your tokeb>)
+client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, token=<your tokeb>)
 ```
 
 ``` JavaScript tab="Javascript"
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn1.macrometa.io", token: "xxxxxx", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "xxxxxx", fabricName= '_system'});
 ```
 
 ## API Keys
@@ -52,12 +52,12 @@ Most APIs today use an API Key to authenticate legitimate clients. API Keys are 
 
 ``` python tab="Python"
 from c8 import C8Client
-client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443, apikey="xxxxxxx")
+client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, apikey="xxxxxxx")
 ```
 
 ``` JavaScript tab="Javascript"
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "xxxxx", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "xxxxx", fabricName= '_system'});
 ```
 
 !!! note

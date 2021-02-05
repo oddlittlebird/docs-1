@@ -20,7 +20,7 @@ Let's assume your
 
 ## API Browser
 
-Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn1.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
+Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn.paas.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
 
 ![GDN API Browser](/images/gdn-api-browser.png)
 
@@ -34,7 +34,7 @@ Your best friend when working with REST APIs is the REST API browser available i
 
     # Constants
 
-    FEDERATION = "api-gdn1.macrometa.io"
+    FEDERATION = "api-gdn.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -235,7 +235,7 @@ Delete collection.
 
     # Constants
 
-    FEDERATION = "api-gdn1.macrometa.io"
+    FEDERATION = "api-gdn.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"

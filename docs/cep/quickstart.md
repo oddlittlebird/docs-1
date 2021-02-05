@@ -92,7 +92,7 @@ The first step in using GDN is to establish a connection to a local region. When
     from c8 import C8Client
 
     print("--- Connecting to C8")
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     ```
@@ -103,12 +103,12 @@ The first step in using GDN is to establish a connection to a local region. When
     const jsc8 = require("jsc8");
 
     // Simple Way
-    const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
     // ----- OR -----
-    const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
 
     // To use advanced options
-    const client = new jsc8("https://gdn1.macrometa.io"); 
+    const client = new jsc8("https://gdn.paas.macrometa.io"); 
     ```
 
 ## Validate Stream Application
@@ -258,7 +258,7 @@ Let's update an Stream Application to store all the input data into it and anoth
 
     ``` py
 
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443)
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
 
     # For the "mytenant" tenant, connect to "test" fabric as tenant admin.
     # This returns an API wrapper for the "test" fabric on tenant 'mytenant'
@@ -365,7 +365,7 @@ Refer example at the end of the page.
 
     ``` py
 
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443)
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
 
     # For the "mytenant" tenant, connect to "test" fabric as tenant admin.
     # This returns an API wrapper for the "test" fabric on tenant 'mytenant'
@@ -444,7 +444,7 @@ There are two ways in which you can use the python driver, both are shown below.
 
     # Simple Approach
     print("--- Connecting to C8")
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
@@ -506,7 +506,7 @@ There are two ways in which you can use the python driver, both are shown below.
 
     try:
         print("--- Connecting to C8")
-        client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443)
+        client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
 
         demotenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
         print("--- Get geo fabric details")
@@ -660,12 +660,12 @@ There are two ways in which you can use the python driver, both are shown below.
     console.log("--- Connecting to C8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 

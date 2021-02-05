@@ -13,7 +13,7 @@ A tenant account (and credentials) with Macrometa GDN.
 
 ## API Browser
 
-Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn1.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
+Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn.paas.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
 
 ![GDN API Browser](/images/gdn-api-browser.png)
 

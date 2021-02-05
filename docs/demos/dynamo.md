@@ -3,11 +3,11 @@
 ## Prerequistes
 
 1. Create an API Key
-    * Login to your tenant account on https://gdn1.macrometa.io
+    * Login to your tenant account on https://gdn.paas.macrometa.io
     * Create an API key via REST API. Make a copy of the key.
 
     !!! note
-        Following api key is created under `demo@macrometa.io/_system` on https://gdn1.macrometa.io with `rw` permissions.
+        Following api key is created under `demo@macrometa.io/_system` on https://gdn.paas.macrometa.io with `rw` permissions.
         ```
             demo.demok1.1a1aad0f4b000ca4d2d3bdb505298cbb9467b65526b0f79364e61e5f00000000
         ```
@@ -49,7 +49,7 @@
             AttributeName=Artist,KeyType=HASH \
             AttributeName=SongTitle,KeyType=RANGE \
         --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Create local table
@@ -64,7 +64,7 @@
             AttributeName=Artist,KeyType=HASH \
             AttributeName=SongTitle,KeyType=RANGE \
         --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo \
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo \
         --tags Key=Local,Value=True
 ```
 
@@ -75,13 +75,13 @@
 ### List global tables
 
 ```bash
-    aws dynamodb list-global-tables --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+    aws dynamodb list-global-tables --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### List local tables
 
 ```bash
-    aws dynamodb list-tables --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+    aws dynamodb list-tables --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 !!! note
@@ -95,7 +95,7 @@
         --item '{"Artist": {"S": "Obscure Indie Band"}, "SongTitle": {"S": "Call Me Today"}}' \
         --condition-expression "attribute_not_exists(Artist)" \
         --return-values ALL_NEW \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ```bash
@@ -104,7 +104,7 @@
         --item '{"Artist": {"S": "Luke Combs"}, "SongTitle": {"S": "Tequila"}}' \
         --condition-expression "attribute_not_exists(Artist)" \
         --return-values ALL_NEW \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Batch get item
@@ -113,7 +113,7 @@
     aws dynamodb batch-get-item \
         --request-items '{"Music": {"Keys": [{"Artist": {"S": "Obscure Indie Band"},"SongTitle": {"S": "Call Me Today"}},{"Artist": {"S": "Luke Combs"},"SongTitle": {"S": "Tequila"}}],"ProjectionExpression":"Artist"}}' \
         --return-consumed-capacity TOTAL \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Batch write item
@@ -123,7 +123,7 @@
      --request-items '{"Music": [{"PutRequest": {"Item": {"Artist": {"S": "TestName1"},"SongTitle": {"S": "The Best1"}}}},{"PutRequest": {"Item": {"Artist": {"S": "TestName2"},"SongTitle": {"S": "The Best2"}}}}]}' \
      --return-consumed-capacity INDEXES \
      --return-item-collection-metrics SIZE \
-     --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+     --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Scan
@@ -135,7 +135,7 @@
        --projection-expression "#ST, #AT" \
        --expression-attribute-names '{"#ST": "SongTitle","#AT":"Artist"}' \
        --expression-attribute-values '{":a": {"S": "TestName1"}}' \
-       --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+       --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Query items
@@ -145,7 +145,7 @@
 ```bash
     aws dynamodb query \
         --table-name Music \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 **Query By Artist Name:**
@@ -155,7 +155,7 @@
         --table-name Music \
         --key-condition-expression "Artist == :name" \
         --expression-attribute-values  '{":name":{"S":"Luke Combs"}}' \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 **Query By complex conditions:**
@@ -165,7 +165,7 @@
         --table-name Music \
         --key-condition-expression "Artist == :n1 OR begins_with(Artist, :n2)" \
         --expression-attribute-values  '{":n1":{"S":"Luke Combs"}, ":n2":{"S":"Obscure"}}' \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo  
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo  
 ```
 
 ```bash
@@ -175,7 +175,7 @@
         --filter-expression "#a <> :n1" \
         --expression-attribute-names '{"#a": "Artist"}' \
         --expression-attribute-values  '{":n1":{"S":"Luke Combs"}, ":n2":{"S":"Obscure"}}' \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Count items
@@ -184,7 +184,7 @@
     aws dynamodb query \
         --table-name Music \
         --select COUNT \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Update item
@@ -196,7 +196,7 @@
         --update-expression "SET Year = :y, SongTitle = :t" \
         --expression-attribute-values  '{":y":{"N":"2020"}, ":t":{"S":"Happy Day"}}' \
         --return-values ALL_NEW \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Query all items
@@ -204,7 +204,7 @@
 ```bash
     aws dynamodb query \
         --table-name Music \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Delete item
@@ -214,7 +214,7 @@
         --table-name Music \
         --key '{"Artist": {"S": "Luke Combs"}, "SongTitle": {"S": "Happy Day"}}' \
         --return-values ALL_OLD \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```
 
 ### Delete table
@@ -222,5 +222,5 @@
 ```bash
     aws dynamodb delete-table \
         --table-name Music \
-        --endpoint-url https://api-gdn1.macrometa.io/_api/dynamo
+        --endpoint-url https://api-gdn.macrometa.io/_api/dynamo
 ```

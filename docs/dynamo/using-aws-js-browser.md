@@ -18,11 +18,11 @@ In this tutorial, you use the AWS SDK for JavaScript to write simple application
 ## Prerequistes
 
 1. Create an API Key
-    * Login to your tenant account on https://gdn1.macrometa.io
+    * Login to your tenant account on https://gdn.paas.macrometa.io
     * Create an API key via REST API. Make a copy of the key.
 
     !!! Example
-        Following api key is created under `demo@macrometa.io/_system` on https://gdn1.macrometa.io with `rw` permissions.
+        Following api key is created under `demo@macrometa.io/_system` on https://gdn.paas.macrometa.io with `rw` permissions.
         ```
             demo.demok1.1a1aad0f4b000ca4d2d3bdb505298cbb9467b65526b0f79364e61e5f00000000
         ```
@@ -50,7 +50,7 @@ Create following file - `MoviesCreateTable.html`.
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-  const dcName = "gdn1.macrometa.io";
+  const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -197,7 +197,7 @@ The following is an example of movie data:
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script type="text/javascript">
-      const dcName = "gdn1.macrometa.io";
+      const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -296,7 +296,7 @@ Copy the following program and paste it into a file named `MoviesItemOps01.html`
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-      const dcName = "gdn1.macrometa.io";
+      const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -469,7 +469,7 @@ Copy the following program and paste it into a file named `MoviesItemOps03.html`
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-      const dcName = "gdn1.macrometa.io";
+      const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -561,7 +561,7 @@ Copy the following program and paste it into a file named `MoviesItemOps04.html`
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-        const dcName = "gdn1.macrometa.io";
+        const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -648,7 +648,7 @@ Copy the following program and paste it into a file named `MoviesItemOps05.html`
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
     
         <script>
-          const dcName = "gdn1.macrometa.io";
+          const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -753,7 +753,7 @@ Copy the following program and paste it into a file named `MoviesItemOps06.html`
             <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
         
             <script>
-               const dcName = "gdn1.macrometa.io";
+               const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -872,7 +872,7 @@ Copy the following program and paste it into a file named `MoviesQuery01.html`.
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-                  const dcName = "gdn1.macrometa.io";
+                  const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
@@ -1029,7 +1029,7 @@ Copy the following program and paste it into a file named `MoviesScan.html`.
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.752.0.min.js"></script>
 
     <script>
-                    const dcName = "gdn1.macrometa.io";
+                    const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
         "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";

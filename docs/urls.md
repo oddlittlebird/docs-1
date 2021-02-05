@@ -8,7 +8,7 @@ template: overrides/main.html
 
 ## Global Endpoint
 
-* [**Global**](https://gdn1.macrometa.io)
+* [**Global**](https://gdn.paas.macrometa.io)
 
 ## Regional Endpoints
 

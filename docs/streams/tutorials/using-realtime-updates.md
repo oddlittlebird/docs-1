@@ -65,7 +65,7 @@ Let's assume your
     import time
 
     # Variables - URLs
-    global_url = "gdn1.macrometa.io"
+    global_url = "gdn.paas.macrometa.io"
 
 
     # Variables - DB
@@ -136,7 +136,7 @@ Let's assume your
     const jsc8 = require('jsc8');
 
     // Variables - DB
-    const global_url = "https://gdn1.macrometa.io";
+    const global_url = "https://gdn.paas.macrometa.io";
 
     // Crete a authenticated instance with Token / Apikey
     // const client = new jsc8({url: global_url, token: "XXXX", fabricName= '_system'});

@@ -69,7 +69,7 @@ Let's assume your
     import six
 
     # Variables
-    global_url = "gdn1.macrometa.io" # The request will be automatically routed to closest location.
+    global_url = "gdn.paas.macrometa.io" # The request will be automatically routed to closest location.
     email = "guest1@macrometa.io"
     password = "guest1"
     geo_fabric = "testfabric"
@@ -147,7 +147,7 @@ Let's assume your
     ``` js
     const jsc8 = require('jsc8');
 
-    const global_url = "https://gdn1.macrometa.io";
+    const global_url = "https://gdn.paas.macrometa.io";
 
     // Crete a authenticated instance with Token / Apikey
     // const client = new jsc8({url: global_url, token: "XXXX", fabricName= '_system'});

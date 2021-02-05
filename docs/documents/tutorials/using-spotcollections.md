@@ -69,7 +69,7 @@ Let's assume your
     if __name__ == '__main__':
 
       # Variables - URLs
-      global_url = "gdn1.macrometa.io"
+      global_url = "gdn.paas.macrometa.io"
       region_urls = [
           "gdn1-sfo2.prod.macrometa.io",
           "gdn1-us-west1.prod.macrometa.io",
@@ -141,7 +141,7 @@ Let's assume your
     const jsc8 = require('jsc8');
 
     // Variables - DB
-    const global_url = "https://gdn1.macrometa.io";
+    const global_url = "https://gdn.paas.macrometa.io";
     const region_urls = [
       "https://gdn1-sfo2.prod.macrometa.io",
       "https://gdn1-us-west1.prod.macrometa.io",

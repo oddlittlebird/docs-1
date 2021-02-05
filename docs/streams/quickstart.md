@@ -99,12 +99,12 @@ The first step in using GDN is to establish a connection to a local region. When
 
     print("--- Connecting to C8")
     # Simple Way
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
     # To use advanced options
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443)
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
     ```
 
 === "Javascript"
@@ -112,13 +112,13 @@ The first step in using GDN is to establish a connection to a local region. When
     ``` js
     const jsc8 = require("jsc8");
     // Simple Way
-    const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
     // ----- OR -----
-    const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
 
 
     // To use advanced options
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
     ```
 
 ## Get GeoFabric Details
@@ -129,7 +129,7 @@ To get details of fabric,
 
     ``` py
     from c8 import C8Client
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     print("Get geo fabric details...")
@@ -142,12 +142,12 @@ To get details of fabric,
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -175,7 +175,7 @@ The streams in GDN can be either a local stream or could be a geo-replicated str
     from c8 import C8Client
 
     print("--- Connecting to C8")
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
@@ -195,12 +195,12 @@ The streams in GDN can be either a local stream or could be a geo-replicated str
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -246,7 +246,7 @@ Example to publish documents to a stream. The stream can be either a local strea
     warnings.filterwarnings("ignore")
 
     print("--- Connecting to C8")
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     #--------------------------------------------------------------
@@ -268,12 +268,12 @@ Example to publish documents to a stream. The stream can be either a local strea
     const jsc8 = require("jsc8")
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -333,7 +333,7 @@ Example to subscribe documents from a stream. The stream can be either a local s
 
     print("--- Connecting to C8")
     # Simple Way
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     #--------------------------------------------------------------
@@ -354,12 +354,12 @@ Example to subscribe documents from a stream. The stream can be either a local s
     const jsc8 = require('jsc8');
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 

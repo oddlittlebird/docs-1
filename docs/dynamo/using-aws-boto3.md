@@ -3,11 +3,11 @@
 ## Prerequistes
 
 1. Create an API Key
-    * Login to your tenant account on https://gdn1.macrometa.io
+    * Login to your tenant account on https://gdn.paas.macrometa.io
     * Create an API key via REST API. Make a copy of the key.
 
     !!! Example
-        Following api key is created under `demo@macrometa.io/_system` on https://gdn1.macrometa.io with `rw` permissions.
+        Following api key is created under `demo@macrometa.io/_system` on https://gdn.paas.macrometa.io with `rw` permissions.
         ```
             demo.demok1.1a1aad0f4b000ca4d2d3bdb505298cbb9467b65526b0f79364e61e5f00000000
         ```
@@ -27,7 +27,7 @@
 import boto3
 
 REGION = "us-east-1"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
 accessKeyId = "apikey " + apiKey
@@ -85,7 +85,7 @@ import boto3
 
 REGION = "us-east-1"
 REGION = "sfo2"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
 host = "https://api-" + dcName
@@ -135,7 +135,7 @@ import boto3
 
 REGION = "us-east-1"
 REGION = "sfo2"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
 accessKeyId = "apikey " + apiKey
@@ -168,7 +168,7 @@ import boto3
 
 REGION = "us-east-1"
 REGION = "sfo2"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
 accessKeyId = "apikey " + apiKey
@@ -212,7 +212,7 @@ from decimal import Decimal
 
 REGION = "us-east-1"
 REGION = "sfo2"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
 accessKeyId = "apikey " + apiKey
@@ -250,7 +250,7 @@ from decimal import Decimal
 
 REGION = "us-east-1"
 REGION = "sfo2"
-dcName = "gdn1.macrometa.io"
+dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
 apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
 accessKeyId = "apikey " + apiKey

@@ -101,12 +101,12 @@ The first step in using GDN is to establish a connection to a region. When this 
 
     print("--- Connecting to C8")
     # Simple Way
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
     # To use advanced options
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443)
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
     ```
 
 
@@ -116,13 +116,13 @@ The first step in using GDN is to establish a connection to a region. When this 
     const jsc8 = require("jsc8");
 
     // Simple Way
-    const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
     // ----- OR -----
-    const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
 
 
     // To use advanced options
-    const client = new jsc8("https://gdn1.macrometa.io"); 
+    const client = new jsc8("https://gdn.paas.macrometa.io"); 
     ```
 
 ## Get GeoFabric Details
@@ -135,7 +135,7 @@ To get details of fabric,
     ``` py
 
     from c8 import C8Client
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     print("Get geo fabric details...")
@@ -149,12 +149,12 @@ To get details of fabric,
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -182,7 +182,7 @@ The below example shows the steps.
 
     ``` py
     # Simple Approach
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     client.create_collection(name='employees')
@@ -195,12 +195,12 @@ The below example shows the steps.
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -230,7 +230,7 @@ Let's add a `hash_index` called emails to our collection employees. Please refer
     ``` py
 
     # Simple Approach
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     print("Add Hash Index", client.add_hash_index('employees', fields=['continent', 'country'], unique=True)
@@ -243,12 +243,12 @@ Let's add a `hash_index` called emails to our collection employees. Please refer
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -277,7 +277,7 @@ Let's insert documents to the employees collection as shown below.
     ``` py
 
     # Simple Approach
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
     client.insert_document(collection_name='employees', document={'_key':'Jean', 'firstname': 'Jean', 'lastname':'Picard', 'email':'jean.picard@macrometa.io'})
@@ -300,12 +300,12 @@ Let's insert documents to the employees collection as shown below.
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -348,7 +348,7 @@ The query `FOR employee IN employees RETURN employee` is equivalent to SQL's SEL
     ``` py
 
     # Simple Approach
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
@@ -363,12 +363,12 @@ The query `FOR employee IN employees RETURN employee` is equivalent to SQL's SEL
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -392,7 +392,7 @@ Example for real-time updates from a collection in fabric:
     ``` py
 
     # Simple Approach
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
 
@@ -410,12 +410,12 @@ Example for real-time updates from a collection in fabric:
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -483,12 +483,12 @@ Create a geo-fabric with spot region capabilities. Then create a collection that
     const jsc8 = require("jsc8");
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 
@@ -521,7 +521,7 @@ Query as API (aka RESTQL) enables developers to quickly convert saved C8QL queri
     ``` py
     from c8 import C8Client
 
-    fed_url = "gdn1.macrometa.io"
+    fed_url = "gdn.paas.macrometa.io"
     guest_mail = "nemo@nautilus.com"
     guest_password = "xxxxxx"
     geo_fabric = "_system"
@@ -594,12 +594,12 @@ Query as API (aka RESTQL) enables developers to quickly convert saved C8QL queri
     const jsc8 = require('jsc8');
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
-    const client = new jsc8("https://gdn1.macrometa.io");
+    const client = new jsc8("https://gdn.paas.macrometa.io");
 
     await client.login("nemo@nautilus.com", "xxxxxx");
 

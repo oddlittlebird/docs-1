@@ -60,7 +60,7 @@
 
   ```html
   <script type="text/javascript">
-  const dcName = "gdn1.macrometa.io";
+  const dcName = "gdn.paas.macrometa.io";
   const host = "https://api-" + dcName;
   const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
   /*
@@ -102,7 +102,7 @@
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*
@@ -190,7 +190,7 @@
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*
@@ -267,7 +267,7 @@
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*
@@ -350,7 +350,7 @@
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*
@@ -650,7 +650,7 @@ function scanData() {
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*
@@ -731,7 +731,7 @@ function scanData() {
     <script src="https://unpkg.com/mmdynamo@0.2.0/dist/mmdynamo.umd.js"></script>
 
     <script>
-    const dcName = "gdn1.macrometa.io";
+    const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
     const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
     /*

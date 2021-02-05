@@ -80,16 +80,16 @@ The first step in using GDN is to establish a connection to a local region. When
 
     # Simple Way
     print("--- Connecting to C8")
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password="xxxxxx",
                             geofabric='_system')
 
     # OR Using token
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     token="XXXX")
 
     # OR Using API Key
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d")
     ```
 
@@ -99,12 +99,12 @@ The first step in using GDN is to establish a connection to a local region. When
     const jsc8 = require("jsc8");
 
     // Simple Way
-    const client = new jsc8({url: "https://gdn1.macrometa.io", token: "", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "", fabricName= '_system'});
     // ----- OR -----
-    const client = new jsc8({url: "https://gdn1.macrometa.io", apiKey: "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d", fabricName= '_system'});
 
     // To use advanced options
-    const client = new jsc8("https://gdn1.macrometa.io"); 
+    const client = new jsc8("https://gdn.paas.macrometa.io"); 
     ```
 
 ## Create Collection
@@ -120,7 +120,7 @@ Create a Collection for saving the Key Value Pairs
     collection_name = "students"
 
     # Create a connection to gdn1
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
     # Create a new collection if it does not exist
@@ -160,7 +160,7 @@ Insert key value pairs into the collection.
     collection_name = "students"
 
     # Create a connection to gdn1
-    client = C8Client(protocol='https', host='gdn1.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
     # Insert Key Value pairs
     data = [
