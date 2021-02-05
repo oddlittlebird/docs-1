@@ -420,7 +420,7 @@ Delete collection.
       }
       const EMAIL = "nemo@nautilus.com";
       const PASSWORD = "xxxxxx";
-      const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
+      const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
       
       const COLLECTION_NAME = "students";
       

@@ -62,7 +62,7 @@
   <script type="text/javascript">
   const dcName = "gdn.paas.macrometa.io";
   const host = "https://api-" + dcName;
-  const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+  const apiKey = "<your-api-key>";
   /*
   If you have a JWT token
 
@@ -104,7 +104,7 @@
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 
@@ -192,7 +192,7 @@
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 
@@ -269,7 +269,7 @@
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 
@@ -352,7 +352,7 @@
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 
@@ -652,7 +652,7 @@ function scanData() {
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 
@@ -733,7 +733,7 @@ function scanData() {
     <script>
     const dcName = "gdn.paas.macrometa.io";
     const host = "https://api-" + dcName;
-    const apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const apiKey = "<your-api-key>";
     /*
     If you have a JWT token
 

@@ -4,7 +4,7 @@
 
 | **Email** | **Passsword** | **Geo Fabric** |**Collection** | **GUI**|**Source Code**|
 |------------|---------- |-------------- |-------------- |------------|----------|
-| demo@macrometa.io | `xxxxxxxx` | _system | `addresses` | [AddressBook](http://addressbook.gdn1.s3-website-us-east-1.amazonaws.com/)| [github](https://github.com/Macrometacorp/tutorial-addressbook-streams)|
+| demo@macrometa.io | `xxxxxxxx` | _system | `addresses` | [AddressBook](http://addressbook.gdn.s3-website-us-east-1.amazonaws.com/)| [github](https://github.com/Macrometacorp/tutorial-addressbook-streams)|
 
 Populate `addresses` collection with data:   
 ```js

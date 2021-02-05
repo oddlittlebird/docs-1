@@ -230,7 +230,7 @@ Here is an example of a valid document:
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
 
     const COLLECTION_NAME = "api_tutorial_documents";
 
@@ -609,7 +609,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
 
     const QUERY_NAME = "api_query_tutorial";
     const QUERY_PARAMS = { "@collection": "api_query_tutorial" };

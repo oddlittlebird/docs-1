@@ -2,7 +2,7 @@
 
 | **Tenant** | **Fabric** | **Stream App** | **GUI** | **Source Code**|
 |----------- |----------|----|-----------|-----------|
-|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](http://crypto.gdn1.s3-website-us-east-1.amazonaws.com/) |[github](https://github.com/Macrometacorp/tutorial-cryptotrading)|
+|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](http://crypto.gdn.s3-website-us-east-1.amazonaws.com/) |[github](https://github.com/Macrometacorp/tutorial-cryptotrading)|
 
 
 **Stream App:**
@@ -90,12 +90,12 @@ select "Coinbase Pro" as exchange, "USA" as quote_region,
         "BTC/USD" as symbol, avg(convert(price, 'double')) as ma, convert(price, 'double') as close, 
         --time:timestampInMilliseconds(str:replaceFirst(str:replaceFirst(time, 'T', ' '), 'Z','0'), 'yyyy-MM-dd HH:mm:ss.SSS') as timestamp
         time:timestampInMilliseconds()/1000 as timestamp
-  from  UsdCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn1-fra1']#window.length(10)
+  from  UsdCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn-fra1']#window.length(10)
 insert into CryptoTraderQuotesAvgUSD;
 
 @info(name='Query for BTC/USD trading strategy BUY')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'BUY' as trade_type
   from every e1=CryptoTraderQuotesAvgUSD[e1.close < e1.ma], e2=CryptoTraderQuotesAvgUSD[e2.close > e2.ma]
@@ -103,7 +103,7 @@ insert into trades;
 
 @info(name='Query for BTC/USD trading strategy SELL')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'SELL' as trade_type
   from every e1=CryptoTraderQuotesAvgUSD[e1.close > e1.ma], e2=CryptoTraderQuotesAvgUSD[e2.close < e2.ma]
@@ -120,12 +120,12 @@ select "Bitstamp" as exchange, "Europe" as quote_region,
         "BTC/EUR" as symbol, avg(convert(last, 'double')) as ma, convert(last, 'double') as close, 
         --convert(timestamp, 'long') as timestamp
         time:timestampInMilliseconds()/1000 as timestamp
-  from  EurCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn1-fra1']#window.length(10)
+  from  EurCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn-fra1']#window.length(10)
 insert into CryptoTraderQuotesAvgEUR;
 
 @info(name='Query for BTC/EUR trading strategy BUY')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'BUY' as trade_type
   from every e1=CryptoTraderQuotesAvgEUR[e1.close < e1.ma], e2=CryptoTraderQuotesAvgEUR[e2.close > e2.ma]
@@ -133,7 +133,7 @@ insert into trades;
 
 @info(name='Query for BTC/EUR trading strategy SELL')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'SELL' as trade_type
   from every e1=CryptoTraderQuotesAvgEUR[e1.close > e1.ma], e2=CryptoTraderQuotesAvgEUR[e2.close < e2.ma]
@@ -150,12 +150,12 @@ select "Bitflyer" as exchange, "Asia-Pacific" as quote_region,
         "BTC/JPY" as symbol, avg(ltp) as ma, ltp as close, 
         --time:timestampInMilliseconds(str:replaceFirst(timestamp, 'T', ' '), 'yyyy-MM-dd HH:mm:ss.SSS') as timestamp
         time:timestampInMilliseconds()/1000 as timestamp
-  from  JpyCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn1-fra1']#window.length(10)
+  from  JpyCryptoTraderTickerResponseStream[context:getVar('region') == 'gdn-fra1']#window.length(10)
 insert into CryptoTraderQuotesAvgJPY;
 
 @info(name='Query for BTC/JPY trading strategy BUY')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'BUY' as trade_type
   from every e1=CryptoTraderQuotesAvgJPY[e1.close < e1.ma], e2=CryptoTraderQuotesAvgJPY[e2.close > e2.ma]
@@ -163,7 +163,7 @@ insert into trades;
 
 @info(name='Query for BTC/JPY trading strategy SELL')
 select e2.exchange, e2.quote_region, e2.symbol, e2.timestamp,
-       "gdn1.prod.macrometa.io" as trade_location,
+       "gdn.prod.macrometa.io" as trade_location,
        e2.close as trade_price, "MA Trading" as trade_strategy,
   	   'SELL' as trade_type
   from every e1=CryptoTraderQuotesAvgJPY[e1.close > e1.ma], e2=CryptoTraderQuotesAvgJPY[e2.close < e2.ma]

@@ -42,7 +42,7 @@ Typically the stream processing use cases involve collecting, analyzing and, int
     import time
     # Constants
 
-    FEDERATION = "api-gdn1-us-west1.prod.macrometa.io"
+    FEDERATION = "api-gdn-us-west1.prod.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -115,7 +115,7 @@ Typically the stream processing use cases involve collecting, analyzing and, int
     url = FED_URL + "/_api/streamapps"
     payload = {
       "definition": STREAM_APP,
-      "regions": ["gdn1-us-west1"]
+      "regions": ["gdn-us-west1"]
     }
 
     resp = session.post(url, data=json.dumps(payload))
@@ -237,7 +237,7 @@ Typically the stream processing use cases involve collecting, analyzing and, int
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "api-gdn1.prod.macrometa.io";
+    const FEDERATION_NAME = "api-gdn.prod.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const IS_GLOBAL = true;

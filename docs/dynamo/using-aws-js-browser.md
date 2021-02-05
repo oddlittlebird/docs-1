@@ -53,7 +53,7 @@ Create following file - `MoviesCreateTable.html`.
   const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -200,7 +200,7 @@ The following is an example of movie data:
       const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -299,7 +299,7 @@ Copy the following program and paste it into a file named `MoviesItemOps01.html`
       const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -472,7 +472,7 @@ Copy the following program and paste it into a file named `MoviesItemOps03.html`
       const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -564,7 +564,7 @@ Copy the following program and paste it into a file named `MoviesItemOps04.html`
         const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -651,7 +651,7 @@ Copy the following program and paste it into a file named `MoviesItemOps05.html`
           const dcName = "gdn.paas.macrometa.io";
       const host = "https://api-" + dcName;
       const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -756,7 +756,7 @@ Copy the following program and paste it into a file named `MoviesItemOps06.html`
                const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -875,7 +875,7 @@ Copy the following program and paste it into a file named `MoviesQuery01.html`.
                   const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    
@@ -1032,7 +1032,7 @@ Copy the following program and paste it into a file named `MoviesScan.html`.
                     const dcName = "gdn.paas.macrometa.io";
                const host = "https://api-" + dcName;
                const apiKey =
-        "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+        "<your-api-key>";
       /*
    If you have a JWT token
    

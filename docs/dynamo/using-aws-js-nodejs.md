@@ -47,7 +47,7 @@ Create following file - `MoviesCreateTable.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -175,7 +175,7 @@ The following is an example of movie data:
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -235,7 +235,7 @@ Copy the following program and paste it into a file named `MoviesItemOps01.js`
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -380,7 +380,7 @@ Copy the following program and paste it into a file named `MoviesItemOps03.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -455,7 +455,7 @@ Copy the following program and paste it into a file named `MoviesItemOps04.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -524,7 +524,7 @@ Copy the following program and paste it into a file named `MoviesItemOps05.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -612,7 +612,7 @@ Copy the following program and paste it into a file named `MoviesItemOps06.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -712,7 +712,7 @@ Copy the following program and paste it into a file named `MoviesQuery01.js`.
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -784,7 +784,7 @@ Copy the following program and paste it into a file named `MoviesQuery02.js`
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"
@@ -922,7 +922,7 @@ To delete the Movies table, copy the following program and paste it into a file 
 
     const host = "https://api-" + dcName;
     const apiKey =
-    "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    "<your-api-key>";
     const region = "us-east-1";
     const endpoint = host + "/_api/dynamo";
     // secretAccessKey is a required parameter for aws-sdk we recommend you to pass "c8"

@@ -71,9 +71,9 @@ Let's assume your
       # Variables - URLs
       global_url = "gdn.paas.macrometa.io"
       region_urls = [
-          "gdn1-sfo2.prod.macrometa.io",
-          "gdn1-us-west1.prod.macrometa.io",
-          "gdn1-nyc1.prod.macrometa.io"
+          "gdn-sfo2.prod.macrometa.io",
+          "gdn-us-west1.prod.macrometa.io",
+          "gdn-nyc1.prod.macrometa.io"
       ]
 
       # Variables - DB
@@ -143,9 +143,9 @@ Let's assume your
     // Variables - DB
     const global_url = "https://gdn.paas.macrometa.io";
     const region_urls = [
-      "https://gdn1-sfo2.prod.macrometa.io",
-      "https://gdn1-us-west1.prod.macrometa.io",
-      "https://gdn1-nyc1.prod.macrometa.io"
+      "https://gdn-sfo2.prod.macrometa.io",
+      "https://gdn-us-west1.prod.macrometa.io",
+      "https://gdn-nyc1.prod.macrometa.io"
     ];
 
     // Crete a authenticated instance with Token / Apikey

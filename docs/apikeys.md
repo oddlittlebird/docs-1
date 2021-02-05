@@ -124,7 +124,7 @@ The first step in using GDN is to establish a connection to a local region. When
     ``` py
     from c8 import C8Client
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -174,7 +174,7 @@ The first step in using GDN is to establish a connection to a local region. When
     ``` py
     from c8 import C8Client
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -258,7 +258,7 @@ The first step in using GDN is to establish a connection to a local region. When
     from c8 import C8Client
 
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -377,7 +377,7 @@ The first step in using GDN is to establish a connection to a local region. When
     from c8 import C8Client
 
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -458,7 +458,7 @@ The first step in using GDN is to establish a connection to a local region. When
     ``` py
     from c8 import C8Client
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -541,7 +541,7 @@ The first step in using GDN is to establish a connection to a local region. When
     from c8 import C8Client
 
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -591,7 +591,7 @@ The first step in using GDN is to establish a connection to a local region. When
     from c8 import C8Client
 
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
                             email='nemo@nautilus.com', password='xxxxx',
                             geofabric='_system')
@@ -1008,7 +1008,7 @@ The first step in using GDN is to establish a connection to a local region. When
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn1.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
 
     const COLLECTION_NAME = "testCollection";
     const STREAM_NAME = "testStream"

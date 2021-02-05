@@ -86,7 +86,7 @@ The first step in using GDN is to establish a connection to a local region. When
 
     # OR Using API Key
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
-    apikey="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d")
+    apikey="<your-api-key>")
     ```
 
 === "Javascript"
@@ -97,7 +97,7 @@ The first step in using GDN is to establish a connection to a local region. When
     // Simple Way
     const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "", fabricName= '_system'});
     // ----- OR -----
-    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d", fabricName= '_system'});
+    const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "<your-api-key>", fabricName= '_system'});
 
     // To use advanced options
     const client = new jsc8("https://gdn.paas.macrometa.io"); 
@@ -112,10 +112,10 @@ Create a Collection for saving the Key Value Pairs
     ``` py
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -152,10 +152,10 @@ Insert key value pairs into the collection.
 
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
     # Insert Key Value pairs
@@ -230,10 +230,10 @@ Get value for a given key.
     ``` py
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
     # Get value for a key
@@ -257,10 +257,10 @@ Get Key-Value count from a given collection.
     ```py
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -288,10 +288,10 @@ Update value for a given key.
 
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -334,10 +334,10 @@ Delete KV pairs from a collection.
     ``` py
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -374,10 +374,10 @@ Delete KV collection
     ``` py
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -410,10 +410,10 @@ Complete code example written using above code snippets can be found below.
 
     from c8 import C8Client
 
-    key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+    key = "<your-api-key>"
     collection_name = "students"
 
-    # Create a connection to gdn1
+    # Create a connection to gdn
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey=key)
 
@@ -490,10 +490,10 @@ Complete code example written using above code snippets can be found below.
 
     const jsc8 = require("jsc8");
 
-    const key = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+    const key = "<your-api-key>";
     const collectionName = "students";
 
-    // Connect to gdn1
+    // Connect to gdn
     const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: key});
 
     // Crete a authenticated instance with Token / Apikey

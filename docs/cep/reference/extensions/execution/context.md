@@ -27,7 +27,7 @@ SUPPORTED CONTEXT VARIABLES
 
 | Name | Description | 
 |------|-------------|
-| region  | Current region where the Stream App is ruuning e.g. `gdn1-sfo2` |               | STRING | No       | Yes     |
+| region  | Current region where the Stream App is ruuning e.g. `gdn-sfo2` |               | STRING | No       | Yes     |
 
 EXAMPLE 1
 

@@ -450,7 +450,7 @@ Create a geo-fabric with spot region capabilities. Then create a collection that
     spot_collection_name = "spot-collection"
 
     # Initialize the client for C8DB.
-    client = C8Client(protocol='https', host='gdn1-sfo2.prod.macrometa.io', port=443,
+    client = C8Client(protocol='https', host='gdn-sfo2.prod.macrometa.io', port=443,
                     email="nemo@nautilus.com", password="xxxxxx")
     #Create a geo-fabric and pass one of the spot regions. You can use the SPOT_CREATION_TYPES for the same. If you use AUTOMATIC, a random spot region will be assigned by the system.
 

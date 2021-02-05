@@ -29,7 +29,7 @@ import boto3
 REGION = "us-east-1"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey = "guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d"
+apiKey = "<your-api-key>"
 accessKeyId = "apikey " + apiKey
 
 def create_movie_table(dynamodb=None):
@@ -87,7 +87,7 @@ REGION = "us-east-1"
 REGION = "sfo2"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+apiKey ="<your-api-key>";
 host = "https://api-" + dcName
 accessKeyId = "apikey " + apiKey
 
@@ -137,7 +137,7 @@ REGION = "us-east-1"
 REGION = "sfo2"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+apiKey ="<your-api-key>";
 accessKeyId = "apikey " + apiKey
 
 def get_movie(dynamodb=None):
@@ -170,7 +170,7 @@ REGION = "us-east-1"
 REGION = "sfo2"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+apiKey ="<your-api-key>";
 accessKeyId = "apikey " + apiKey
 
 def update_movie(dynamodb=None):
@@ -214,7 +214,7 @@ REGION = "us-east-1"
 REGION = "sfo2"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+apiKey ="<your-api-key>";
 accessKeyId = "apikey " + apiKey
 
 def query(dynamodb=None):
@@ -252,7 +252,7 @@ REGION = "us-east-1"
 REGION = "sfo2"
 dcName = "gdn.paas.macrometa.io"
 host = "https://api-" + dcName
-apiKey ="guest.gdn1guest.E3GazUtRolhs9LO36hdwFmXFt938hgjzuka74RFj4zzkiQdl2hsTVVD2qQeSHdX737674d";
+apiKey ="<your-api-key>";
 accessKeyId = "apikey " + apiKey
 
 def delete_item(dynamodb=None):
