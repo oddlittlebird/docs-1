@@ -52,7 +52,7 @@ REMOVE { _key: @key}
 
 | **Email** | **Passsword** | **Geo Fabric** |**Collection** | **GUI**|**Source Code**|
 |------------|---------- |-------------- |-------------- |------------|----------|
-| demo@macrometa.io | `xxxxxx` | _system | `addresses` | [AddressBook (RESTQL)](http://addressbook-restql-gdn1.s3-website-us-east-1.amazonaws.com/)| [github](https://github.com/Macrometacorp/tutorial-addressbook-restql)|
+| demo@macrometa.io | `xxxxxx` | _system | `addresses` | [AddressBook (RESTQL)](http://addressbook-restql-gdn.s3-website-us-east-1.amazonaws.com/)| [github](https://github.com/Macrometacorp/tutorial-addressbook-restql)|
 
 > Note: The demo app automatically creates the following RESTQLs as part of startup.
 
