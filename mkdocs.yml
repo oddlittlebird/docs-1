@@ -11,7 +11,7 @@ repo_url: https://github.com/Macrometacorp/docs
 edit_uri: edit/master/docs/
 
 # Copyright
-copyright: Copyright &copy; 2016 - 2020 Macrometa Corp
+copyright: Copyright &copy; 2016 - 2021 Macrometa Corp
 
 # Configuration
 theme:
@@ -138,12 +138,12 @@ nav:
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
       - Transactions:
-        - Overivew: documents/transactions/overview.md
-        - Transaction Invocation: documents/transactions/transaction-invocation.md
-        - Passing Parameters: documents/transactions/passing-parameters.md
-        - Locking and Isolation: documents/transactions/locking-isolation.md
-        - Durability: documents/transactions/durability.md
-        - Limitations: documents/transactions/limitations.md
+        - Overivew: c8ql/transactions/overview.md
+        - Transaction Invocation: c8ql/transactions/transaction-invocation.md
+        - Passing Parameters: c8ql/transactions/passing-parameters.md
+        - Locking and Isolation: c8ql/transactions/locking-isolation.md
+        - Durability: c8ql/transactions/durability.md
+        - Limitations: c8ql/transactions/limitations.md
     - DynamoMode:
       - Using AWS Console CLI: dynamo/using-aws-cli.md
       - AWS Javascript SDK (browser): dynamo/using-aws-js-browser.md
@@ -162,7 +162,7 @@ nav:
     - Quick Start: search/quickstart.md
     - Concepts: search/concepts.md
     - Tutorials:
-      - Using Rest API: search/tutorials/using_rest_api.md
+      - Using Rest API: documents/tutorials/using_rest_api.md
       - C8QL Tutorial: c8ql/c8ql-tutorial.md
       - C8QL Examples: c8ql/examples.md
   - Query Workers:
@@ -189,7 +189,7 @@ nav:
       - Summarizing Data: cep/tutorials/summarizing-data.md
       - Correlating Data: cep/tutorials/correlating-data.md
       - Publishing Data: cep/tutorials/publishing-data.md
-      - Triggering Flows: cep/tutorials/triggering-data.md
+      - Triggering Flows: cep/tutorials/routing-data.md
       - Executing Scripts: cep/tutorials/executing-scripts.md
     - Reference:
       - Overview: cep/reference/overview.md
@@ -205,7 +205,6 @@ nav:
       - Query Guide: cep/reference/query-guide.md
       - Functions: cep/reference/functions.md
       - Extensions:
-        # - Overview: cep/reference/extensions/overview.md
         - Execution:
           - Context: cep/reference/extensions/execution/context.md
           - Map: cep/reference/extensions/execution/map.md
@@ -235,6 +234,20 @@ nav:
     - Fundamentals: c8ql/fundamentals.md
     - Operators: c8ql/operators.md
     - Data Queries: c8ql/data-queries.md
+    - Examples:
+      - Overview: c8ql/examples/overview.md
+      - Counting: c8ql/examples/counting.md
+      - Date Modification Queries: c8ql/examples/data-modification-queries.md
+      - Diffing Documents: c8ql/examples/diffing-documents.md
+      - Dynamic Attribute Names: c8ql/examples/dynamic-attribute-names.md
+      - Grouping: c8ql/examples/grouping.md
+      - Joins: c8ql/examples/joins.md
+      - Multiple Path Search: c8ql/examples/multiple-path-search.md
+      - Projections and Filters: c8ql/examples/projections-and-filters.md
+      - Queries Without Collections: c8ql/examples/queries-without-collections.md
+      - Remove Vertex: c8ql/examples/remove-vertex.md
+      - Sub-Queries: c8ql/examples/subqueries.md
+      - Traversals: c8ql/examples/traversals.md
     - Operations:
       - Overview: c8ql/operations/overview.md
       - FOR: c8ql/operations/for.md
@@ -263,6 +276,18 @@ nav:
       - Search: c8ql/functions/search.md
       - Miscellaneous: c8ql/functions/miscellaneous.md
       - Type Check & Cast: c8ql/functions/type-cast.md
+    - Graphs:
+      - Overview: c8ql/graphs/overview.md
+      - Shortest Path: c8ql/graphs/shortest-path.md
+      - K Shortest Paths: c8ql/graphs/k-shortest-paths.md
+      - Traversals: c8ql/graphs/traversals.md
+    - Transactions:
+      - Overview: c8ql/transactions/overview.md
+      - Durability: c8ql/transactions/durability.md
+      - Locking Isolation: c8ql/transactions/locking-isolation.md
+      - Passing Parameters: c8ql/transactions/passing-parameters.md
+      - Transaction Invocation: c8ql/transactions/transaction-invocation.md
+      - Limitations: c8ql/transactions/limitations.md
     - Array Operators: c8ql/array-operators.md
     - Common Errors: c8ql/common-errors.md
   - Demos:
