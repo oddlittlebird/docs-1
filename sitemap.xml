@@ -100,6 +100,30 @@
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/overview/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/transaction-invocation/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/passing-parameters/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/locking-isolation/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/durability/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/limitations/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://macrometa.dev/dynamo/using-aws-cli/</loc>
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
@@ -149,6 +173,10 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://macrometa.dev/search/concepts/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/documents/tutorials/using_rest_api/</loc>
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
@@ -233,6 +261,10 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://macrometa.dev/cep/tutorials/publishing-data/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/cep/tutorials/routing-data/</loc>
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
@@ -388,6 +420,58 @@
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/overview/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/counting/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/data-modification-queries/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/diffing-documents/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/dynamic-attribute-names/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/grouping/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/joins/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/multiple-path-search/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/projections-and-filters/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/queries-without-collections/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/remove-vertex/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/subqueries/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/examples/traversals/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://macrometa.dev/c8ql/operations/overview/</loc>
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
@@ -489,6 +573,46 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://macrometa.dev/c8ql/functions/type-cast/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/graphs/overview/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/graphs/shortest-path/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/graphs/k-shortest-paths/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/graphs/traversals/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/overview/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/durability/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/locking-isolation/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/passing-parameters/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/transaction-invocation/</loc>
+     <lastmod>2021-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://macrometa.dev/c8ql/transactions/limitations/</loc>
      <lastmod>2021-02-09</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
