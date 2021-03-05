@@ -21,17 +21,22 @@ Let’s start by clicking the `COLLECTIONS` tab in the left nav and then `New Co
 
 Note: The collection `addresses` that you just created is now distributed to every location in the fabric!
 
-![create-collection](/assets/images/addCollection.png)
+![create-collection](/assets/images/create-doc-view.png)
 ## Step 2: Add some data to your new collection and query it
 
 Now, click the `QUERIES` tab in the left nav to open the `C8QL` query editor. Copy and paste the query below into the editor and click `Run Query` a couple times. 
 
 ```SQL
-INSERT {"firstname": "Captain",
-        "lastname": "Nemo",
-        "email": "nemo@nautilus.com",
-        "zipcode": 94608 }
-   INTO addresses
+// Query to insert addresses
+FOR persons IN [ 
+  { firstname: "Captain", lastname: "Nemo", email: "cpnemo@gnautilus.com" },
+  { firstname: "Pierre", lastname: "Aronnax", email: "pierre@asoc.org" },
+  { firstname: "Ned", lastname: "Land", email: "ned@nature.org" },
+  { firstname: "Cyrus", lastname: "Smith", email: "cycy@laborrights.org" },
+  { firstname: "Tom", lastname: "Ayrton", email: "tommy@water.org" },
+  { firstname: "Jules", lastname: "Verne", email: "j.garcia@en-julesverne.nantesmetropole.fr" } 
+  ]
+  INSERT persons INTO addresses
 ```
 
 Your `Query Result` will be empty brackets, but if you click on `Profile` button you can checkout what just happened along with some performance details. Your data was just written to the location you're currently logged into and replicated across all of the nodes in your fabric.
@@ -52,17 +57,14 @@ Click the `Save Query` button and name the saved query `getAddresses`
 
 Now, in **around 50ms**, you have a globally distributed stateful-serverless endpoint.
 
+![dashboard](/assets/images/dashboard.png)
+
 ## Step 4: Execute the Query Worker
 
-Click on the `API REFERENCE` tab on the left and scroll down and to `Query as API`.
+Now that you've saved the query click on the `API Usage` button, and we automatically generate a Query Worker (Exactly like a serverless function, but a save query instead of a function)!
 
-Select the second `POST` option to `Execute restQL by name`.  Click on `Try Out` and add `getAddresses` to `path` under `name`. Now click `Execute` down at the bottom and you'll see that a cURL command and REST endpoint is generated along with the result of the query.
+![create-query-worker](/assets/images/query-worker.png)
 
-![create-collection](/assets/images/queryWorkers.png)
-
-Now pop that cURL command into your terminal to see it in action!
-
-![create-collection](/assets/images/cURL.png)
 ## Next Steps
 
 Read though our **[Essentials](essentials.md)** guide.
