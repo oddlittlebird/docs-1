@@ -5,4 +5,4 @@ Fashionstore Demo is a full-stack sample web application that creates a storefro
 
 | **Tenant** | **Fabric** | **Password** | **GUI** | **Source Code**|
 |----------- |----------|-----------|--------------|-----------|
-| fashionstore@macrometa.io | `_system` | `xxxxxxxxxx` | [**Fashion Store App**](http://fashionstore.gdn3.s3-website-us-west-1.amazonaws.com) |[github](https://github.com/Macrometacorp/tutorial-cloudflare-bookstore)|
+| fashionstore@macrometa.io | `_system` | `xxxxxxxxxx` | [**Fashion Store App**](http://fashionstore.gdn3.s3-website-us-west-1.amazonaws.com) |
