@@ -290,7 +290,7 @@ nav:
       - Limitations: c8ql/transactions/limitations.md
     - Array Operators: c8ql/array-operators.md
     - Common Errors: c8ql/common-errors.md
-  - Demos:
+  - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Address Book (Wavelength 5G): demos/address-book-wavelength.md
     - Bookstore: demos/cf-bookstore.md
