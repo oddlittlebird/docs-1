@@ -24,29 +24,36 @@ FOR persons IN [
   INSERT persons INTO addresses
 
 ```
+
+Queries for RESTQL
+
+Query Name: addAddress
 ```js
-//Queries for RESTQL
-Name: addAddress
 INSERT { firstname: @firstname, 
         lastname: @lastname, 
         email: @email, 
         zipcode: @zipcode }
    INTO addresses
+```
 
-Name: getAddresses
+Query Name: getAddresses
+```
 FOR address IN addresses
     RETURN address
+```
 
-Name: updateEmail
+Query Name: updateEmail
+```
 UPDATE { _key: @key }
   WITH { email: @email }
   IN addresses
+```
 
-Name: removeAddress
+Query Name: removeAddress
+```
 REMOVE { _key: @key} 
   IN addresses
 ```
-
 
 ## Using RESTQL
 
