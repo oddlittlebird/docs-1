@@ -67,4 +67,39 @@ Now that you've saved the query click on the `API Usage` button, and we automati
 
 ## Next Steps
 
-Read though our **[Essentials](essentials.md)** guide.
+Nice job you totally rocked that quickstart! 
+
+Now let's build out the _REST_ of our CRUD API. Just create a `Query Worker` for each of these queries.
+
+**SaveContact**
+```sql
+INSERT {firstname:@firstName,
+        lastname:@lastName,
+        email:@email} 
+INTO addresses
+```
+
+**ReadContact**
+```sql
+FOR entry 
+IN addresses 
+RETURN entry
+```
+
+**RemoveContact**
+```sql
+REMOVE @_key 
+IN addresses
+```
+
+**UpdateContact**
+```sql
+UPDATE @_key WITH { firstname:@firstName, 
+                    lastname:@lastName, 
+                    email:@email} 
+IN addresses
+```
+
+Sweet, so now you have a full functional API for your app. [We made a front-end for you to take your new backend for a spin](https://github.com/Macrometacorp/tutorial-addressbook-restql).
+
+Now that you've build your app, full stack, you can dig into the docs and see all the rad things Macrometa can help you build >> **[Essentials](essentials.md)** guide.
