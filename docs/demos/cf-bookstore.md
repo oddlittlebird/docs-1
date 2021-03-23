@@ -2,10 +2,16 @@
 
 Bookstore Demo is a full-stack sample web application that creates a storefront (and backend) for customers to shop for fictitious books. You can `browse` and `search` for books, look at `recommendations` and `best sellers`, `manage` your cart, `checkout`, `view` your orders, and more.
 
+### On GDN
 
 | **Tenant** | **Fabric** | **Password** | **GUI** | **Source Code**|
 |----------- |----------|-----------|--------------|-----------|
 | bookstore@macrometa.io | `_system` | `xxxxxxxxxx` | [**Book Store App**](https://bookstore.macrometadev.workers.dev/) |[github](https://github.com/Macrometacorp/tutorial-cloudflare-bookstore)|
+
+### On GDN (Dynamo Mode)
+
+| **Tenant** | **Fabric** | **Password** | **GUI** | **Source Code**|
+|----------- |----------|-----------|--------------|-----------|
 | bookstore-dynamo@macrometa.io | `_system` | `xxxxxxxxxx` | [**Book Store Dynamo App**](https://bookstore-dynamo.macrometadev.workers.dev/) |[github](https://github.com/Macrometacorp/tutorial-cloudflare-bookstore-dynamo)|
 
 ![Bookstore](images/bookstore.png)
