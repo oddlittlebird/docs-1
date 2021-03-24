@@ -295,6 +295,7 @@ nav:
     - Crypto Trading: demos/crypto-trading.md
     - Bookstore: demos/cf-bookstore.md
     - Fashion Store (Wavelength 5G): demos/fashionstore-wavelength.md
+    - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Polling App (Gatsby): demos/jamstack-gatsby.md
     - Task Tracking App (Netlify): demos/task-tracking.md
