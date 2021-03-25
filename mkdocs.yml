@@ -292,14 +292,13 @@ nav:
     - Common Errors: c8ql/common-errors.md
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
-    - Address Book (Wavelength 5G): demos/address-book-wavelength.md
-    - Polling App (Gatsby): demos/jamstack-gatsby.md
-    - Task Tracking App (Netlify): demos/task-tracking.md
+    - Crypto Trading: demos/crypto-trading.md
     - Bookstore: demos/cf-bookstore.md
     - Fashion Store (Wavelength 5G): demos/fashionstore-wavelength.md
-    - Crypto Trading: demos/crypto-trading.md
-    - Crypto Trading (Wavelength 5G): demos/crypto-trading-wavelength.md
+    - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
+    - Polling App (Gatsby): demos/jamstack-gatsby.md
+    - Task Tracking App (Netlify): demos/task-tracking.md
     - Castle Knight Game: demos/castle-knight.md
     - Oxford Economics: demos/streamlit-oxford.md
     - Dynamo Mode: demos/dynamo.md

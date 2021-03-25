@@ -2,11 +2,20 @@
 
 ## Using Streams
 
+### On GDN
+
 | **Email** | **Passsword** | **Geo Fabric** |**Collection** | **GUI**|**Source Code**|
 |------------|---------- |-------------- |-------------- |------------|----------|
 | demo@macrometa.io | `xxxxxxxx` | _system | `addresses` | [AddressBook](http://addressbook.gdn1.s3-website-us-east-1.amazonaws.com/)| [github](https://github.com/Macrometacorp/tutorial-addressbook-streams)|
 
-Populate `addresses` collection with data:   
+### On GDN (Wavelength 5G)
+
+| **Email** | **Passsword** | **Geo Fabric** |**Collection** | **GUI**|**Source Code**|
+|------------|---------- |-------------- |-------------- |------------|----------|
+| demo@macrometa.io | `xxxxxxxx` | _system | `addresses` | [AddressBook](http://addressbook.gdn3.s3-website-us-west-1.amazonaws.com)| 
+
+Populate `addresses` collection with data:
+
 ```js
 
 // Query to insert addresses
@@ -56,6 +65,8 @@ REMOVE { _key: @key}
 ```
 
 ## Using RESTQL
+
+### GDN
 
 | **Email** | **Passsword** | **Geo Fabric** |**Collection** | **GUI**|**Source Code**|
 |------------|---------- |-------------- |-------------- |------------|----------|
