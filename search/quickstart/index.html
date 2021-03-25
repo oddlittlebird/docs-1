@@ -68,10 +68,10 @@
 <span class=k>else</span><span class=p>:</span>
     <span class=n>client</span><span class=o>.</span><span class=n>create_collection_kv</span><span class=p>(</span><span class=n>name</span><span class=o>=</span><span class=n>collection_name</span><span class=p>)</span>
 </code></pre></div> </div> <input id=__tabbed_3_2 name=__tabbed_3 type=radio><label for=__tabbed_3_2>Javascript</label><div class=tabbed-content> <div class=highlight><pre><span></span><code><span class=c1>// Add this snippet in previously created main function</span>
-<span class=kd>let</span> <span class=nx>coll</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>getKVCollections</span><span class=p>();</span>
+<span class=kd>let</span> <span class=nx>coll</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>getKVCollections</span><span class=p>();</span>
 <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Existing Collections: &quot;</span><span class=p>,</span> <span class=nx>coll</span><span class=p>.</span><span class=nx>result</span><span class=p>);</span>
 <span class=k>try</span><span class=p>{</span>
-    <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createKVCollection</span><span class=p>(</span><span class=nx>collectionName</span><span class=p>);</span>
+    <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createKVCollection</span><span class=p>(</span><span class=nx>collectionName</span><span class=p>);</span>
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Collection Created Successfully&quot;</span><span class=p>);</span>
 <span class=p>}</span>
 <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>){</span>
@@ -135,7 +135,7 @@
   <span class=p>}</span>
 <span class=p>]</span>
 <span class=k>try</span><span class=p>{</span>
-    <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>insertKVPairs</span><span class=p>(</span><span class=nx>collectionName</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
+    <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>insertKVPairs</span><span class=p>(</span><span class=nx>collectionName</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Key Value pairs inserted successfully.&quot;</span><span class=p>);</span>
 <span class=p>}</span>
 <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>){</span>

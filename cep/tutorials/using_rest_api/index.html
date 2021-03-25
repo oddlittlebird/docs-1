@@ -223,18 +223,18 @@
 <span class=sb>  from tutorialAppInputStream</span>
 <span class=sb>  insert into tutorialAppOutputTable;`</span><span class=p>;</span>
 
-<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=k>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=nx>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
   <span class=k>try</span> <span class=p>{</span>
     <span class=kr>const</span> <span class=nx>connection</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>APIRequest</span><span class=p>(</span><span class=nx>FEDERATION_URL</span><span class=p>);</span>
 
     <span class=cm>/* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */</span>
 
-    <span class=kr>const</span> <span class=p>{</span> <span class=nx>tenant</span> <span class=p>}</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
+    <span class=kr>const</span> <span class=p>{</span> <span class=nx>tenant</span> <span class=p>}</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Login Successfully using&quot;</span><span class=p>,</span> <span class=nx>tenant</span><span class=p>);</span>
 
     <span class=cm>/* ---------------------------- Create StreamApp ---------------------------- */</span>
-    <span class=kr>const</span> <span class=nx>streamApp</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=s2>&quot;/_fabric/_system/_api/streamapps&quot;</span><span class=p>,</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>streamApp</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=s2>&quot;/_fabric/_system/_api/streamapps&quot;</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>definition</span><span class=o>:</span> <span class=nx>STREAM_APP</span><span class=p>,</span>
         <span class=nx>regions</span><span class=o>:</span> <span class=p>[],</span>
@@ -246,7 +246,7 @@
 
     <span class=cm>/* --------------------------- Activate StreamApp --------------------------- */</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/streamapps/</span><span class=si>${</span><span class=nx>STREAM_APP_NAME</span><span class=si>}</span><span class=sb>/active?active=true`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;PATCH&quot;</span><span class=p>,</span>
@@ -255,7 +255,7 @@
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;ACTIVATING STREAM APP...&quot;</span><span class=p>,</span> <span class=nx>STREAM_APP_NAME</span><span class=p>);</span>
 
-    <span class=k>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
+    <span class=nx>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;STREAM APP ACTIVATED SUCCESSFULLY&quot;</span><span class=p>);</span>
 
@@ -290,7 +290,7 @@
       <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;WebSocket:Producer message sent successfully&quot;</span><span class=p>);</span>
     <span class=p>};</span>
 
-    <span class=k>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
+    <span class=nx>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
 
     <span class=kr>const</span> <span class=nx>INPUT_DATA</span> <span class=o>=</span> <span class=p>[</span>
       <span class=p>{</span>
@@ -307,7 +307,7 @@
       <span class=p>})</span>
     <span class=p>);</span>
 
-    <span class=k>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
+    <span class=nx>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
 
     <span class=nx>producer</span><span class=p>.</span><span class=nx>send</span><span class=p>(</span>
       <span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>({</span>
@@ -315,7 +315,7 @@
       <span class=p>})</span>
     <span class=p>);</span>
 
-    <span class=k>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
+    <span class=nx>await</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setTimeout</span><span class=p>(</span><span class=nx>resolve</span><span class=p>,</span> <span class=mf>10000</span><span class=p>));</span>
 
     <span class=nx>producer</span><span class=p>.</span><span class=nx>close</span><span class=p>();</span>
 
@@ -323,7 +323,7 @@
 
     <span class=kr>const</span> <span class=nx>SELECT_QUERY</span> <span class=o>=</span> <span class=s2>&quot;FOR doc IN tutorialAppOutputTable return doc&quot;</span><span class=p>;</span>
 
-    <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>id</span><span class=o>:</span> <span class=s2>&quot;tutorialStreamAppQuery&quot;</span><span class=p>,</span>
         <span class=nx>query</span><span class=o>:</span> <span class=nx>SELECT_QUERY</span><span class=p>,</span>
@@ -336,7 +336,7 @@
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;OUTPUT DATA ---&gt;&quot;</span><span class=p>,</span> <span class=nx>result</span><span class=p>.</span><span class=nx>results</span><span class=p>);</span>
 
     <span class=cm>/* ---------------------------- Delete StreamApp ---------------------------- */</span>
-    <span class=kr>const</span> <span class=nx>deletion</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>deletion</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/streamapps/</span><span class=si>${</span><span class=nx>STREAM_APP_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span><span class=p>,</span>

@@ -299,19 +299,19 @@
 
   <span class=kr>const</span> <span class=nx>COLLECTION_NAME</span> <span class=o>=</span> <span class=s2>&quot;students&quot;</span><span class=p>;</span>
 
-  <span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=k>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+  <span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=nx>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
   <span class=k>try</span> <span class=p>{</span>
   <span class=kr>const</span> <span class=nx>connection</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>APIRequest</span><span class=p>(</span><span class=nx>FEDERATION_URL</span><span class=p>);</span>
 
   <span class=cm>/* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */</span>
 
-  <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Login Successfully using&quot;</span><span class=p>,</span> <span class=nx>EMAIL</span><span class=p>);</span>
 
   <span class=cm>/* -------------------------- Create Collection ------------------------- */</span>
 
-  <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
   <span class=p>{</span>
   <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;POST&quot;</span><span class=p>,</span>
@@ -322,7 +322,7 @@
 
   <span class=cm>/* ---------------------------- Insert KV Pairs ---------------------------- */</span>
 
-  <span class=kr>const</span> <span class=nb>document</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nb>document</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>/value`</span><span class=p>,</span>
   <span class=p>{</span>
   <span class=nx>body</span><span class=o>:</span> <span class=p>[</span>
@@ -356,7 +356,7 @@
 
   <span class=cm>/* ----------------------------- Get Value for Given Key ----------------------------- */</span>
   <span class=kd>let</span> <span class=nx>key</span> <span class=o>=</span> <span class=s2>&quot;Monika&quot;</span><span class=p>;</span>
-  <span class=kr>const</span> <span class=nx>readVal</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>readVal</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>/value/</span><span class=si>${</span><span class=nx>key</span><span class=si>}</span><span class=sb>`</span>
   <span class=p>);</span>
 
@@ -364,7 +364,7 @@
 
   <span class=cm>/* ---------------------------- Get Collection Count ---------------------------- */</span>
 
-  <span class=kr>const</span> <span class=nx>collCount</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>collCount</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>/count`</span><span class=p>,</span>
   <span class=p>{</span>
   <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;GET&quot;</span><span class=p>,</span>
@@ -375,7 +375,7 @@
 
   <span class=cm>/* ----------------------------- Update Value for a Key ----------------------------- */</span>
 
-  <span class=kr>const</span> <span class=nx>updateValue</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>updateValue</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>/value`</span><span class=p>,</span>
   <span class=p>{</span>
   <span class=nx>body</span><span class=o>:</span> <span class=p>[</span>
@@ -393,14 +393,14 @@
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;KV PAIR UPDATED SUCCESSFULLY&quot;</span><span class=p>,</span> <span class=nx>updateValue</span><span class=p>);</span>
   <span class=cm>/* --------------------------- Delete Value for Key ---------------------------- */</span>
 
-  <span class=kr>const</span> <span class=nx>deletedValue</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>deletedValue</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>/value/</span><span class=si>${</span><span class=nx>key</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
   <span class=p>{</span> <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span> <span class=p>}</span>
   <span class=p>);</span>
 
 
   <span class=cm>/* --------------------------- Delete Collection ---------------------------- */</span>
-  <span class=kr>const</span> <span class=nx>deletedCollection</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>deletedCollection</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
   <span class=sb>`/_fabric/_system/_api/kv/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
   <span class=p>{</span> <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span> <span class=p>}</span>
   <span class=p>);</span>

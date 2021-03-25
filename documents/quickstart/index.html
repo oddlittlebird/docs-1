@@ -9,9 +9,9 @@
     <span class=nt>&quot;city&quot;</span> <span class=p>:</span> <span class=s2>&quot;Gotham&quot;</span>
   <span class=p>},</span>
   <span class=nt>&quot;hobbies&quot;</span> <span class=p>:</span> <span class=p>[</span>
-    <span class=p>{</span><span class=kc>na</span><span class=err>me</span><span class=p>:</span> <span class=s2>&quot;swimming&quot;</span><span class=p>,</span> <span class=err>howFavori</span><span class=kc>te</span><span class=p>:</span> <span class=mi>10</span><span class=p>},</span>
-    <span class=p>{</span><span class=kc>na</span><span class=err>me</span><span class=p>:</span> <span class=s2>&quot;biking&quot;</span><span class=p>,</span> <span class=err>howFavori</span><span class=kc>te</span><span class=p>:</span> <span class=mi>6</span><span class=p>},</span>
-    <span class=p>{</span><span class=kc>na</span><span class=err>me</span><span class=p>:</span> <span class=s2>&quot;programming&quot;</span><span class=p>,</span> <span class=err>howFavori</span><span class=kc>te</span><span class=p>:</span> <span class=mi>4</span><span class=p>}</span>
+    <span class=p>{</span><span class=err>name:</span> <span class=nt>&quot;swimming&quot;</span><span class=p>,</span> <span class=err>howFavorite:</span> <span class=err>10</span><span class=p>},</span>
+    <span class=p>{</span><span class=err>name:</span> <span class=nt>&quot;biking&quot;</span><span class=p>,</span> <span class=err>howFavorite:</span> <span class=err>6</span><span class=p>},</span>
+    <span class=p>{</span><span class=err>name:</span> <span class=nt>&quot;programming&quot;</span><span class=p>,</span> <span class=err>howFavorite:</span> <span class=err>4</span><span class=p>}</span>
   <span class=p>]</span>
 <span class=p>}</span>
 </code></pre></div> <p>All documents contain special attributes:</p> <ul> <li>the <a href=#document-handle>document handle</a> is stored as a string in <code>_id</code>, </li> <li>the <a href=#document-key>document's primary key</a> in <code>_key</code> and </li> <li>the <a href=#document-revision>document revision</a> in <code>_rev</code>. </li> </ul> <p>The value of the <code>_key</code> attribute can be specified by the user when creating a document. <code>_id</code> and <code>_key</code> values are immutable once the document has been created. The <code>_rev</code> value is maintained by GDN automatically.</p> <h2 id=pre-requisite>Pre-requisite<a class=headerlink href=#pre-requisite title="Permanent link">&para;</a></h2> <p>Let's assume your</p> <ul> <li>Tenant name is <code>nemo@nautilus.com</code> and </li> <li>User password is <code>xxxxxx</code>.</li> </ul> <h2 id=driver-download>Driver download<a class=headerlink href=#driver-download title="Permanent link">&para;</a></h2> <div class=tabbed-set data-tabs=1:2><input checked=checked id=__tabbed_1_1 name=__tabbed_1 type=radio><label for=__tabbed_1_1>Python</label><div class=tabbed-content> <div class=highlight><pre><span></span><code><span class=n>pyC8</span> <span class=n>requires</span> <span class=n>Python</span> <span class=mf>3.5</span><span class=o>+.</span> <span class=n>Python</span> <span class=mf>3.6</span> <span class=ow>or</span> <span class=n>higher</span> <span class=ow>is</span> <span class=n>recommended</span>
@@ -81,16 +81,16 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>getFabric</span><span class=p>()</span> <span class=p>{</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>getFabric</span><span class=p>()</span> <span class=p>{</span>
     <span class=k>try</span><span class=p>{</span>
-      <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Getting the fabric details...&quot;</span><span class=p>);</span>
-      <span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>get</span><span class=p>();</span>
+      <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Getting the fabric details...&quot;</span><span class=p>);</span>
+      <span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>get</span><span class=p>();</span>
 
-      <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;result is: &quot;</span><span class=p>,</span> <span class=nx>result</span><span class=p>);</span>
+      <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;result is: &quot;</span><span class=p>,</span> <span class=nx>result</span><span class=p>);</span>
     <span class=p>}</span> <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>){</span>
-      <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Fabric details could not be fetched because &quot;</span><span class=o>+</span> <span class=nx>e</span><span class=p>);</span>
+      <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Fabric details could not be fetched because &quot;</span><span class=o>+</span> <span class=nx>e</span><span class=p>);</span>
     <span class=p>}</span>
 <span class=p>}</span>
 
@@ -110,14 +110,14 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>createCollection</span><span class=p>()</span> <span class=p>{</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the collection employees under demoFabric...&quot;</span><span class=p>);</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>createCollection</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the collection employees under demoFabric...&quot;</span><span class=p>);</span>
   <span class=kd>let</span> <span class=nx>collectionDetails</span><span class=p>;</span>
   <span class=k>try</span><span class=p>{</span>
-    <span class=nx>collectionDetails</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=s1>&#39;employees&#39;</span><span class=p>);</span> 
-    <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;The collection details are: &quot;</span><span class=p>,</span> <span class=nx>collectionDetails</span><span class=p>);</span>
+    <span class=nx>collectionDetails</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=s1>&#39;employees&#39;</span><span class=p>);</span> 
+    <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;The collection details are: &quot;</span><span class=p>,</span> <span class=nx>collectionDetails</span><span class=p>);</span>
   <span class=p>}</span> <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>){</span>
     <span class=k>return</span> <span class=s2>&quot;Collection creation did not succeed due to &quot;</span> <span class=o>+</span> <span class=nx>e</span><span class=p>;</span>
   <span class=p>}</span>
@@ -142,14 +142,14 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>createIndex</span><span class=p>()</span> <span class=p>{</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the index on collection employees under demoFabric...&quot;</span><span class=p>);</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>createIndex</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the index on collection employees under demoFabric...&quot;</span><span class=p>);</span>
   <span class=kd>let</span> <span class=nx>index</span><span class=p>;</span>
   <span class=k>try</span><span class=p>{</span>
-    <span class=nx>index</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>addHashIndex</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>,</span> <span class=p>[</span><span class=s2>&quot;email&quot;</span><span class=p>,</span> <span class=s2>&quot;_key&quot;</span><span class=p>]);</span> 
-    <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;The index details are: &quot;</span><span class=p>,</span> <span class=nx>index</span><span class=p>);</span>
+    <span class=nx>index</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>addHashIndex</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>,</span> <span class=p>[</span><span class=s2>&quot;email&quot;</span><span class=p>,</span> <span class=s2>&quot;_key&quot;</span><span class=p>]);</span> 
+    <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;The index details are: &quot;</span><span class=p>,</span> <span class=nx>index</span><span class=p>);</span>
   <span class=p>}</span> <span class=k>catch</span><span class=p>(</span><span class=nx>e</span><span class=p>){</span>
     <span class=k>return</span> <span class=s2>&quot;Index creation did not succeed due to &quot;</span> <span class=o>+</span> <span class=nx>e</span><span class=p>;</span>
   <span class=p>}</span>
@@ -181,7 +181,7 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
 <span class=c1>//Variables</span>
 <span class=kr>const</span> <span class=nx>docJean</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;_key&#39;</span><span class=o>:</span><span class=s1>&#39;Jean&#39;</span><span class=p>,</span> 
@@ -201,10 +201,10 @@
 <span class=kr>const</span> <span class=nx>docs</span> <span class=o>=</span> <span class=p>[</span><span class=nx>docJean</span><span class=p>,</span> <span class=nx>docJames</span><span class=p>,</span> <span class=nx>docHan</span><span class=p>,</span> <span class=nx>docBruce</span><span class=p>];</span>
 
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>populate</span><span class=p>()</span> <span class=p>{</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the collection object to be used and populating with documents...&quot;</span><span class=p>);</span>
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>insertDocumentMany</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>,</span> <span class=nx>docs</span><span class=p>);</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;collection populated with documents&quot;</span><span class=p>);</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>populate</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the collection object to be used and populating with documents...&quot;</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>insertDocumentMany</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>,</span> <span class=nx>docs</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;collection populated with documents&quot;</span><span class=p>);</span>
 <span class=p>}</span>
 
 <span class=nx>populate</span><span class=p>();</span>
@@ -224,14 +224,14 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>c8Queries</span><span class=p>()</span> <span class=p>{</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>c8Queries</span><span class=p>()</span> <span class=p>{</span>
 
-  <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeQuery</span><span class=p>(</span>
+  <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeQuery</span><span class=p>(</span>
     <span class=s2>&quot;FOR employee IN employees RETURN employee&quot;</span>
   <span class=p>);</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
 <span class=p>}</span>
 
 <span class=nx>c8Queries</span><span class=p>();</span>
@@ -255,14 +255,14 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>callback_fn</span><span class=p>(</span><span class=nx>collection</span><span class=p>){</span>
-  <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Connection open on &quot;</span><span class=p>,</span> <span class=nx>collection</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>callback_fn</span><span class=p>(</span><span class=nx>collection</span><span class=p>){</span>
+  <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Connection open on &quot;</span><span class=p>,</span> <span class=nx>collection</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
 <span class=p>}</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>realTimeListener</span><span class=p>()</span> <span class=p>{</span>
-  <span class=kr>const</span> <span class=nx>listener</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>onCollectionChange</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>);</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>realTimeListener</span><span class=p>()</span> <span class=p>{</span>
+  <span class=kr>const</span> <span class=nx>listener</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>onCollectionChange</span><span class=p>(</span><span class=s2>&quot;employees&quot;</span><span class=p>);</span>
 
   <span class=nx>listener</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;message&#39;</span><span class=p>,(</span><span class=nx>msg</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;message=&gt;&quot;</span><span class=p>,</span> <span class=nx>msg</span><span class=p>));</span>
   <span class=nx>listener</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;open&#39;</span><span class=p>,()</span> <span class=p>=&gt;</span> <span class=p>{</span>
@@ -313,21 +313,21 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
 <span class=c1>//Variables</span>
 <span class=kr>const</span> <span class=nx>collection_name</span> <span class=o>=</span> <span class=s2>&quot;accounts&quot;</span><span class=p>;</span>
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>spotCollection</span><span class=p>()</span> <span class=p>{</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>spotCollection</span><span class=p>()</span> <span class=p>{</span>
   <span class=k>try</span><span class=p>{</span>
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Creating the collection accounts...&quot;</span><span class=p>);</span>
-      <span class=kr>const</span> <span class=nx>exists_coll</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>hasCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>);</span>
+      <span class=kr>const</span> <span class=nx>exists_coll</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>hasCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>);</span>
       <span class=k>if</span> <span class=p>(</span><span class=nx>exists_coll</span> <span class=o>===</span> <span class=kc>false</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>,</span> <span class=p>{</span><span class=nx>isSpot</span><span class=o>:</span> <span class=kc>true</span><span class=p>});</span>
+            <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>,</span> <span class=p>{</span><span class=nx>isSpot</span><span class=o>:</span> <span class=kc>true</span><span class=p>});</span>
         <span class=p>}</span>
       <span class=p>}</span>
     <span class=k>catch</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
-      <span class=k>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Collection creation did not succeed due to &quot;</span> <span class=o>+</span> <span class=nx>e</span><span class=p>);</span>
+      <span class=nx>await</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Collection creation did not succeed due to &quot;</span> <span class=o>+</span> <span class=nx>e</span><span class=p>);</span>
     <span class=p>}</span>
 <span class=p>}</span>
 
@@ -407,7 +407,7 @@
 <span class=c1>// Or use Email &amp; Password to Authenticate client instance</span>
 <span class=kr>const</span> <span class=nx>client</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>jsc8</span><span class=p>(</span><span class=s2>&quot;https://gdn.paas.macrometa.io&quot;</span><span class=p>);</span>
 
-<span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
+<span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=s2>&quot;nemo@nautilus.com&quot;</span><span class=p>,</span> <span class=s2>&quot;xxxxxx&quot;</span><span class=p>);</span>
 
 <span class=c1>//Variables</span>
 <span class=kr>const</span> <span class=nx>collection_name</span> <span class=o>=</span> <span class=s2>&quot;addresses&quot;</span> <span class=o>+</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>floor</span><span class=p>(</span><span class=mf>1000</span> <span class=o>+</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>random</span><span class=p>()</span> <span class=o>*</span> <span class=mf>9000</span><span class=p>).</span><span class=nx>toString</span><span class=p>();</span>
@@ -424,20 +424,20 @@
 <span class=kr>const</span> <span class=nx>get_count</span> <span class=o>=</span> <span class=s2>&quot;RETURN COUNT(FOR doc IN &quot;</span> <span class=o>+</span> <span class=nx>collection_name</span> <span class=o>+</span> <span class=s2>&quot; RETURN 1)&quot;</span><span class=p>;</span>
 
 
-<span class=k>async</span> <span class=kd>function</span> <span class=nx>restqldemo</span><span class=p>()</span> <span class=p>{</span>
+<span class=nx>async</span> <span class=kd>function</span> <span class=nx>restqldemo</span><span class=p>()</span> <span class=p>{</span>
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;------- CREATE GEO-REPLICATED COLLECTION  ------&quot;</span><span class=p>);</span>
 
-  <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>);</span>
+  <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createCollection</span><span class=p>(</span><span class=nx>collection_name</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Collection &quot;</span> <span class=o>+</span> <span class=nx>collection_name</span> <span class=o>+</span> <span class=s2>&quot; created.\n&quot;</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;------- SAVING THE QUERIES  ------&quot;</span><span class=p>);</span>
 
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;insertData&quot;</span><span class=p>,</span> <span class=nx>insert_data</span><span class=p>,</span> <span class=p>{});</span>
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>,</span> <span class=nx>get_data</span><span class=p>,</span> <span class=p>{});</span>
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;updateData&quot;</span><span class=p>,</span> <span class=nx>update_data</span><span class=p>,</span> <span class=p>{});</span>
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;deleteData&quot;</span><span class=p>,</span> <span class=nx>delete_data</span><span class=p>,</span> <span class=p>{});</span>
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;getCount&quot;</span><span class=p>,</span> <span class=nx>get_count</span><span class=p>,</span> <span class=p>{});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;insertData&quot;</span><span class=p>,</span> <span class=nx>insert_data</span><span class=p>,</span> <span class=p>{});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>,</span> <span class=nx>get_data</span><span class=p>,</span> <span class=p>{});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;updateData&quot;</span><span class=p>,</span> <span class=nx>update_data</span><span class=p>,</span> <span class=p>{});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;deleteData&quot;</span><span class=p>,</span> <span class=nx>delete_data</span><span class=p>,</span> <span class=p>{});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>createRestql</span><span class=p>(</span><span class=s2>&quot;getCount&quot;</span><span class=p>,</span> <span class=nx>get_count</span><span class=p>,</span> <span class=p>{});</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Saved Queries Successfully\n&quot;</span><span class=p>);</span>
 
@@ -448,21 +448,21 @@
     <span class=s2>&quot;email&quot;</span><span class=o>:</span> <span class=s2>&quot;john.doe@macrometa.io&quot;</span><span class=p>,</span> <span class=s2>&quot;zipcode&quot;</span><span class=o>:</span> <span class=s2>&quot;511037&quot;</span>
   <span class=p>};</span>
 
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;insertData&quot;</span><span class=p>,</span> <span class=nx>bindVars</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;insertData&quot;</span><span class=p>,</span> <span class=nx>bindVars</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Data Inserted \n&quot;</span><span class=p>);</span>
 
-  <span class=kr>const</span> <span class=nx>res</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>);</span>
+  <span class=kr>const</span> <span class=nx>res</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Output of get data query:&quot;</span><span class=p>);</span>
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>res</span><span class=p>.</span><span class=nx>result</span><span class=p>);</span>
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;\n&quot;</span><span class=p>);</span>
 
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;updateData&quot;</span><span class=p>,</span> <span class=p>{</span> <span class=s2>&quot;lastname&quot;</span><span class=o>:</span> <span class=s2>&quot;mathews&quot;</span> <span class=p>});</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;updateData&quot;</span><span class=p>,</span> <span class=p>{</span> <span class=s2>&quot;lastname&quot;</span><span class=o>:</span> <span class=s2>&quot;mathews&quot;</span> <span class=p>});</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Data updated \n&quot;</span><span class=p>);</span>
 
-  <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>);</span>
+  <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getData&quot;</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Output of get data query after update:&quot;</span><span class=p>);</span>
 
@@ -470,13 +470,13 @@
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;\n&quot;</span><span class=p>);</span>
 
-  <span class=kr>const</span> <span class=nx>count</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getCount&quot;</span><span class=p>);</span>
+  <span class=kr>const</span> <span class=nx>count</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;getCount&quot;</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Count:&quot;</span><span class=p>);</span>
 
   <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>count</span><span class=p>.</span><span class=nx>result</span><span class=p>);</span>
 
-  <span class=k>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;deleteData&quot;</span><span class=p>);</span>
+  <span class=nx>await</span> <span class=nx>client</span><span class=p>.</span><span class=nx>executeRestql</span><span class=p>(</span><span class=s2>&quot;deleteData&quot;</span><span class=p>);</span>
 <span class=p>}</span>
 
 <span class=nx>restqldemo</span><span class=p>().</span><span class=nx>then</span><span class=p>(</span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Starting Execution&quot;</span><span class=p>));</span>

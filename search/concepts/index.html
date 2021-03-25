@@ -34,7 +34,7 @@
   <span class=m>1</span>   SingletonNode          <span class=m>1</span>   * ROOT
   <span class=m>2</span>   EnumerateViewNode      <span class=m>1</span>     - FOR doc IN viewName SORT doc.<span class=sb>`</span>val<span class=sb>`</span> ASC   /* view query */
   <span class=m>5</span>   ReturnNode             <span class=m>1</span>       - RETURN doc
-</code></pre></div> <p>To define more than one attribute to sort by, simply add more sub-objects to the <code>primarySort</code> array:</p> <div class=highlight><pre><span></span><code>  <span class=nt>&quot;primarySort&quot;</span><span class=p>:</span> <span class=p>[</span>
+</code></pre></div> <p>To define more than one attribute to sort by, simply add more sub-objects to the <code>primarySort</code> array:</p> <div class=highlight><pre><span></span><code>  <span class=s2>&quot;primarySort&quot;</span><span class=err>:</span> <span class=p>[</span>
     <span class=p>{</span>
       <span class=nt>&quot;field&quot;</span><span class=p>:</span> <span class=s2>&quot;date&quot;</span><span class=p>,</span>
       <span class=nt>&quot;direction&quot;</span><span class=p>:</span> <span class=s2>&quot;desc&quot;</span>

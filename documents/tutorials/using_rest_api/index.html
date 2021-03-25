@@ -194,19 +194,19 @@
 
 <span class=kr>const</span> <span class=nx>COLLECTION_NAME</span> <span class=o>=</span> <span class=s2>&quot;api_tutorial_documents&quot;</span><span class=p>;</span>
 
-<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=k>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=nx>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
   <span class=k>try</span> <span class=p>{</span>
     <span class=kr>const</span> <span class=nx>connection</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>APIRequest</span><span class=p>(</span><span class=nx>FEDERATION_URL</span><span class=p>);</span>
 
     <span class=cm>/* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Login Successfully using&quot;</span><span class=p>,</span> <span class=nx>EMAIL</span><span class=p>);</span>
 
     <span class=cm>/* -------------------------- Create Doc Collection ------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>collection</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=s2>&quot;/_fabric/_system/_api/collection&quot;</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>body</span><span class=o>:</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=nx>COLLECTION_NAME</span> <span class=p>},</span>
@@ -218,7 +218,7 @@
 
     <span class=cm>/* ---------------------------- Insert Documents ---------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nb>document</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nb>document</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/document/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>body</span><span class=o>:</span> <span class=p>{</span> <span class=k>new</span><span class=o>:</span> <span class=kc>true</span> <span class=p>},</span>
@@ -230,7 +230,7 @@
 
     <span class=cm>/* ----------------------------- Read Documents ----------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>readDocument</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>readDocument</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/document/</span><span class=si>${</span><span class=nb>document</span><span class=p>.</span><span class=nx>_id</span><span class=si>}</span><span class=sb>`</span>
     <span class=p>);</span>
 
@@ -238,7 +238,7 @@
 
     <span class=cm>/* ---------------------------- Update Documents ---------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>updateDocument</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>updateDocument</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/document/</span><span class=si>${</span><span class=nb>document</span><span class=p>.</span><span class=nx>_id</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;PATCH&quot;</span><span class=p>,</span>
@@ -250,14 +250,14 @@
 
     <span class=cm>/* ----------------------------- Read Documents ----------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>updatedReadDocument</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>updatedReadDocument</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/document/</span><span class=si>${</span><span class=nb>document</span><span class=p>.</span><span class=nx>_id</span><span class=si>}</span><span class=sb>`</span>
     <span class=p>);</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DOCUMENT UPDATED READ SUCCESSFULLY&quot;</span><span class=p>,</span> <span class=nx>updatedReadDocument</span><span class=p>);</span>
 
     <span class=cm>/* ------------------------------- Delete Docs ------------------------------ */</span>
-    <span class=kr>const</span> <span class=nx>deletedDocument</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>deletedDocument</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/document/</span><span class=si>${</span><span class=nb>document</span><span class=p>.</span><span class=nx>_id</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span><span class=p>,</span>
@@ -266,7 +266,7 @@
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DOCUMENT DELETED SUCCESSFULLY&quot;</span><span class=p>,</span> <span class=nx>deletedDocument</span><span class=p>);</span>
 
     <span class=cm>/* --------------------------- Delete Collection. --------------------------- */</span>
-    <span class=kr>const</span> <span class=nx>deletedCollection</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>deletedCollection</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/collection/</span><span class=si>${</span><span class=nx>COLLECTION_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span> <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span> <span class=p>}</span>
     <span class=p>);</span>
@@ -547,13 +547,13 @@
 <span class=kr>const</span> <span class=nx>QUERY_NAME</span> <span class=o>=</span> <span class=s2>&quot;api_query_tutorial&quot;</span><span class=p>;</span>
 <span class=kr>const</span> <span class=nx>QUERY_PARAMS</span> <span class=o>=</span> <span class=p>{</span> <span class=s2>&quot;@collection&quot;</span><span class=o>:</span> <span class=s2>&quot;api_query_tutorial&quot;</span> <span class=p>};</span>
 
-<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=k>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+<span class=kr>const</span> <span class=nx>run</span> <span class=o>=</span> <span class=nx>async</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
   <span class=k>try</span> <span class=p>{</span>
     <span class=kr>const</span> <span class=nx>connection</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>APIRequest</span><span class=p>(</span><span class=nx>FEDERATION_URL</span><span class=p>);</span>
 
     <span class=cm>/* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>login</span><span class=p>(</span><span class=nx>EMAIL</span><span class=p>,</span> <span class=nx>PASSWORD</span><span class=p>);</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;Login Successfully using&quot;</span><span class=p>,</span> <span class=nx>EMAIL</span><span class=p>);</span>
 
@@ -561,7 +561,7 @@
 
     <span class=kr>const</span> <span class=nx>QUERY</span> <span class=o>=</span> <span class=s2>&quot;FOR doc IN @@collection RETURN doc&quot;</span><span class=p>;</span>
 
-    <span class=kr>const</span> <span class=nx>query</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=s2>&quot;/_fabric/_system/_api/restql&quot;</span><span class=p>,</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>query</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=s2>&quot;/_fabric/_system/_api/restql&quot;</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>query</span><span class=o>:</span> <span class=p>{</span>
           <span class=nx>name</span><span class=o>:</span> <span class=nx>QUERY_NAME</span><span class=p>,</span>
@@ -576,7 +576,7 @@
 
     <span class=cm>/* ----------------------- Updating a Restql Query (with params) ---------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>updatedQuery</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>updatedQuery</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/restql/</span><span class=si>${</span><span class=nx>QUERY_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
@@ -606,7 +606,7 @@
     <span class=kr>const</span> <span class=nx>INSERT_QUERY</span> <span class=o>=</span>
       <span class=s2>&quot;FOR i IN 1..100 INSERT { result: i } INTO @@collection&quot;</span><span class=p>;</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>id</span><span class=o>:</span> <span class=s2>&quot;tutorialQuery&quot;</span><span class=p>,</span>
         <span class=nx>query</span><span class=o>:</span> <span class=nx>INSERT_QUERY</span><span class=p>,</span>
@@ -617,7 +617,7 @@
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DOCUMENTS INSERTED SUCCESSFULLY&quot;</span><span class=p>);</span>
 
-    <span class=kr>const</span> <span class=nx>insertResults</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>execute</span><span class=p>();</span>
+    <span class=kr>const</span> <span class=nx>insertResults</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>execute</span><span class=p>();</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DATA AFTER INSERT&quot;</span><span class=p>,</span> <span class=nx>insertResults</span><span class=p>);</span>
 
@@ -625,7 +625,7 @@
     <span class=kr>const</span> <span class=nx>CURSOR_QUERY</span> <span class=o>=</span>
       <span class=s2>&quot;FOR doc IN @@collection FILTER doc.result &gt;= 35 UPDATE doc._key WITH { qualified :true } IN @@collection&quot;</span><span class=p>;</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>id</span><span class=o>:</span> <span class=s2>&quot;tutorialQuery&quot;</span><span class=p>,</span>
         <span class=nx>query</span><span class=o>:</span> <span class=nx>CURSOR_QUERY</span><span class=p>,</span>
@@ -635,7 +635,7 @@
     <span class=p>});</span>
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DOCUMENTS UPDATED SUCCESSFULLY&quot;</span><span class=p>);</span>
 
-    <span class=kr>const</span> <span class=nx>updateResults</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>execute</span><span class=p>();</span>
+    <span class=kr>const</span> <span class=nx>updateResults</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>execute</span><span class=p>();</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DATA AFTER UPDATE&quot;</span><span class=p>,</span> <span class=nx>updateResults</span><span class=p>);</span>
 
@@ -643,7 +643,7 @@
 
     <span class=kr>const</span> <span class=nx>REMOVE_QUERY</span> <span class=o>=</span> <span class=s2>&quot;FOR doc IN @@collection REMOVE doc IN @@collection&quot;</span><span class=p>;</span>
 
-    <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
+    <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span><span class=sb>`/_fabric/_system/_api/cursor`</span><span class=p>,</span> <span class=p>{</span>
       <span class=nx>body</span><span class=o>:</span> <span class=p>{</span>
         <span class=nx>id</span><span class=o>:</span> <span class=s2>&quot;tutorialQuery&quot;</span><span class=p>,</span>
         <span class=nx>query</span><span class=o>:</span> <span class=nx>REMOVE_QUERY</span><span class=p>,</span>
@@ -654,13 +654,13 @@
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DOCUMENTS DELETED SUCCESSFULLY&quot;</span><span class=p>);</span>
 
-    <span class=kr>const</span> <span class=nx>removeResults</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>execute</span><span class=p>();</span>
+    <span class=kr>const</span> <span class=nx>removeResults</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>execute</span><span class=p>();</span>
 
     <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;DATA AFTER DELETE&quot;</span><span class=p>,</span> <span class=nx>removeResults</span><span class=p>);</span>
 
     <span class=cm>/* ----------------------------- Delete RESTQL Query with Name ----------------------------- */</span>
 
-    <span class=kr>const</span> <span class=nx>deleteQuery</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
+    <span class=kr>const</span> <span class=nx>deleteQuery</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>connection</span><span class=p>.</span><span class=nx>req</span><span class=p>(</span>
       <span class=sb>`/_fabric/_system/_api/restql/</span><span class=si>${</span><span class=nx>QUERY_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span>
       <span class=p>{</span>
         <span class=nx>method</span><span class=o>:</span> <span class=s2>&quot;DELETE&quot;</span><span class=p>,</span>
