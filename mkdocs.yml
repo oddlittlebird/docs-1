@@ -6,8 +6,8 @@ site_description: Access data instantly across the globe in your Apps & APIs for
 site_hero_title: Macrometa API Documentation
 
 # Repository
-repo_name: docs
-repo_url: https://github.com/Macrometacorp/docs
+# repo_name: docs
+# repo_url: https://github.com/Macrometacorp/docs
 edit_uri: edit/master/docs/
 
 # Copyright
