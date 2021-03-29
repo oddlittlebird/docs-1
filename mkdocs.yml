@@ -309,5 +309,5 @@ nav:
 
 # Google Analytics
 google_analytics:
-  - !!python/object/apply:os.getenv ["G-0TFS1L4DQ8"]
+  - G-0TFS1L4DQ8
   - auto
