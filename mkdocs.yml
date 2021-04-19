@@ -108,7 +108,7 @@ nav:
     - Quickstart: quickstart.md
     - Essentials: essentials.md
     - Authentication: authentication.md
-    - Quotas: quotas.md
+    - Quotas and Limits: quotas.md
     - Drivers: apikeys.md
     - Credits: credits.md
   - Collections:
