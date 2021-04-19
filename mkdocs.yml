@@ -299,8 +299,8 @@ nav:
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Polling App (Gatsby): demos/jamstack-gatsby.md
-    - Task Tracking App (Netlify): demos/task-tracking.md
-    - Castle Knight Game: demos/castle-knight.md
+    # - Task Tracking App (Netlify): demos/task-tracking.md
+    # - Castle Knight Game: demos/castle-knight.md
     - Oxford Economics: demos/streamlit-oxford.md
     - Dynamo Mode: demos/dynamo.md
     - C8QL Examples: demos/c8ql-examples.md
