@@ -7,7 +7,7 @@ Macrometa GDN is a `geo-distribued real time coordination-free materialized view
 
 In GDN, each document stored in a collection (aka table) contains a primary key `_key`. The rest of the document is considered as value. In the absence of any additional `secondary indexes` on the collection, the collection behaves like a simple key/value store.
 
-The key-value store has no query languages. The permissible operations are `key lookups` (single & batch gets) and key/value pair `inserts`, `updates` and `deletes`. If no sharding attribute is speficed then `_key` is used for sharding the data. The simplicity of this model makes a key-value store fast, easy to use, scalable, portable and flexible.
+The key-value store has no query languages. The permissible operations are `key lookups` (single & batch gets) and key/value pair `inserts`, `updates` and `deletes`. If no sharding attribute is specified then `_key` is used for sharding the data. The simplicity of this model makes a key-value store fast, easy to use, scalable, portable and flexible.
 
 You can enable `time_to_live (TTL)` during collection creation and use `expireAt` field to specify the expiration time for each document in the KV collection. 
 
