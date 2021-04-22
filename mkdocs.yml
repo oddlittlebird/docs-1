@@ -294,6 +294,7 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
+    - Working with Cloudflare Workers: demos/cloudflare-workers.md
     - Bookstore: demos/cf-bookstore.md
     - Fashion Store (Wavelength 5G): demos/fashionstore-wavelength.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
