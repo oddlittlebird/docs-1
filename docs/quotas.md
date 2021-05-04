@@ -9,7 +9,7 @@ This page describes the rate limits for all PaaS GDN customers. Each quota appli
 
 | Name | Quota |
 |-----|--------|
-| Max Request Per Minute Per Region | 60 |
+| Max Request Per Minute Per Region | 200 |
 | Max Document Size | 400 KB |
 | Max Documents per Query | 1000 |
 | Max Query Execution Time In Ms | 10000 |
