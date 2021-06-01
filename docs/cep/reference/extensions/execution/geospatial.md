@@ -49,3 +49,24 @@ This extension provides geo data related functionality such as checking whether 
     This function can be call using two sets of parameters.
     First method will returns true if the incoming event geo.json.geometry equals the given geo.json.geometryFence. Returns false otherwise.
     Second method will return true if the location pointed by longitude and latitude equals the given geo.json.geometryFence. Returns false otherwise.
+    
+* **[closestPoints (Stream Function)](#closestPoints)**
+
+    This will return the closest geo point to the geo.json.geometry.fence 
+    
+* **[locationApproximate (Stream Function)](#locationApproximate)**
+
+    Geo Location Approximation compute the average location of the locationRecorder using the collection iBeacons which the location recorder resides. 
+
+* **[crosses (Stream Processor)](#crosses)**
+
+    This will return true when the the specified object of which the location is specified in terms of longitude and latitude crosses the geographic location specified in         geo.json.geometry.fence. Returns false when the object crosses out of the location specified in geo.json.geometry.fence
+ Or Returns true when the object (i.e. geo.json.geometry) crosses the specified geographic location (i.e. geo.json.geometry.fence). Returns false when the object crosses out of  geo.json.geometry.fence. 
+ 
+ * **[proximity  (Stream Processor)](#proximity)**
+
+   This will return true when two objects (specified in terms of longitude and latitude) are within the specified radius to another object. Returns false when the specified object moves out of the specified radius. The proximityWith optional attribute indicates the ID of the object that the object specified is in close proximity with. proximityID is a unique ID for the two objects in close proximity. 
+   
+ * **[stationary (Stream Processor)](#proximity)**
+
+   This will return true when the object (defined in terms of longitude and latitude) becomes stationary within the specified radius. Returns false when the object moves out of the specified radius.
