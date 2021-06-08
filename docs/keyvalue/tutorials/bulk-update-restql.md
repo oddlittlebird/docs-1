@@ -113,6 +113,7 @@ Let's assume your
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
     const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FABRIC_NAME = "_system";
     const COLLECTION_NAME = "superhero";
 
     //Variables
@@ -147,7 +148,7 @@ Let's assume your
             console.log("Login Successfully using", EMAIL);
 
             /* -------------------------- Create Doc Collection ------------------------- */
-            const collection = await connection.req(`/_fabric/_system/_api/kv/${COLLECTION_NAME}`, {
+            const collection = await connection.req(`/_fabric/${FABRIC_NAME}/_api/kv/${COLLECTION_NAME}`, {
                 body: { stream: false },
                 method: "POST",
             });
@@ -156,7 +157,7 @@ Let's assume your
 
             /* ------------------------ Saving a Restql Query ----------------------- */
             const saveRestQlQuery = (queryName, query, parameter) =>
-                connection.req("/_fabric/_system/_api/restql", {
+                connection.req(`/_fabric/${FABRIC_NAME}/_api/restql`, {
                     body: {
                         query: {
                             name: queryName,
@@ -176,7 +177,7 @@ Let's assume your
 
             /* ----------------------- Executing a Restql Query ---------------------- */
             const executeRestql = (queryName, parameter) =>
-                connection.req(`/_fabric/_system/_api/restql/execute/${queryName}`, {
+                connection.req(`/_fabric/${FABRIC_NAME}/_api/restql/execute/${queryName}`, {
                     body: {
                         bindVars: parameter,
                     },
@@ -310,7 +311,7 @@ Let's assume your
     ``` js
     const jsc8 = require('jsc8');
 
-    // Crete a authenticated instance with Token / Apikey
+    // Create a authenticated instance with Token / Apikey
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
     const client = new jsc8("https://gdn.paas.macrometa.io");
