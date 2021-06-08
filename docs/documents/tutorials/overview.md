@@ -40,7 +40,7 @@ Following tutorials cover various user scenarios using Macrometa GDN.
 * [Enriching Data](../../cep/tutorials/enriching-data.md)
 * [Correlating Data](../../cep/tutorials/correlating-data.md)
 * [Summarizing Data](../../cep/tutorials/summarizing-data.md)
-* [Triggering Flows](cep/triggering-flows.md)
+<!-- * [Triggering Flows](cep/triggering-flows.md) -->
 * [Publishing Data](../../cep/tutorials/publishing-data.md)
 * [Executing Scripts](../../cep/tutorials/executing-scripts.md)
 
