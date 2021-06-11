@@ -159,18 +159,19 @@ nav:
         - Graph Queries: graphs/tutorials/graph-queries.md
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
-  # - Search:
-  #   - Quick Start: search/quickstart.md
-  #   - Concepts: search/concepts.md
-  #   - Tutorials:
-  #     - Using Rest API: documents/tutorials/using_rest_api.md
-  #     - C8QL Tutorial: c8ql/c8ql-tutorial.md
-  #     - C8QL Examples: c8ql/examples.md
+  - Search:
+    - Quick Start: search/quickstart.md
+    - Concepts: search/concepts.md
+    - Tutorials:
+      - Using Rest API: documents/tutorials/using_rest_api.md
+      - C8QL Tutorial: c8ql/c8ql-tutorial.md
+      - C8QL Examples: c8ql/examples.md
   - Query Workers:
     - Concepts: restql/concepts.md
-    - RestQL Tutorial: restql/tutorial.md
-    - C8QL Tutorial: c8ql/c8ql-tutorial.md
-    - C8QL Examples: c8ql/examples.md
+    - Tutorials:
+      - RestQL Tutorial: restql/tutorial.md
+      - C8QL Tutorial: c8ql/c8ql-tutorial.md
+      - C8QL Examples: c8ql/examples.md
   - Streams:
     - Quick Start: streams/quickstart.md
     - Concepts: streams/concepts.md
