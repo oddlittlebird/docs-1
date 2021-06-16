@@ -160,7 +160,7 @@ nav:
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
   - Search:
-    - Quick Start: search/quickstart.md
+    # - Quick Start: search/quickstart.md
     - Concepts: search/concepts.md
     - Tutorials:
       - Using Rest API: documents/tutorials/using_rest_api.md
