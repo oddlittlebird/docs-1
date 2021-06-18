@@ -114,14 +114,16 @@ nav:
   - Collections:
     - Key Value:
       - Quick Start: keyvalue/quickstart.md
-      - Using Rest API: keyvalue/tutorials/using-rest-api.md
       - Tutorials:
-        - ToDo App (CloudFlare): keyvalue/tutorials/todo-app-cfworkers.md
+        - Using Rest API: keyvalue/tutorials/using-rest-api.md
+        - Bulk Update with RestQL: keyvalue/tutorials/bulk-update-restql.md
+        # - ToDo App (CloudFlare): keyvalue/tutorials/todo-app-cfworkers.md
     - Documents:
       - Quick Start: documents/quickstart.md
       - Tutorials:
         - Using Rest API: documents/tutorials/using_rest_api.md
         - Working with Documents: documents/tutorials/working-with-documents.md
+        - Bulk Update with RestQL: documents/tutorials/bulk-update-restql.md
         - Realtime Updates: documents/tutorials/using-realtime-updates.md
         - Spot Collections: documents/tutorials/using-spotcollections.md
         - Maps, Sets, SortedSets: documents/tutorials/maps_sets_sortedsets.md
@@ -191,7 +193,7 @@ nav:
       - Summarizing Data: cep/tutorials/summarizing-data.md
       - Correlating Data: cep/tutorials/correlating-data.md
       - Publishing Data: cep/tutorials/publishing-data.md
-      - Triggering Flows: cep/tutorials/routing-data.md
+    #  - Triggering Flows: cep/tutorials/routing-data.md
       - Executing Scripts: cep/tutorials/executing-scripts.md
     - Reference:
       - Overview: cep/reference/overview.md
