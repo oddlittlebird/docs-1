@@ -7,11 +7,11 @@ site_hero_title: Macrometa API Documentation
 
 # Repository
 # repo_name: docs
-# repo_url: https://github.com/Macrometacorp/docs
+repo_url: https://github.com/Macrometacorp/docs
 edit_uri: edit/master/docs/
 
 # Copyright
-copyright: Copyright &copy; 2016 - 2021 Macrometa Corp
+copyright: Copyright &copy; 2017 - 2021 Macrometa Corp
 
 # Configuration
 theme:
