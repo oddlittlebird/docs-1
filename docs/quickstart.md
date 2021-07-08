@@ -13,7 +13,7 @@ We are going to walk through 4 steps:
 - Save the query (A saved query is called a Query Worker).
 - Execute the Query Worker!
 
-First things first, if you don't already have a Macrometa account go create a [free](https://macrometa.co/start) one and mosey on back.
+First things first, if you don't already have a Macrometa account go create a [free](https://auth.paas.macrometa.io/signup) one and mosey on back.
 
 ## Step 1: Create a Collection
 
