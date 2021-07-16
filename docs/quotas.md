@@ -9,12 +9,11 @@ This page describes the rate limits for all PaaS GDN customers. Each quota appli
 
 | Name | Quota |
 |-----|--------|
-| Max Request Per Minute Per Region | 500 |
+| Max Request Per Minute Per Region | 2000 |
 | Max Document Size | 500 KB |
 | Max Documents per Query | 1000 |
 | Max Query Execution Time In Ms | 10000 |
 | Max Memory per Query | 256 MB |
-| Max Indexes per Fabric | 10 | 
 
 ## Free Tier Tenants
 
@@ -22,5 +21,6 @@ All free developer accounts have the following additional rate limits. **Please 
 
 | Name | Quota |
 |-----|--------|
+| Max Request Per Minute Per Region | 500 |
 | Max Requests per Day | 20,000  |
 | Max Storage per Day | 200 MB |
