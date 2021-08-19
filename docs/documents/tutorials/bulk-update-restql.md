@@ -312,8 +312,8 @@ Let's assume your
     const jsc8 = require('jsc8');
 
     // Create a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName: '_system'});
+    // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName: '_system'});
     const client = new jsc8("https://gdn.paas.macrometa.io");
 
     //Variables

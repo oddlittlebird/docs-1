@@ -164,8 +164,8 @@ Let's assume your
     ];
 
     // Crete a authenticated instance with Token / Apikey
-    // const client = new jsc8({url: global_url, token: "XXXX", fabricName= '_system'});
-    // const client = new jsc8({url: global_url, apikey: "XXXX", fabricName= '_system'});
+    // const client = new jsc8({url: global_url, token: "XXXX", fabricName: '_system'});
+    // const client = new jsc8({url: global_url, apikey: "XXXX", fabricName: '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
@@ -233,8 +233,8 @@ Let's assume your
       console.log("\n 6. CHECK_IF_IP_ALLOWED_GLOBALLY");
       for (let i = 0; i < region_urls.length; i++) { 
           // Crete a authenticated instance with Token / Apikey
-          // const regionclient = new jsc8({url: region_urls[i], token: "XXXX", fabricName= '_system'});
-          // const regionclient = new jsc8({url: region_urls[i], apikey: "XXXX", fabricName= '_system'});
+          // const regionclient = new jsc8({url: region_urls[i], token: "XXXX", fabricName: '_system'});
+          // const regionclient = new jsc8({url: region_urls[i], apikey: "XXXX", fabricName: '_system'});
           // await console.log("Authentication done!!...");
 
           // Or use Email & Password to Authenticate client instance

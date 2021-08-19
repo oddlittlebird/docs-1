@@ -24,7 +24,7 @@ client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
 
 ```js
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "", fabricName: '_system'});
 await client.login("nemo@nautilus.com", "xxxxxx");
 ```
 
@@ -45,7 +45,7 @@ client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, toke
 
 ``` js
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "xxxxxx", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "xxxxxx", fabricName: '_system'});
 ```
 
 ## API Keys
@@ -69,7 +69,7 @@ client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, apik
 
 ``` js
 const jsc8 = require("jsc8");
-const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "xxxxx", fabricName= '_system'});
+const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "xxxxx", fabricName: '_system'});
 ```
 
 !!! note
