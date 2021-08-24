@@ -125,7 +125,7 @@ nav:
         - Working with Documents: documents/tutorials/working-with-documents.md
         - Bulk Update with RestQL: documents/tutorials/bulk-update-restql.md
         - Realtime Updates: documents/tutorials/using-realtime-updates.md
-        - Spot Collections: documents/tutorials/using-spotcollections.md
+        # - Spot Collections: documents/tutorials/using-spotcollections.md
         - Maps, Sets, SortedSets: documents/tutorials/maps_sets_sortedsets.md
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
