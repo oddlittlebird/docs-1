@@ -10,7 +10,7 @@ Following tutorials cover various user scenarios using Macrometa GDN.
 * [Working with Documents](working-with-documents.md)
 * [Using C8QL](../../docs/c8ql/fundamentals.md)
 * [Coming from SQL](../../docs/c8ql/coming-from-sql.md)
-* [Using Spot Collections](using-spotcollections.md)
+<!-- * [Using Spot Collections](using-spotcollections.md) -->
 * [Using Realtime DB](using-realtime-updates.md)
 
 ## Geo Spatial

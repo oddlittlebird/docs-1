@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Macrometa GDN is a `geo-distribued real time coordination-free materialized views engine` supporting multiple data models.
+Macrometa GDN is a `geo-distributed real time coordination-free materialized views engine` supporting multiple data models.
 
 Typically when you choose a database or stream or stream processing system today, you’re not choosing one piece of technology, you’re actually choosing three: `storage technology`, `data model`, and `API/query` language.
 
@@ -12,7 +12,7 @@ Typically when you choose a database or stream or stream processing system today
 
 Document databases, Graph databases, Key-Value, Pub-Sub Streams, Queues etc. all make sense in the right context, and often different parts of an application call for different choices. This creates a tough decision: Use a whole new database or new streaming system to support a new data model, or try to shoehorn data into your existing database or messaging system.
 
-Macrometa GDN uses layered concept and decouples its data storage technology from its data model. GDN core realtime materialized views and log storage technology can be efficiently adapted and remapped to a broad array of rich data models and streams.
+Macrometa GDN uses layered concept and decouples its data storage technology from its data model. GDN core real-time materialized views and log storage technology can be efficiently adapted and remapped to a broad array of rich data models and streams.
 
 ![GDN Internals](images/macrometa-internals.png)
 
@@ -37,7 +37,7 @@ Macrometa Global Data Network (GDN) provides following data models & capabilitie
 
 > GDN sits across several locations/pops around the globe and present one unified view.
 
-**Realtime Data:** When your app polls for data, it becomes slow, unscalable, and cumbersome to maintain. Macrometa GDN makes building realtime apps dramatically easier. The GDN  can push data to applications in realtime across multiple data centers. It dramatically reduces the time and effort necessary to build scalable realtime apps.
+**Real-time Data:** When your app polls for data, it becomes slow, unscalable, and cumbersome to maintain. Macrometa GDN makes building real-time apps dramatically easier. The GDN  can push data to applications in real-time across multiple data centers. It dramatically reduces the time and effort necessary to build scalable real-time apps.
 
 ## Fabrics
 
@@ -51,9 +51,10 @@ A fabric contains the following:
 
 * **Collections** - are a grouping of JSON documents and are like tables in a RDBMS. You can create any number of collections in a geo fabric. And a collection can have any number of documents. A collection can be a `kv` or `document` collection.
 * **Graphs** - consists of vertices and edges. Edges are stored as documents in edge collections. A vertex can be a document of a document collection or of an edge collection (so edges can be used as vertices).
+* **Search** - A full-text search engine for information retrieval on one or more linked collections. Also referred to as a `View`.
 * **Streams** - are a type of collection that capture data in motion. Streams support both pub-sub and queuing models. Messages are sent via streams by publishers to consumers who then do something with the message.
-* **Stream Processors** - to perform complex event processing in realtime on streams.
-* **Search** - A full-text search engine for information retrieval on one or more linked collections.
+* **Stream Processors** - to perform complex event processing in real-time on streams.
+
 
 ## Collections
 
@@ -61,11 +62,15 @@ A collection contains zero or more documents. If you are familiar with relationa
 
 Macrometa GDN is schema-less, which means that there is no need to define what attributes a document can have. Every single document can have a completely different structure and still be stored together with other documents in a single collection. In practice, there will be common denominators among the documents in a collection, but the GDN itself doesn’t force you to limit yourself to a certain data structure.
 
-There are 3 types of collections: 
+There are 2 types of collections: 
 
- * **Document Collections** - Also refered to as vertex collections in the context of graphs.
+ * **Document Collections** - Also referred to as vertex collections in the context of graphs. These collections can be created as local or global collections
+
+    * A `local` collection stores its data in one region and does not replicate to other regions. You can create a local collection in any region. If you are working with local collections it's a best practice to use a region specific API endpoint when interacting with this collection type. If you use the Global URL and a user is routed to a region that does not contain the local collection the request will fail.
+
+    * A `global` collection replicates its data while also maintaining state and consistency across all regions in your fabric. 
+
  * **Edge Collections** - Edge collections store documents as well, but they include two special attributes, _from and _to, which are used to create relations between documents. 
- * **Spot collections** - These are collections that automatically centralize the data and execution on that data. This is most useful when strong consistency is needed across all regions.
  
 Usually, two documents (vertices) stored in document collections are linked by a document (edge) stored in an edge collection. This is GDN graph data model. It follows the mathematical concept of a directed, labeled graph, except that edges don’t just have labels, but are full-blown documents.
 
@@ -79,7 +84,7 @@ Similarly fabrics may also contain view entities. A `View` in its simplest form 
 
 In GDN, each document stored in a collection contains a primary key `_key`. The rest of the document is considered as value. In the absence of any additional secondary indexes on the collection, the collection behaves like a simple key/value store.
 
-The only operations that are possible in KV context are key lookups (single & batch gets) and key/value pair insertions and updates. If no sharding attribute is speficed then `_key` is used for sharding the data.
+The only operations that are possible in KV context are key lookups (single & batch gets) and key/value pair insertions and updates. If no sharding attribute is specified then `_key` is used for sharding the data.
 
 You can specify time_to_live (TTL) as part of KV collection creation. 
 
@@ -143,7 +148,7 @@ Its value should be treated as opaque, no guarantees regarding its format and pr
 !!! note 
     Different servers in cluster might have a clock skew, and therefore between different shards or even between different collections the time stamps are not guaranteed to be comparable. The Hybrid Logical Clock feature does one thing to address this issue: Whenever a message is sent from a node in cluster to another node, it is ensured that any timestamp taken on second node after the message has arrived is greater than any timestamp taken on first node before the message was sent. 
 
-The above ensures that if there is some **causality** between events on different servers, time stamps increase from cause to effect. A direct consequence of this is that sometimes a server has to take timestamps that seem to come from the future of its own clock. It will however still produce ever increasing timestamps. If the clock skew is small, then your timestamps will relatively accurately describe the time when the document revision was actually written.
+The above ensures that if there is some **causality** between events on different servers, time stamps increase from cause to effect. A direct consequence of this is that sometimes a server has to take timestamps that seem to come from the future of its own clock. It will however still produce ever increasing time stamps. If the clock skew is small, then your time stamps will relatively accurately describe the time when the document revision was actually written.
 
 GDN uses 64bit unsigned integer values to maintain document revisions internally. At this stage we intentionally do not document the exact format of the revision values. When returning document revisions to clients, C8 will put them into a string to ensure the revision is not clipped by clients that do not support big integers. 
 
@@ -222,7 +227,7 @@ Consumers are grouped together for consuming messages. Each group of consumers i
 
 ## Stream Processing
 
-GDN is fundamentally a realtime materialized view engine. Streams & stream processing are intregral part of GDN. Stream processing feature provides users geo-replicated stream data processing capabilities to integrate streaming data and takes action based on streaming data.
+GDN is fundamentally a real-time materialized view engine. Streams & stream processing are intregral part of GDN. Stream processing feature provides users geo-replicated stream data processing capabilities to integrate streaming data and takes action based on streaming data.
 
 ![GDN Essentials](images/gdn-cep-overview.png)
 
@@ -234,7 +239,7 @@ The stream processing can be used for
 * `Cleaning data` by filtering it and by modifying the content (e.g., obfuscating) in messages.
 * `Deriving insights` by identifying interesting patterns and sequences of events in data streams.
 * `Summarizing data` as and when it is generated using temporal windows and incremental time series aggregations.
-* `Realtime ETL` for Collections, tailing files, scraping HTTP Endpoints, etc.
+* `Real-time ETL` for Collections, tailing files, scraping HTTP Endpoints, etc.
 * `Streaming Integrations` i.e., integrating streaming data as well as trigger actions based on data streams. The action can be a single request to a service or a complex enterprise integration flow.
 
 ## RestQL (Query as API)
