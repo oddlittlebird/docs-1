@@ -4,13 +4,13 @@
 
 | **Tenant** | **Fabric** | **Stream App** | **GUI** | **Source Code**|
 |----------- |----------|----|-----------|-----------|
-|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](http://crypto.gdn1.s3-website-us-east-1.amazonaws.com/) |[github](https://github.com/Macrometacorp/tutorial-cryptotrading)|
+|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](https://macrometacorp.github.io/tutorial-cryptotrading/) |[github](https://github.com/Macrometacorp/tutorial-cryptotrading)|
 
 ### On GDN (Wavelength 5G)
 
 | **Tenant** | **Fabric** | **Stream App** | **GUI** | **Source Code**|
 |----------- |----------|----|-----------|-----------|
-|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](http://crypto.gdn3.s3-website-us-west-1.amazonaws.com) |
+|  `demo@macrometa.io` | `_system` | `crypto-trading-app` | [**Crypto Trading GUI**](https://macrometacorp.github.io/demo-crypto-trading-5g/) |
 
 **Stream App:**
 
