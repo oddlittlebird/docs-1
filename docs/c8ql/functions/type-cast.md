@@ -3,7 +3,7 @@ Type check and cast functions
 
 Some operators expect their operands to have a certain data type. For example, logical operators expect their operands to be boolean values, and the arithmetic operators expect their operands to be numeric values. If an operation is performed with operands of other types, an automatic conversion to the expected types is tried. This is called implicit type casting. It helps to avoid query aborts.
 
-Type casts can also be performed upon request by invoking a type cast function. This is called explicit type casting. AQL offers several functions for this. Each of the these functions takes an operand of any data type and returns a result value with the type corresponding to the function name. For example, *TO_NUMBER()* will return a numeric value.
+Type casts can also be performed upon request by invoking a type cast function. This is called explicit type casting. C8QL offers several functions for this. Each of the these functions takes an operand of any data type and returns a result value with the type corresponding to the function name. For example, *TO_NUMBER()* will return a numeric value.
 
 Type casting functions
 ----------------------
@@ -122,7 +122,7 @@ This is an alias for [TO_ARRAY()](#to_array).
 Type check functions
 --------------------
 
-AQL also offers functions to check the data type of a value at runtime. The following type check functions are available. Each of these functions takes an argument of any data type and returns true if the value has the type that is checked for, and false otherwise.
+C8QL also offers functions to check the data type of a value at runtime. The following type check functions are available. Each of these functions takes an argument of any data type and returns true if the value has the type that is checked for, and false otherwise.
 
 ### IS_NULL()
 
