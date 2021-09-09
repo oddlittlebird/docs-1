@@ -231,7 +231,7 @@ will match.
 
 The TTL index type provided by GDN can be used for removing expired documents from a collection.
 
-The TTL index is set up by setting an `expireAfter` value and by selecting a single document attribute which contains a reference point in time. For each document, that reference point in time can then be specified as a numeric timestamp (Unix timestamp) or a date string in format `YYYY-MM-DDTHH:MM:SS` with optional milliseconds and an optional timezone offset.
+The TTL index is set up by setting an `expireAfter` value and by selecting a single document attribute which contains a reference point in time. For each document, that reference point in time can then be specified as a numeric timestamp (Unix timestamp) or a date string in format `YYYY-MM-DDTHH:MM:SS` with an optional timezone offset.
 
 All date strings without a timezone offset will be interpreted as UTC dates.
 
@@ -253,16 +253,16 @@ Let's further assume the following document now gets inserted into the collectio
     { "creationDate" : 1550165973 }
 ```
 
-This document will be indexed with a reference point in time value of `1550165973`, which translates to the human-readable date/time `2019-02-14T17:39:33.000Z`. The document will expire 600 seconds afterwards, which is at timestamp `1550166573` (or `2019-02-14T17:49:33.000Z` in the human-readable version). From that point on, the document is a candidate for being removed.
+This document will be indexed with a reference point in time value of `1550165973`, which translates to the human-readable date/time `2019-02-14T17:39:33Z`. The document will expire 600 seconds afterwards, which is at timestamp `1550166573` (or `2019-02-14T17:49:33Z` in the human-readable version). From that point on, the document is a candidate for being removed.
 
 The numeric date time values for the index attribute need to be specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current timestamp using JavaScript in this format, use: `Date.now() / 1000`. To calculate it from an arbitrary `Date` instance, use: `Date.getTime() / 1000`. In C8QL, you also have to divide the timestamp, e.g. `DATE_NOW() / 1000`.
 
-Alternatively, the reference points in time can be specified as a date string in format `YYYY-MM-DDTHH:MM:SS` with optional milliseconds, and an optional timezone offset. All date strings without a timezone offset will be interpreted as UTC dates.
+Alternatively, the reference points in time can be specified as a date string in format `YYYY-MM-DDTHH:MM:SS` with and an optional timezone offset. All date strings without a timezone offset will be interpreted as UTC dates.
   
 The above example document using a date string attribute value would be
 
 ```json
-    { "creationDate" : "2019-02-14T17:39:33.000Z" }
+    { "creationDate" : "2019-02-14T17:39:33Z" }
 ```
 
 Now any data-modification access to the document could update the value in the document's `creationDate` attribute to the current date/time, which would prolong the existence of the document and keep it from being expired and removed. 
@@ -291,7 +291,7 @@ It should be intuitive to see that the `expireDate` can be different per documen
 
 ### Format of date/time values
 
-The expiration date time values can be specified either as a numeric timestamp, containing the number of milliseconds since January 1st 1970 (commonly referred to as Unix timestamp), or as a date/time string in ISO 8601 format `YYYY-MM-DDTHH:MM:SS`, with optional millisecond precision and an optional timezone offset. The timezone offset can be specified as either `Z` (Zulu/UTC time) or as a deviation from UTC time in hours and minutes (i.e. `+HH:MM` or `-HH:MM`).
+The expiration date time values can be specified either as a numeric timestamp, containing the number of milliseconds since January 1st 1970 (rounded down to the nearest second), or as a date/time string in ISO 8601 format `YYYY-MM-DDTHH:MM:SS` with an optional timezone offset. The timezone offset can be specified as either `Z` (Zulu/UTC time) or as a deviation from UTC time in hours and minutes (i.e. `+HH:MM` or `-HH:MM`).
 
 Valid example date string values are:
 
