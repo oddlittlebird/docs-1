@@ -24,3 +24,7 @@ All free developer accounts have the following additional rate limits. **Please 
 | Max Request Per Minute Per Region | 500 |
 | Max Requests per Day | 20,000  |
 | Max Storage per Day | 200 MB |
+| Max Collections per Fabric | 10 |
+| Max Graphs per Fabric | 10  |
+| Max Views per Fabric | 10  |
+| Max Storage per Day | 200 MB |
