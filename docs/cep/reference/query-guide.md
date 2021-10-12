@@ -954,24 +954,24 @@ Following are some inbuilt Stream functions, for more functions refer [Functions
 
 |Inbuilt function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../api/latest/#eventtimestamp-function">eventTimestamp</a> | Returns event's timestamp. |
-| <a target="_blank" href="../api/latest/#currenttimemillis-function">currentTimeMillis</a> | Returns current time of StreamApp runtime. |
-| <a target="_blank" href="../api/latest/#default-function">default</a> | Returns a default value if the parameter is null. |
-| <a target="_blank" href="../api/latest/#ifthenelse-function">ifThenElse</a> | Returns parameters based on a conditional parameter. |
-| <a target="_blank" href="../api/latest/#uuid-function">UUID</a> | Generates a UUID. |
-| <a target="_blank" href="../api/latest/#cast-function">cast</a> | Casts parameter type. |
-| <a target="_blank" href="../api/latest/#convert-function">convert</a> | Converts parameter type. |
-| <a target="_blank" href="../api/latest/#coalesce-function">coalesce</a> | Returns first not null input parameter. |
-| <a target="_blank" href="../api/latest/#maximum-function">maximum</a> | Returns the maximum value of all parameters. |
-| <a target="_blank" href="../api/latest/#minimum-function">minimum</a> | Returns the minimum value of all parameters. |
-| <a target="_blank" href="../api/latest/#instanceofboolean-function">instanceOfBoolean</a> | Checks if the parameter is an instance of Boolean. |
-| <a target="_blank" href="../api/latest/#instanceofdouble-function">instanceOfDouble</a> | Checks if the parameter is an instance of Double. |
-| <a target="_blank" href="../api/latest/#instanceoffloat-function">instanceOfFloat</a> | Checks if the parameter is an instance of Float. |
-| <a target="_blank" href="../api/latest/#instanceofinteger-function">instanceOfInteger</a> | Checks if the parameter is an instance of Integer. |
-| <a target="_blank" href="../api/latest/#instanceoflong-function">instanceOfLong</a> | Checks if the parameter is an instance of Long. |
-| <a target="_blank" href="../api/latest/#instanceofstring-function">instanceOfString</a> | Checks if the parameter is an instance of String. |
-| <a target="_blank" href="../api/latest/#createset-function">createSet</a> | Creates  HashSet with given input parameters. |
-| <a target="_blank" href="../api/latest/#minimum-function">sizeOfSet</a> | Returns number of items in the HashSet, that's passed as a parameter. |
+| <a target="_blank" href="../functions/#eventtimestamp-function">eventTimestamp</a> | Returns event's timestamp. |
+| <a target="_blank" href="../functions/#currenttimemillis-function">currentTimeMillis</a> | Returns current time of StreamApp runtime. |
+| <a target="_blank" href="../functions/#default-function">default</a> | Returns a default value if the parameter is null. |
+| <a target="_blank" href="../functions/#ifthenelse-function">ifThenElse</a> | Returns parameters based on a conditional parameter. |
+| <a target="_blank" href="../functions/#uuid-function">UUID</a> | Generates a UUID. |
+| <a target="_blank" href="../functions/#cast-function">cast</a> | Casts parameter type. |
+| <a target="_blank" href="../functions/#convert-function">convert</a> | Converts parameter type. |
+| <a target="_blank" href="../functions/#coalesce-function">coalesce</a> | Returns first not null input parameter. |
+| <a target="_blank" href="../functions/#maximum-function">maximum</a> | Returns the maximum value of all parameters. |
+| <a target="_blank" href="../functions/#minimum-function">minimum</a> | Returns the minimum value of all parameters. |
+| <a target="_blank" href="../functions/#instanceofboolean-function">instanceOfBoolean</a> | Checks if the parameter is an instance of Boolean. |
+| <a target="_blank" href="../functions/#instanceofdouble-function">instanceOfDouble</a> | Checks if the parameter is an instance of Double. |
+| <a target="_blank" href="../functions/#instanceoffloat-function">instanceOfFloat</a> | Checks if the parameter is an instance of Float. |
+| <a target="_blank" href="../functions/#instanceofinteger-function">instanceOfInteger</a> | Checks if the parameter is an instance of Integer. |
+| <a target="_blank" href="../functions/#instanceoflong-function">instanceOfLong</a> | Checks if the parameter is an instance of Long. |
+| <a target="_blank" href="../functions/#instanceofstring-function">instanceOfString</a> | Checks if the parameter is an instance of String. |
+| <a target="_blank" href="../functions/#createset-function">createSet</a> | Creates  HashSet with given input parameters. |
+| <a target="_blank" href="../functions/#minimum-function">sizeOfSet</a> | Returns number of items in the HashSet, that's passed as a parameter. |
 
 **Example**
 
@@ -1043,18 +1043,18 @@ Following are some inbuilt Stream windows, for more windows refer [execution ext
 
 |Inbuilt function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../api/latest/#time-window">time</a> | Retains events based on time in a sliding manner.|
-| <a target="_blank" href="../api/latest/#timebatch-window">timeBatch</a> | Retains events based on time in a tumbling/batch manner. |
-| <a target="_blank" href="../api/latest/#length-window">length</a> | Retains events based on number of events in a sliding manner. |
-| <a target="_blank" href="../api/latest/#lengthbatch-window">lengthBatch</a> | Retains events based on number of events in a tumbling/batch manner. |
-| <a target="_blank" href="../api/latest/#timelength-window">timeLength</a> | Retains events based on time and number of events in a sliding manner. |
-| <a target="_blank" href="../api/latest/#session-window">session</a> | Retains events for each session based on session key. |
-| <a target="_blank" href="../api/latest/#batch-window">batch</a> | Retains events of last arrived event chunk. |
-| <a target="_blank" href="../api/latest/#sort-window">sort</a> | Retains top-k or bottom-k events based on a parameter value. |
-| <a target="_blank" href="../api/latest/#cron-window">cron</a> | Retains events based on cron time in a tumbling/batch manner. |
-| <a target="_blank" href="../api/latest/#externaltime-window">externalTime</a> | Retains events based on event time value passed as a parameter in a sliding manner.|
-| <a target="_blank" href="../api/latest/#externaltimebatch-window">externalTimeBatch</a> | Retains events based on event time value passed as a parameter in a a tumbling/batch manner.|
-| <a target="_blank" href="../api/latest/#delay-window">delay</a> | Retains events and delays the output by the given time period in a sliding manner.|
+| <a target="_blank" href="../functions/#time-window">time</a> | Retains events based on time in a sliding manner.|
+| <a target="_blank" href="../functions/#timebatch-window">timeBatch</a> | Retains events based on time in a tumbling/batch manner. |
+| <a target="_blank" href="../functions/#length-window">length</a> | Retains events based on number of events in a sliding manner. |
+| <a target="_blank" href="../functions/#lengthbatch-window">lengthBatch</a> | Retains events based on number of events in a tumbling/batch manner. |
+| <a target="_blank" href="../functions/#timelength-window">timeLength</a> | Retains events based on time and number of events in a sliding manner. |
+| <a target="_blank" href="../functions/#session-window">session</a> | Retains events for each session based on session key. |
+| <a target="_blank" href="../functions/#batch-window">batch</a> | Retains events of last arrived event chunk. |
+| <a target="_blank" href="../functions/#sort-window">sort</a> | Retains top-k or bottom-k events based on a parameter value. |
+| <a target="_blank" href="../functions/#cron-window">cron</a> | Retains events based on cron time in a tumbling/batch manner. |
+| <a target="_blank" href="../functions/#externaltime-window">externalTime</a> | Retains events based on event time value passed as a parameter in a sliding manner.|
+| <a target="_blank" href="../functions/#externaltimebatch-window">externalTimeBatch</a> | Retains events based on event time value passed as a parameter in a a tumbling/batch manner.|
+| <a target="_blank" href="../functions/#delay-window">delay</a> | Retains events and delays the output by the given time period in a sliding manner.|
 
 
 **Example 1**
@@ -1198,7 +1198,7 @@ insert expired events into DelayedTempStream
 ```
 
 !!! Note
-    This is just to illustrate how expired events work, it is recommended to use [delay](../api/latest/#delay-window) window for usecases where we need to delay events by a given time period.
+    This is just to illustrate how expired events work, it is recommended to use [delay](../functions/#delay-window) window for usecases where we need to delay events by a given time period.
 
 ### Aggregate Function
 
@@ -1228,19 +1228,19 @@ Following are some inbuilt aggregation functions.
 
 |Inbuilt aggregate function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../api/latest/#sum-aggregate-function">sum</a> | Calculates the sum from a set of values. |
-| <a target="_blank" href="../api/latest/#count-aggregate-function">count</a> | Calculates the count from a set of values. |
-| <a target="_blank" href="../api/latest/#distinctcount-aggregate-function">distinctCount</a> | Calculates the distinct count based on a parameter from a set of values. |
-| <a target="_blank" href="../api/latest/#avg-aggregate-function">avg</a> | Calculates the average from a set of values.|
-| <a target="_blank" href="../api/latest/#max-aggregate-function">max</a> | Finds the maximum value from a set of values. |
-| <a target="_blank" href="../api/latest/#min-aggregate-function">max</a> | Finds the minimum value from a set of values. |
+| <a target="_blank" href="../functions/#sum-aggregate-function">sum</a> | Calculates the sum from a set of values. |
+| <a target="_blank" href="../functions/#count-aggregate-function">count</a> | Calculates the count from a set of values. |
+| <a target="_blank" href="../functions/#distinctcount-aggregate-function">distinctCount</a> | Calculates the distinct count based on a parameter from a set of values. |
+| <a target="_blank" href="../functions/#avg-aggregate-function">avg</a> | Calculates the average from a set of values.|
+| <a target="_blank" href="../functions/#max-aggregate-function">max</a> | Finds the maximum value from a set of values. |
+| <a target="_blank" href="../functions/#min-aggregate-function">max</a> | Finds the minimum value from a set of values. |
 
-| <a target="_blank" href="../api/latest/#maxforever-aggregate-function">maxForever</a> | Finds the maximum value from all events throughout its lifetime irrespective of the windows. |
-| <a target="_blank" href="../api/latest/#minforever-aggregate-function">minForever</a> | Finds the minimum value from all events throughout its lifetime irrespective of the windows. |
-| <a target="_blank" href="../api/latest/#stddev-aggregate-function">stdDev</a> | Calculates the standard deviation from a set of values. |
-| <a target="_blank" href="../api/latest/#and-aggregate-function">and</a> | Calculates boolean and from a set of values. |
-| <a target="_blank" href="../api/latest/#or-aggregate-function">or</a> | Calculates boolean or from a set of values. |
-| <a target="_blank" href="../api/latest/#unionset-aggregate-function">unionSet</a> | Calculates union as a Set from a set of values. |
+| <a target="_blank" href="../functions/#maxforever-aggregate-function">maxForever</a> | Finds the maximum value from all events throughout its lifetime irrespective of the windows. |
+| <a target="_blank" href="../functions/#minforever-aggregate-function">minForever</a> | Finds the minimum value from all events throughout its lifetime irrespective of the windows. |
+| <a target="_blank" href="../functions/#stddev-aggregate-function">stdDev</a> | Calculates the standard deviation from a set of values. |
+| <a target="_blank" href="../functions/#and-aggregate-function">and</a> | Calculates boolean and from a set of values. |
+| <a target="_blank" href="../functions/#or-aggregate-function">or</a> | Calculates boolean or from a set of values. |
+| <a target="_blank" href="../functions/#unionset-aggregate-function">unionSet</a> | Calculates union as a Set from a set of values. |
 
 **Example**
 
