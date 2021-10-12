@@ -171,7 +171,7 @@ Among them should be *Ned Stark*, similar to this example:
   },
 ```
 
-The document features the four attributes we stored, plus three more added by the database system. Each document needs a unique `_key`, which identifies it within a collection. The `_id` is a computed property, a concatenation of the collection name, a forward slash `/` and the document key. It uniquely identies a document within a database. `_rev` is a revision ID managed by the system.
+The document features the five attributes we stored, plus three more added by the database system. Each document needs a unique `_key`, which identifies it within a collection. The `_id` is a computed property, a concatenation of the collection name, a forward slash `/` and the document key. It uniquely identies a document within a database. `_rev` is a revision ID managed by the system.
 
 Document keys can be provided by the user upon document creation, or a unique value is assigned automatically. It can not be changed later. All three system attributes starting with an underscore `_` are read-only.
 
