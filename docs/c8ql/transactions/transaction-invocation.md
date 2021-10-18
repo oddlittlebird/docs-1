@@ -6,6 +6,9 @@ In SQL, transactions are typically started with explicit `BEGIN` or `START TRANS
 
 In C8, a transaction is always a server-side operation, and is executed on the server in **one go**, without any client interaction. All operations to be executed inside a transaction need to be known by the server when the transaction is started. There are no individual `BEGIN`, `COMMIT` or `ROLLBACK` transaction commands in C8. 
 
+!!! note
+  Transaction API calls are disabled in the current release.
+
 ## Execute transaction
 
 Execution of a server-side transaction, requires following attributes:
