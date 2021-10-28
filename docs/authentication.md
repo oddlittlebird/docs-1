@@ -56,6 +56,8 @@ Most APIs today use an API Key to authenticate legitimate clients. API Keys are 
 * Add the key to an Authorization header.
 * Call the API.
 
+API keys never expire.
+
 **Code Samples:**
 
 === "Python"
