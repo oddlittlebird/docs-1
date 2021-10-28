@@ -21,3 +21,12 @@ The following table shows rate limits for free developer accounts and metered ac
 | Views per Fabric 				| 2  				| 100				|
 | Indexes per Fabric 			| 10 				| 100				|
 | Geo Fabrics per Tenant 		| 2					| 50				|
+
+The following limits apply to streams:
+
+| Name 											| Free Tier Quota 	| Metered Tier Quota |
+|------											|-----------------	|-----------------	|
+| Max Backlog Message TTL in Minutes 			| 1440 				| 1440				|
+| Max Dispatch Throttling Rate (Bytes)			| 4096				| 4096				|
+| Max Backlog Storage for Global Streams (Megabytes) | 2147483648	| 2147483648		|
+| Max Backlog Storage for Local Streams (Megabytes)	| 100			| 100				|
