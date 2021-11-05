@@ -57,7 +57,7 @@ Click the `Save Query` button and name the saved query `getAddresses`
 
 Now, in **around 50ms**, you have a globally distributed stateful-serverless endpoint.
 
-![dashboard](docs/assets/images/dashboard.png)
+![dashboard](/docs/assets/images/dashboard.png)
 
 ## Step 4: Execute the Query Worker
 
