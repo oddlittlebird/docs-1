@@ -21,7 +21,7 @@ Let’s start by clicking the `COLLECTIONS` tab in the left nav and then `New Co
 
 Note: The collection `addresses` that you just created is now distributed to every location in the fabric!
 
-![create-collection](/assets/images/create-doc-view.png)
+![create-collection](/docs/assets/images/create-doc-view.png)
 ## Step 2: Add some data to your new collection and query it
 
 Now, click the `QUERIES` tab in the left nav to open the `C8QL` query editor. Copy and paste the query below into the editor and click `Run Query` a couple times. 
@@ -63,7 +63,7 @@ Now, in **around 50ms**, you have a globally distributed stateful-serverless end
 
 Now that you've saved the query click on the `API Usage` button, and we automatically generate a Query Worker (Exactly like a serverless function, but a save query instead of a function)!
 
-![create-query-worker](/assets/images/query-worker.png)
+![create-query-worker](/docs/assets/images/query-worker.png)
 
 ## Next Steps
 
