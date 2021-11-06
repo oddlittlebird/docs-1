@@ -1,917 +1,917 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://macrometa.dev/</loc>
+         <loc>https://macrometa.com/docs/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/apikeys/</loc>
+         <loc>https://macrometa.com/docs/apikeys/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/authentication/</loc>
+         <loc>https://macrometa.com/docs/authentication/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/credits/</loc>
+         <loc>https://macrometa.com/docs/credits/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/essentials/</loc>
+         <loc>https://macrometa.com/docs/essentials/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/license/</loc>
+         <loc>https://macrometa.com/docs/license/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/quickstart/</loc>
+         <loc>https://macrometa.com/docs/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/quotas/</loc>
+         <loc>https://macrometa.com/docs/quotas/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/urls/</loc>
+         <loc>https://macrometa.com/docs/urls/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/array-operators/</loc>
+         <loc>https://macrometa.com/docs/c8ql/array-operators/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/c8ql-tutorial/</loc>
+         <loc>https://macrometa.com/docs/c8ql/c8ql-tutorial/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/coming-from-sql/</loc>
+         <loc>https://macrometa.com/docs/c8ql/coming-from-sql/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/common-errors/</loc>
+         <loc>https://macrometa.com/docs/c8ql/common-errors/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/data-queries/</loc>
+         <loc>https://macrometa.com/docs/c8ql/data-queries/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/fundamentals/</loc>
+         <loc>https://macrometa.com/docs/c8ql/fundamentals/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/introduction/</loc>
+         <loc>https://macrometa.com/docs/c8ql/introduction/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operators/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operators/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/counting/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/counting/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/data-modification-queries/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/data-modification-queries/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/diffing-documents/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/diffing-documents/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/dynamic-attribute-names/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/dynamic-attribute-names/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/grouping/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/grouping/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/joins/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/joins/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/multiple-path-search/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/multiple-path-search/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/overview/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/projections-and-filters/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/projections-and-filters/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/queries-without-collections/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/queries-without-collections/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/remove-vertex/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/remove-vertex/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/subqueries/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/subqueries/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/examples/traversals/</loc>
+         <loc>https://macrometa.com/docs/c8ql/examples/traversals/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/array/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/array/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/date/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/date/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/document/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/document/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/fulltext/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/fulltext/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/geo/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/geo/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/miscellaneous/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/miscellaneous/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/numeric/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/numeric/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/overview/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/search/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/search/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/string/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/string/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/functions/type-cast/</loc>
+         <loc>https://macrometa.com/docs/c8ql/functions/type-cast/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/graphs/k-shortest-paths/</loc>
+         <loc>https://macrometa.com/docs/c8ql/graphs/k-shortest-paths/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/graphs/overview/</loc>
+         <loc>https://macrometa.com/docs/c8ql/graphs/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/graphs/shortest-path/</loc>
+         <loc>https://macrometa.com/docs/c8ql/graphs/shortest-path/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/graphs/traversals/</loc>
+         <loc>https://macrometa.com/docs/c8ql/graphs/traversals/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/collect/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/collect/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/filter/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/filter/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/for/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/for/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/insert/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/insert/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/let/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/let/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/limit/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/limit/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/overview/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/remove/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/remove/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/replace/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/replace/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/return/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/return/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/search/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/search/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/sort/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/sort/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/update/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/update/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/upsert/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/upsert/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/operations/with/</loc>
+         <loc>https://macrometa.com/docs/c8ql/operations/with/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/durability/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/durability/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/limitations/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/limitations/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/locking-isolation/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/locking-isolation/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/overview/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/passing-parameters/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/passing-parameters/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/c8ql/transactions/transaction-invocation/</loc>
+         <loc>https://macrometa.com/docs/c8ql/transactions/transaction-invocation/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/quickstart/</loc>
+         <loc>https://macrometa.com/docs/cep/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/basics/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/basics/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/data-cleansing/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/data-cleansing/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/data-enriching/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/data-enriching/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/data-pipelining/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/data-pipelining/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/data-summarization/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/data-summarization/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/data-transformation/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/data-transformation/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/error-handling/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/error-handling/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/functions/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/functions/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/overview/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/patterns-n-trends/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/patterns-n-trends/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/query-guide/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/query-guide/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/values-n-types/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/values-n-types/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/context/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/context/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/geospatial/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/geospatial/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/json/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/json/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/list/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/list/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/map/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/map/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/math/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/math/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/regex/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/regex/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/reorder/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/reorder/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/sentiment/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/sentiment/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/streamingml/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/streamingml/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/time/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/time/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/execution/unique/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/execution/unique/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/io/gcp-pubsub/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/io/gcp-pubsub/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/io/http/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/io/http/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/io/kafka/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/io/kafka/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/io/s3/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/io/s3/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/mappers/csv/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/mappers/csv/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/mappers/json/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/mappers/json/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/mappers/keyvalue/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/mappers/keyvalue/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/reference/extensions/mappers/text/</loc>
+         <loc>https://macrometa.com/docs/cep/reference/extensions/mappers/text/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/consuming-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/consuming-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/correlating-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/correlating-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/create-stream-app/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/create-stream-app/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/enriching-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/enriching-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/executing-scripts/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/executing-scripts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/filtering-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/filtering-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/publishing-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/publishing-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/routing-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/routing-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/summarizing-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/summarizing-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/transforming-data/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/transforming-data/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/cep/tutorials/using_rest_api/</loc>
+         <loc>https://macrometa.com/docs/cep/tutorials/using_rest_api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/address-book/</loc>
+         <loc>https://macrometa.com/docs/demos/address-book/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/c8ql-examples/</loc>
+         <loc>https://macrometa.com/docs/demos/c8ql-examples/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/castle-knight/</loc>
+         <loc>https://macrometa.com/docs/demos/castle-knight/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/cf-bookstore/</loc>
+         <loc>https://macrometa.com/docs/demos/cf-bookstore/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/cloudflare-workers/</loc>
+         <loc>https://macrometa.com/docs/demos/cloudflare-workers/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/cox-elite-gamer/</loc>
+         <loc>https://macrometa.com/docs/demos/cox-elite-gamer/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/credit-card-fraud/</loc>
+         <loc>https://macrometa.com/docs/demos/credit-card-fraud/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/crypto-trading/</loc>
+         <loc>https://macrometa.com/docs/demos/crypto-trading/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/dynamo/</loc>
+         <loc>https://macrometa.com/docs/demos/dynamo/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/fashionstore-wavelength/</loc>
+         <loc>https://macrometa.com/docs/demos/fashionstore-wavelength/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/jamstack-gatsby/</loc>
+         <loc>https://macrometa.com/docs/demos/jamstack-gatsby/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/realtime-log-analytics/</loc>
+         <loc>https://macrometa.com/docs/demos/realtime-log-analytics/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/repls_js/</loc>
+         <loc>https://macrometa.com/docs/demos/repls_js/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/streamlit-oxford/</loc>
+         <loc>https://macrometa.com/docs/demos/streamlit-oxford/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/task-tracking/</loc>
+         <loc>https://macrometa.com/docs/demos/task-tracking/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/demos/verizon-vr/</loc>
+         <loc>https://macrometa.com/docs/demos/verizon-vr/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/naming-conventions/</loc>
+         <loc>https://macrometa.com/docs/documents/naming-conventions/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/quickstart/</loc>
+         <loc>https://macrometa.com/docs/documents/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/appendix/errorcodes/</loc>
+         <loc>https://macrometa.com/docs/documents/appendix/errorcodes/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/appendix/glossary/</loc>
+         <loc>https://macrometa.com/docs/documents/appendix/glossary/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/indexing/index-basics/</loc>
+         <loc>https://macrometa.com/docs/documents/indexing/index-basics/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/indexing/index-utilization/</loc>
+         <loc>https://macrometa.com/docs/documents/indexing/index-utilization/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/indexing/overview/</loc>
+         <loc>https://macrometa.com/docs/documents/indexing/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/indexing/which-index/</loc>
+         <loc>https://macrometa.com/docs/documents/indexing/which-index/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/indexing/working-with-indexes/</loc>
+         <loc>https://macrometa.com/docs/documents/indexing/working-with-indexes/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/bulk-update-restql/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/bulk-update-restql/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/maps_sets_sortedsets/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/maps_sets_sortedsets/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/overview/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/overview/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/using-realtime-updates/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/using-realtime-updates/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/using-spotcollections/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/using-spotcollections/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/using_rest_api/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/using_rest_api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/documents/tutorials/working-with-documents/</loc>
+         <loc>https://macrometa.com/docs/documents/tutorials/working-with-documents/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/using-aws-boto3/</loc>
+         <loc>https://macrometa.com/docs/dynamo/using-aws-boto3/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/using-aws-cli/</loc>
+         <loc>https://macrometa.com/docs/dynamo/using-aws-cli/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/using-aws-js-browser/</loc>
+         <loc>https://macrometa.com/docs/dynamo/using-aws-js-browser/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/using-aws-js-nodejs/</loc>
+         <loc>https://macrometa.com/docs/dynamo/using-aws-js-nodejs/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/using-mmdynamo-browser/</loc>
+         <loc>https://macrometa.com/docs/dynamo/using-mmdynamo-browser/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/createNewItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/createNewItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/createTable/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/createTable/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/deleteAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/deleteAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/deleteTable/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/deleteTable/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/readAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/readAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/readme/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/readme/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/updateAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/updateAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/updateTable/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/updateTable/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/createNewItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/createNewItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/createTable/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/createTable/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/deleteAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/deleteAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/deleteTable/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/deleteTable/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/readAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/readAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/readme/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/readme/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/dynamo/reference/mmdynamo/updateAnItem/</loc>
+         <loc>https://macrometa.com/docs/dynamo/reference/mmdynamo/updateAnItem/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/geospatial/concepts/</loc>
+         <loc>https://macrometa.com/docs/geospatial/concepts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/geospatial/tutorial/</loc>
+         <loc>https://macrometa.com/docs/geospatial/tutorial/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/graphs/concepts/</loc>
+         <loc>https://macrometa.com/docs/graphs/concepts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/graphs/quickstart/</loc>
+         <loc>https://macrometa.com/docs/graphs/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/graphs/tutorials/graph-queries/</loc>
+         <loc>https://macrometa.com/docs/graphs/tutorials/graph-queries/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/graphs/tutorials/using_rest_api/</loc>
+         <loc>https://macrometa.com/docs/graphs/tutorials/using_rest_api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/keyvalue/quickstart/</loc>
+         <loc>https://macrometa.com/docs/keyvalue/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/keyvalue/tutorials/bulk-update-restql/</loc>
+         <loc>https://macrometa.com/docs/keyvalue/tutorials/bulk-update-restql/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/keyvalue/tutorials/todo-app-cfworkers/</loc>
+         <loc>https://macrometa.com/docs/keyvalue/tutorials/todo-app-cfworkers/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/keyvalue/tutorials/using-rest-api/</loc>
+         <loc>https://macrometa.com/docs/keyvalue/tutorials/using-rest-api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/restql/concepts/</loc>
+         <loc>https://macrometa.com/docs/restql/concepts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/restql/tutorial/</loc>
+         <loc>https://macrometa.com/docs/restql/tutorial/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/search/concepts/</loc>
+         <loc>https://macrometa.com/docs/search/concepts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/search/quickstart/</loc>
+         <loc>https://macrometa.com/docs/search/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/search/tutorials/using-rest-api/</loc>
+         <loc>https://macrometa.com/docs/search/tutorials/using-rest-api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/streams/concepts/</loc>
+         <loc>https://macrometa.com/docs/streams/concepts/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/streams/quickstart/</loc>
+         <loc>https://macrometa.com/docs/streams/quickstart/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/streams/tutorials/pub-sub-streams/</loc>
+         <loc>https://macrometa.com/docs/streams/tutorials/pub-sub-streams/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/streams/tutorials/using-realtime-updates/</loc>
+         <loc>https://macrometa.com/docs/streams/tutorials/using-realtime-updates/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.dev/streams/tutorials/using_rest_api/</loc>
+         <loc>https://macrometa.com/docs/streams/tutorials/using_rest_api/</loc>
          <lastmod>2021-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
