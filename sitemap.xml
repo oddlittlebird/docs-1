@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://macrometa.com/docs/troubleshooting/</loc>
+         <lastmod>2021-11-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://macrometa.com/docs/urls/</loc>
          <lastmod>2021-11-11</lastmod>
          <changefreq>daily</changefreq>
