@@ -8,7 +8,7 @@ There are multiple ways users can access their Macrometa GDN account:
 
 ## User Authentication
 
-Users can authenticate with Macrometa GDN via `email and password` or via their `social media accounts`.
+Users can authenticate with Macrometa GDN via `email and password`, an `API Key`, or a ` JSON Web Token (JWT)`.
 
 **Code Samples:**
 
