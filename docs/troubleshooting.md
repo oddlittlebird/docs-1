@@ -10,7 +10,7 @@ If you are unable to access your tenant's global URL, you can try flushing your 
 
 To flush your DNS cache on Windows, use the following steps:
 
-1. Open `cmd.exe`
+1. Open the command line.
 2. Type `ipconfig /flushdns` and press Enter.
 
 ## MacOS
