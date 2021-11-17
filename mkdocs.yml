@@ -184,6 +184,7 @@ nav:
       - Using Rest API: streams/tutorials/using_rest_api.md
       - Pub-Sub with Streams: streams/tutorials/pub-sub-streams.md
       - Realtime Updates: streams/tutorials/using-realtime-updates.md
+      - Integrating Plugins: streams/tutorials/integrating-plugins.md
   - Stream Workers:
     - Quick Start: cep/quickstart.md
     - Tutorials:
