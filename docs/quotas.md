@@ -28,5 +28,5 @@ The following limits apply to streams:
 |------											|-----------------	|-----------------	|
 | Max Backlog Message TTL in Minutes 			| 1440 				| 1440				|
 | Max Dispatch Throttling Rate (Bytes)			| 4096				| 4096				|
-| Max Backlog Storage for Global Streams (Megabytes) | 2147483648	| 2147483648		|
+| Max Backlog Storage for Global Streams (Megabytes) | 2048	| 2048		|
 | Max Backlog Storage for Local Streams (Megabytes)	| 100			| 100				|
