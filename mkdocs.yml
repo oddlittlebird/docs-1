@@ -165,8 +165,8 @@ nav:
   - Search:
     # - Quick Start: search/quickstart.md
     - Overview: search/overview.md
-    - Views: search/views.md
-    - Analyzers: search/analyzers.md
+    - Views: search/Views.md
+    - Analyzers: search/Analyzers.md
     - Tutorials:
       - Using Rest API: documents/tutorials/using_rest_api.md
       - C8QL Tutorial: c8ql/c8ql-tutorial.md
