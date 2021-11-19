@@ -164,7 +164,9 @@ nav:
         - C8QL Examples: c8ql/examples.md
   - Search:
     # - Quick Start: search/quickstart.md
-    - Concepts: search/concepts.md
+    - Overview: search/overview.md
+    - Views: search/views.md
+    - Analyzers: search/analyzers.md
     - Tutorials:
       - Using Rest API: documents/tutorials/using_rest_api.md
       - C8QL Tutorial: c8ql/c8ql-tutorial.md
@@ -182,6 +184,7 @@ nav:
       - Using Rest API: streams/tutorials/using_rest_api.md
       - Pub-Sub with Streams: streams/tutorials/pub-sub-streams.md
       - Realtime Updates: streams/tutorials/using-realtime-updates.md
+      - Integrating Plugins: streams/tutorials/integrating-plugins.md
   - Stream Workers:
     - Quick Start: cep/quickstart.md
     - Tutorials:
