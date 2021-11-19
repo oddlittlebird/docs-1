@@ -164,7 +164,7 @@ nav:
         - C8QL Examples: c8ql/examples.md
   - Search:
     # - Quick Start: search/quickstart.md
-    - Overview: search/overview.md
+    - Overview: search/Overview.md
     - Views: search/Views.md
     - Analyzers: search/Analyzers.md
     - Tutorials:
