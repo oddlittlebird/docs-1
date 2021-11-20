@@ -209,9 +209,8 @@ Analyzers rely on [ICU](http://site.icu-project.org/) for language dependent tok
 
 C8DB only supports UTF-8 encoding. 
 
-:::note
-C8Search does not acknowledge the alphabetical order of characters in different languages. For example, a range query performed against a View will not follow language rules defined in the Analyzer locale.
-:::
+!!! note
+	C8Search does not acknowledge the alphabetical order of characters in different languages. For example, a range query performed against a View will not follow language rules defined in the Analyzer locale.
 
 [Snowball](https://snowballstem.org/) provides stemming capabilities and supports the following languages:
 
