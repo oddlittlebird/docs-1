@@ -301,17 +301,24 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
-    - Working with Cloudflare Workers: demos/cloudflare-workers.md
     - Bookstore: demos/cf-bookstore.md
-    # - Fashion Store (Wavelength 5G): demos/fashionstore-wavelength.md
+    - Lbrands: demos/cf-lbrands.md
+    - Fashion store and Fashion Store Dynamo: demos/fashion-store.md
+    - Fleet Management: demos/fleet-management.md
+    - RT Stream ETL: demos/realtime-stream-etl.md
+    - RT Data Distribution (Event Hub): demos/realtime-data-distribution.md
+    # - OTT Sample App: demos/ott.md
+    # - Facemask: demos/facemask.md
+    - Multiplayer FPS: demos/multiplayer-fps.md
+    - Oxford Economics: demos/streamlit-oxford.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Polling App (Gatsby): demos/jamstack-gatsby.md
-    # - Task Tracking App (Netlify): demos/task-tracking.md
-    # - Castle Knight Game: demos/castle-knight.md
-    - Oxford Economics: demos/streamlit-oxford.md
+    - Working with Cloudflare Workers: demos/cloudflare-workers.md
     - Dynamo Mode: demos/dynamo.md
     - C8QL Examples: demos/c8ql-examples.md
+    # - Task Tracking App (Netlify): demos/task-tracking.md
+    # - Castle Knight Game: demos/castle-knight.md
     # - Interactive Command Line: demos/repls_js.md
     
 
