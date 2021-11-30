@@ -309,7 +309,7 @@ nav:
     - RT Data Distribution (Event Hub): demos/realtime-data-distribution.md
     # - OTT Sample App: demos/ott.md
     # - Facemask: demos/facemask.md
-    - Multiplayer FPS: demos/multiplayer-fps.md
+    # - Multiplayer FPS: demos/multiplayer-fps.md
     - Oxford Economics: demos/streamlit-oxford.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
