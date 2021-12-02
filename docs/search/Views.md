@@ -220,6 +220,7 @@ Optional properties for Views are divided into the following categories:
 You can use the following property to set up a [primary sort order](#primary-sort-order) to optimize C8QL queries:
 
 **primarySort**: If the query attempts to retrieve all documents in a View, and the sorting attributes, fields, and direction match the `primarySort` definition, we ignore this operation for being redundant. This value is immutable once the View is created.
+
 * Type: `array`
 * Default: `[]`
 
@@ -235,18 +236,21 @@ You can use the following properties to control the frequency at which C8Search 
 * **commitIntervalMsec**: How many milliseconds to wait after committing data changes and before making documents visible to queries. This option accumulates processed data and creates new index segments without deleting cached files. All changes submitted prior to this action will be committed. 
 
 	To disable, set `0`. If your index frequently has inserts and updates, do not lower the value. If your index rarely has inserts and updates, do not raise the value.
+	
 	* Type: `integer`
 	* Default: `1000`
 
 * **consolidationIntervalMsec**: How many milliseconds to wait after committing data changes and before making documents visible to queries. This option merges multiple index segments into a larger one and removes deleted and redundant documents. All changes submitted prior to this action will be committed. 
 
 	To disable, set `0`. If your index frequently has inserts and updates, do not lower the value. If your index rarely has inserts and updates, do not raise the value.
+	
 	* Type: `integer`
 	* Default: `60000`
 
 * **cleanupIntervalStep**: How many commits to wait before removing unused files from the data directory. You can use this to save space if you frequently commit or consolidate segments. 
 
 	To disable, set `0`. Do not raise the value above `2`. If you rarely merge segments and want to use cleanup, do not lower the value to `1`.
+	
 	* Type: `integer`
 	* Default: `2`
 
