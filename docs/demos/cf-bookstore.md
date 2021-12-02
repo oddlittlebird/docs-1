@@ -25,7 +25,7 @@ This demo includes the following components:
 * **Product catalog/shopping cart** - Macrometa GDN Docs and Dynamo Mode offers fast, predictable performance for the key-value lookups needed in the product catalog, as well as the shopping cart and order history. In this implementation, we have unique identifiers, titles, descriptions, quantities, locations, and price.
 * **Search** - Macrometa GDN Search service enables full-text search for our storefront, enabling users to find products based on a variety of terms including author, title, and category.
 * **Recommendations** - Macrometa GDN Graphs  provides social recommendations based on what user's friends have purchased, scaling as the storefront grows with more products, pages, and users.
-* **Top sellers list** - Macrometa GDN Stream Apps reads order information from GDN Docs Streams, creating a leaderboard of the “Top 20” purchased or rated books.s
+* **Top sellers list** - Macrometa GDN Stream Apps reads order information from GDN Docs Streams, creating a leaderboard of the “Top 20” purchased or rated books.
 * **Serverless service backend** – Cloudflare Workers and Macrometa GDN C8QL powers the interface layer between the frontend and backend, and invokes serverless compute with low latency in region closest to the user.
 * **Web application blueprint** – We include a React web application pre-integrated out-of-the-box with tools such as React Bootstrap, Redux, React Router, internationalization, and more.
 
