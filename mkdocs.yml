@@ -302,7 +302,7 @@ nav:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
     - Bookstore: demos/cf-bookstore.md
-    - Lbrands: demos/cf-lbrands.md
+    - Forever 42: demos/cf-forever42.md
     - Fashion store and Fashion Store Dynamo: demos/fashion-store.md
     - Fleet Management: demos/fleet-management.md
     - RT Stream ETL: demos/realtime-stream-etl.md
