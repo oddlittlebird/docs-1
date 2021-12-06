@@ -180,7 +180,7 @@ Let's assume your
 
     // Crete a authenticated instance with Token / Apikey
     // const client = new jsc8({url: global_url, token: "XXXX", fabricName: '_system'});
-    // const client = new jsc8({url: global_url, apikey: "XXXX", fabricName: '_system'});
+    // const client = new jsc8({url: global_url, apiKey: "XXXX", fabricName: '_system'});
     // await console.log("Authentication done!!...");
 
     // Or use Email & Password to Authenticate client instance
