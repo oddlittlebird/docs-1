@@ -52,7 +52,7 @@ Here is an example of a valid document:
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -230,7 +230,7 @@ Here is an example of a valid document:
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
 
     const COLLECTION_NAME = "api_tutorial_documents";
 
@@ -330,7 +330,7 @@ CRUD Operations can also be done using C8QL
     ``` py
     #Using C8QL
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
 
     # Create a HTTPS Session
@@ -408,7 +408,7 @@ It provides,
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -552,7 +552,7 @@ It provides,
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_NAME = "https://api-gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const STREAM_NAME = "api_tutorial_streams";
@@ -710,7 +710,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -921,7 +921,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
 
     const QUERY_NAME = "api_query_tutorial";
     const QUERY_PARAMS = { "@collection": "api_query_tutorial" };
@@ -1098,7 +1098,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -1361,7 +1361,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     import time
     # Constants
 
-    FEDERATION = "api-gdn-us-west1.prod.macrometa.io"
+    FEDERATION = "api-gdn-us-west.prod.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -1556,7 +1556,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "api-gdn.prod.macrometa.io";
+    const FEDERATION_NAME = "api.gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const IS_GLOBAL = true;
