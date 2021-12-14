@@ -7,7 +7,7 @@ Macrometa global data network (GDN) is a fully managed realtime materialzed view
 !!! note
     If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../../essentials.md)** of Macrometa GDN.
 
-## Pre-Requiste
+## Pre-Requisite
 
 A tenant account (and credentials) with Macrometa GDN.
 
