@@ -42,7 +42,7 @@ It provides,
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -186,7 +186,7 @@ It provides,
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_NAME = "https://gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const STREAM_NAME = "api_tutorial_streams";
