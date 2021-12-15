@@ -42,7 +42,7 @@ Typically the stream processing use cases involve collecting, analyzing and, int
     import time
     # Constants
 
-    FEDERATION = "api-gdn-us-west1.prod.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -237,7 +237,7 @@ Typically the stream processing use cases involve collecting, analyzing and, int
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "api-gdn.prod.macrometa.io";
+    const FEDERATION_NAME = "api-gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const IS_GLOBAL = true;
