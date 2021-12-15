@@ -52,7 +52,7 @@ Here is an example of a valid document:
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -230,7 +230,7 @@ Here is an example of a valid document:
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
 
     const COLLECTION_NAME = "api_tutorial_documents";
 
@@ -330,7 +330,7 @@ CRUD Operations can also be done using C8QL
     ``` py
     #Using C8QL
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
 
     # Create a HTTPS Session
@@ -398,7 +398,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -609,7 +609,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
 
     const QUERY_NAME = "api_query_tutorial";
     const QUERY_PARAMS = { "@collection": "api_query_tutorial" };
