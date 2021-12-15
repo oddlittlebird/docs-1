@@ -60,7 +60,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
