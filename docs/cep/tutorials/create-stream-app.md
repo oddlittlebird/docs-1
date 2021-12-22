@@ -290,8 +290,6 @@ Following tutorials cover various user scenarios using Macrometa Stream Processi
 * [Executing Scripts](executing-scripts.md) -->
 * [Correlating Data](correlating-data.md)
 * [Summarizing Data](summarizing-data.md)
-* [Data Pipelines](routing-data.md)
-* [Exposing Data as API](exposing-data-as-api.md)
 
 
 Please refer to [Reference](../reference/overview.md) for additional stream processing examples.
