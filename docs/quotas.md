@@ -9,7 +9,7 @@ The following table shows rate limits for free developer accounts and metered ac
 |------							|-----------------	|-----------------	|
 | Requests per Day				| 20000				| No limit			|
 | Requests per Minute  			| 500				| 2000				|
-| Requests per Second			| 500				| No limit			| 
+<!--- | Requests per Second			| 500				| No limit			| --->
 | Storage per Day				| 200 MB			| No limit			|
 | Document Size					| 500 KB			| 500 KB			|
 | Documents per Query			| 1000				| 1000				|
