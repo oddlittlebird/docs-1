@@ -138,7 +138,7 @@ nav:
       - GeoSpatial:
         - Concepts: geospatial/concepts.md
         - Tutorial: geospatial/tutorial.md
-        - Indexes: documents/indexing/working-with-indexes#geo-spatial-indexes
+        - Indexes: documents/indexing/working-with-indexes/#geo-spatial-indexes
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
       - Transactions:
