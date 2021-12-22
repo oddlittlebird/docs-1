@@ -60,7 +60,7 @@ You can link documents and edge collections to Search Views so your graphs can b
 
 Edit the [View definition](#view-definition) to manage links between Views and collections. You can index any attribute at any depth, including nested attributes, and define Analyzers to process values for each field. To produce results, Analyzers you specify in the query must be defined in the View.
 
-By default, array elements are indexed individually as if each element is the value of the source attribute. You can use Analyzers to transform strings into multiple tokens that are handled similarly to an array of strings. Refer to [C8QL SEARCH operation](../../c8ql/operations/search) for details. Primitive values other than strings (`null`, `true`, `false`, numbers) are indexed unchanged. You can choose to index nested object values under the respective attribute path, including objects in arrays.
+By default, array elements are indexed individually as if each element is the value of the source attribute. You can use Analyzers to transform strings into multiple tokens that are handled similarly to an array of strings. Refer to [C8QL SEARCH operation](../../c8ql/operations/search/) for details. Primitive values other than strings (`null`, `true`, `false`, numbers) are indexed unchanged. You can choose to index nested object values under the respective attribute path, including objects in arrays.
 
 You can manage Views by using:
 
