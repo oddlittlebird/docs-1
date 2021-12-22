@@ -112,7 +112,7 @@ Let's assume your
 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+    const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
     const FABRIC_NAME = "_system";
     const COLLECTION_NAME = "superhero";
 
