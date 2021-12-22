@@ -34,7 +34,7 @@ Your best friend when working with REST APIs is the REST API browser available i
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -235,7 +235,7 @@ Delete collection.
 
     # Constants
 
-    FEDERATION = "api-gdn.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -420,7 +420,7 @@ Delete collection.
       }
       const EMAIL = "nemo@nautilus.com";
       const PASSWORD = "xxxxxx";
-      const FEDERATION_URL = "https://api-gdn.prod.macrometa.io";
+      const FEDERATION_URL = "https://api-gdn.paas.macrometa.io";
       
       const COLLECTION_NAME = "students";
       
