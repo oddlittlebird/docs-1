@@ -785,7 +785,7 @@ Example to publish messages on a stream and subscribe to that stream to receive 
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
 
-    const FEDERATION_NAME = "api-gdn.eng3.macrometa.io";
+    const FEDERATION_NAME = "api-gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const STREAM_NAME = "api_tutorial_streams";
