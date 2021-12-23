@@ -141,13 +141,13 @@ nav:
         - Indexes: documents/indexing/working-with-indexes/#geo-spatial-indexes
         - C8QL Tutorial: c8ql/c8ql-tutorial.md
         - C8QL Examples: c8ql/examples.md
-      - Transactions:
-        - Overivew: c8ql/transactions/overview.md
-        - Transaction Invocation: c8ql/transactions/transaction-invocation.md
-        - Passing Parameters: c8ql/transactions/passing-parameters.md
-        - Locking and Isolation: c8ql/transactions/locking-isolation.md
-        - Durability: c8ql/transactions/durability.md
-        - Limitations: c8ql/transactions/limitations.md
+      # - Transactions:
+       # - Overivew: c8ql/transactions/overview.md
+       # - Transaction Invocation: c8ql/transactions/transaction-invocation.md
+       # - Passing Parameters: c8ql/transactions/passing-parameters.md
+       # - Locking and Isolation: c8ql/transactions/locking-isolation.md
+       # - Durability: c8ql/transactions/durability.md
+       # - Limitations: c8ql/transactions/limitations.md
     - DynamoMode:
       - Using AWS Console CLI: dynamo/using-aws-cli.md
       - AWS Javascript SDK (browser): dynamo/using-aws-js-browser.md
@@ -289,13 +289,13 @@ nav:
       - Shortest Path: c8ql/graphs/shortest-path.md
       - K Shortest Paths: c8ql/graphs/k-shortest-paths.md
       - Traversals: c8ql/graphs/traversals.md
-    - Transactions:
-      - Overview: c8ql/transactions/overview.md
-      - Durability: c8ql/transactions/durability.md
-      - Locking Isolation: c8ql/transactions/locking-isolation.md
-      - Passing Parameters: c8ql/transactions/passing-parameters.md
-      - Transaction Invocation: c8ql/transactions/transaction-invocation.md
-      - Limitations: c8ql/transactions/limitations.md
+   # - Transactions:
+     # - Overview: c8ql/transactions/overview.md
+     # - Durability: c8ql/transactions/durability.md
+     # - Locking Isolation: c8ql/transactions/locking-isolation.md
+     # - Passing Parameters: c8ql/transactions/passing-parameters.md
+     # - Transaction Invocation: c8ql/transactions/transaction-invocation.md
+     # - Limitations: c8ql/transactions/limitations.md
     - Array Operators: c8ql/array-operators.md
     - Common Errors: c8ql/common-errors.md
   - Demos & Tutorials:
