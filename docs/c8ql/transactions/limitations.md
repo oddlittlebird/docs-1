@@ -26,4 +26,4 @@ Finally, all collections that may be modified during a transaction must be decla
 
 It is legal to not declare read-only collections, but this should be avoided if possible to reduce the probability of deadlocks and non-repeatable reads.
 
-Please refer to [Locking and Isolation](https://macrometacorp.github.io/docs-c8/reference/transactions/locking-isolation/#locking-and-isolation) for more details.
+Please refer to [Locking and Isolation](https://macrometa.com/docs/c8ql/transactions/locking-isolation/) for more details.
