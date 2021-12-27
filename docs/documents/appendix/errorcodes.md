@@ -670,7 +670,7 @@ For errors that occur but are anticipated.
 * <a name="ERROR_CURSOR_BUSY"></a>**1601** - **ERROR_CURSOR_BUSY**<br>
   Will be raised when a cursor is requested via its id but a concurrent request is still using the cursor.
 
-<!--## C8 transaction errors
+## C8 transaction errors
 
 * <a name="ERROR_TRANSACTION_INTERNAL"></a>**1650** - **ERROR_TRANSACTION_INTERNAL**<br>
   Will be raised when a wrong usage of transactions is detected. this is an internal error and indicates a bug in C8Db_Db.
@@ -685,7 +685,7 @@ For errors that occur but are anticipated.
   Will be raised when a disallowed operation is carried out in a transaction.
 
 * <a name="ERROR_TRANSACTION_ABORTED"></a>**1654** - **ERROR_TRANSACTION_ABORTED**<br>
-  Will be raised when a transaction was aborted.-->
+  Will be raised when a transaction was aborted.
 
 ## User management errors
 
