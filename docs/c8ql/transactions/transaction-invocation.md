@@ -55,7 +55,7 @@ The contents of `read` or `write` can each be lists arrays collection names or a
 }
 ```
 
-**Note**: It is currently optional to specify collections for read-only access. Even without specifying them, it is still possible to read from such collections from within a transaction, but with relaxed isolation. Please refer to [Transactions Locking](https://macrometa.com/docs/c8ql/transactions/locking-isolation/) for more details.
+**Note**: It is currently optional to specify collections for read-only access. Even without specifying them, it is still possible to read from such collections from within a transaction, but with relaxed isolation. Please refer to [Transactions Locking](https://macrometacorp.github.io/docs-c8/reference/transactions/locking-isolation) for more details.
 
 In order to make a transaction fail when a non-declared collection is used inside for reading, the optional `allowImplicit` sub-attribute of `collections` can be set to `false`:
 
