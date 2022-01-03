@@ -3,7 +3,7 @@
 
 | **Federation** | **Email** | **Passsword** | **Geo Fabric** | **Source Code**|
 |------------|----------|--------------|-------------|-------------|
-| [Global Data Network](https://gdn.paas.macrometa.io/) | demo@macrometa.io | `xxxxxxxx`| graphdemo | [github](https://github.com/Macrometacorp/docs-demos/blob/master/fraud-detection-queries.md)|
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo@macrometa.io | `xxxxxxxx`| graphdemo | [github](https://github.com/Macrometacorp/demo-realtime-fraud-detection)|
 
 
 ## Queries
