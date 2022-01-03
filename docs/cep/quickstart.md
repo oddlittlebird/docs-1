@@ -12,7 +12,8 @@ Macrometa GDN allows you to integrate streaming data and take action based on st
 | **Integrate** | Make processed data available for consumers to consume globally in right format with very low latencies. |
 
 !!! note
-    If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../essentials.md)** of Macrometa GDN.
+Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+Please contact support@macrometa.com if you have any questions.
 
 
 ![GDN Essentials](images/gdn-cep-overview.png)
