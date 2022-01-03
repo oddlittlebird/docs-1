@@ -22,7 +22,3 @@ $ nohup streamlit run --server.port 4005 gdn_app.py &
 ```
 
 The console will display the localhost URL & Port number to connect.
-
-## Further info
-
-To learn more about the demo. Please visit our [github repository](https://github.com/Macrometacorp/tutorial-streamlit-oxford/blob/main/GlobalCities/).
