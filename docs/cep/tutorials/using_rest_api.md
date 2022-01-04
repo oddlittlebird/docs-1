@@ -5,8 +5,8 @@ Today’s applications are required to be highly responsive and always online. T
 Macrometa global data network (GDN) is a fully managed realtime materialzed view engine that provides access to data instantly to Apps & APIs in a simple & single interface. 
 
 !!! note
-Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
-Please contact support@macrometa.com if you have any questions.
+    Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+    Please contact support@macrometa.com if you have any questions.
 
 ## Pre-Requiste
 

@@ -230,8 +230,8 @@ Consumers are grouped together for consuming messages. Each group of consumers i
 GDN is fundamentally a real-time materialized view engine. Streams & stream processing are intregral part of GDN. Stream processing feature provides users geo-replicated stream data processing capabilities to integrate streaming data and takes action based on streaming data.
 
 !!! note
-Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
-Please contact support@macrometa.com if you have any questions.
+    Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+    Please contact support@macrometa.com if you have any questions.
 
 ![GDN Essentials](images/gdn-cep-overview.png)
 

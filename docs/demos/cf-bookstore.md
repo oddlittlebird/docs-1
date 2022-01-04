@@ -3,8 +3,8 @@
 Bookstore Demo is a full-stack sample web application that creates a storefront (and backend) for customers to shop for fictitious books. You can `browse` and `search` for books, look at `recommendations` and `best sellers`, `manage` your cart, `checkout`, `view` your orders, and more.
 
 !!! note
-Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
-Please contact support@macrometa.com if you have any questions.
+		Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+		Please contact support@macrometa.com if you have any questions.
 
 ### On GDN
 
