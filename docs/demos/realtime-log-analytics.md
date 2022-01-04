@@ -2,6 +2,10 @@
 
 Building real-time log analytics solution using GDN.
 
+!!! note
+Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+Please contact support@macrometa.com if you have any questions.
+
 **GDN:** https://gdn.paas.macrometa.io/ 
 
 | **Tenant** | **Passsword** | **Geo Fabric** |**Log Publisher** | **Dashboard**|**Source Code**|
