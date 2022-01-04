@@ -670,23 +670,6 @@ For errors that occur but are anticipated.
 * <a name="ERROR_CURSOR_BUSY"></a>**1601** - **ERROR_CURSOR_BUSY**<br>
   Will be raised when a cursor is requested via its id but a concurrent request is still using the cursor.
 
-## C8 transaction errors
-
-* <a name="ERROR_TRANSACTION_INTERNAL"></a>**1650** - **ERROR_TRANSACTION_INTERNAL**<br>
-  Will be raised when a wrong usage of transactions is detected. this is an internal error and indicates a bug in C8Db_Db.
-
-* <a name="ERROR_TRANSACTION_NESTED"></a>**1651** - **ERROR_TRANSACTION_NESTED**<br>
-  Will be raised when transactions are nested.
-
-* <a name="ERROR_TRANSACTION_UNREGISTERED_COLLECTION"></a>**1652** - **ERROR_TRANSACTION_UNREGISTERED_COLLECTION**<br>
-  Will be raised when a collection is used in the middle of a transaction but was not registered at transaction start.
-
-* <a name="ERROR_TRANSACTION_DISALLOWED_OPERATION"></a>**1653** - **ERROR_TRANSACTION_DISALLOWED_OPERATION**<br>
-  Will be raised when a disallowed operation is carried out in a transaction.
-
-* <a name="ERROR_TRANSACTION_ABORTED"></a>**1654** - **ERROR_TRANSACTION_ABORTED**<br>
-  Will be raised when a transaction was aborted.
-
 ## User management errors
 
 * <a name="ERROR_USER_INVALID_NAME"></a>**1700** - **ERROR_USER_INVALID_NAME**<br>
