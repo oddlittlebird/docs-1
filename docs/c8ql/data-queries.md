@@ -259,6 +259,4 @@ Data-modification operations can optionally be followed by `LET` operations to p
   
 On a single server, data-modification operations are executed transactionally. If a data-modification operation fails, any changes made by it will be rolled back automatically as if they never happened. 
 
-If intermediate commits are enabled, a query may execute intermediate transaction commits in case the running transaction (C8QL query) hits the specified size thresholds. In this case, the query's operations carried out so far will be committed and not rolled back in case of a later abort/rollback. That behavior can be controlled by adjusting the intermediate commit settings for the RocksDB engine. 
-
 In a cluster, C8QL data-modification queries are currently not executed transactionally. Additionally, `update`, `replace`, `upsert` and `remove` C8QL queries currently require the `_key` attribute to be specified for all documents that should be modified or removed, even if a shared key attribute other than `_key` was chosen for the collection. This restriction may be overcome in a future release of C8.
