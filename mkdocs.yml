@@ -301,6 +301,8 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
+    - Meta Flix: demos/meta-flix.md
+    - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Bookstore: demos/cf-bookstore.md
     - Forever 42: demos/cf-forever42.md
     - Fashion store and Fashion Store Dynamo: demos/fashion-store.md
@@ -311,7 +313,6 @@ nav:
     # - Facemask: demos/facemask.md
     # - Multiplayer FPS: demos/multiplayer-fps.md
     - Oxford Economics: demos/streamlit-oxford.md
-    - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Polling App (Gatsby): demos/jamstack-gatsby.md
     - Working with Cloudflare Workers: demos/cloudflare-workers.md

@@ -1,36 +1,77 @@
 # Realtime Log Analytics
 
-Building real-time log analytics solution using GDN.
-
-!!! note
-		Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
-		Please contact support@macrometa.com if you have any questions.
-
-**GDN:** https://gdn.paas.macrometa.io/ 
-
-| **Tenant** | **Passsword** | **Geo Fabric** |**Log Publisher** | **Dashboard**|**Source Code**|
-|------------|---------- |-------------- |-------------- |------------|----------|
-| demo@macrometa.io | `xxxxxxxx` | _system | [Log Publisher](https://macrometacorp.github.io/demo-realtime-log-analytics) | [Analytics Dashboard](https://dashboards.poc.macrometa.io/d/tWcKbZ8Mz/demo-realtime-log-analytics?orgId=1&from=1608387240000&to=1608440040000)| [github](https://github.com/Macrometacorp/demo-realtime-log-analytics)|
+Realtime Log Analytics integrating logs from Fastly with Macrometa GDN to monitor the status and activity of Stream workers and Query workers. Fastly provides data about HTTP latency, response count, response size, and unique visitor traffic.
 
 
-Sample Log File: [http_access.log](https://raw.githubusercontent.com/pzombade/mm-log-publisher/gh-pages/server.log)
+## Setup
+
+| **Federation**                                        | **Email**                              | **Passsword** | **Dashboard**|
+| ----------------------------------------------------- | -------------------------------------- | ------------- |--------------|
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-fastly-realtime-logs@macrometa.io | `xxxxxxxx`    | [Dashboard](https://macrometacorp.github.io/demo-fastly-jsc8-realtime-logs) |
+| [Fastly Account](https://manage.fastly.com)           | demo@macrometa.com                     | --            | -- |
+
+
 
 ## Solution
 
-![Realtime Log Analytics](images/realtime-log-analytics.png)
 
-**Collections:**
+1. Create and publish the following Stream Workers in your GDN account:
 
-* http_verb_agg_count (doc collection)
-* http_code_agg_count (doc collection)
-* http_error_msgs (doc collection)
+```
+fastly-log-generator
+fastly-http-request-worker
+fastly-http-request-stats-1m-worker
+```
 
-**Stream Workers:**
 
-* log_processor
-* agg_code_processor
-* agg_verb_processor
+2. Create the following Query workers in your GDN account:
 
-**Search:**
+```
+fastlyGetTopUrl
+fastlyGetStatusCodeRatio
+fastlyGetStatsByCollection
+fastlyGetTopErrorByUrlPath
+fastlyGetUniqueVisitorsByCountry
+```
 
-* c8search_view_http_error_msgs
+**Query Workers**
+
+
+3. Create the following collections in your GDN account:
+
+```
+fastly_users (global)
+fastly_logs (global)
+fastly_http_url_stats_1m (global)
+fastly_http_response_code_stats_1m (global)
+fastly_http_response_latency_stats_1m (global)
+fastly_http_error_response_code_stats_1m (global)
+fasty_unique_visitor_by_country_stats_1m (global)
+```
+
+4. On the development machine, run the following commands in a console:
+
+```
+1. git clone git@github.com:Macrometacorp/demo-fastly-jsc8-realtime-logs.git
+2. cd fastly-edgeworker-log-analytics
+3. git fetch
+4. npm install
+5. npm run start
+```
+
+**Sample Log Format:**
+
+```
+{
+  "timestamp": "2021-09-02T14:44:31+0000",
+  "request_method": "POST",
+  "response_status": 400,
+  "url": "/collections/query",
+  "response_body_size": 134,
+  "time_elapsed": 16,
+  "geo_country": "india",
+  "client_ip": "172.105.56.148"
+}
+```
+
+**GitHub** - https://github.com/Macrometacorp/demo-fastly-jsc8-realtime-logs/blob/main/README.md
