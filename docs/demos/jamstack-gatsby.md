@@ -2,4 +2,4 @@
 
 | **Federation** | **App** | **Source Code**|
 |----------- |----------|------------|
-|            | [**JAMStack Polling App**](http://d1v71awf1hnoi8.cloudfront.net)|[github](https://github.com/Macrometacorp/tutorial-jamstack-pollingapp)|
+|            | [**JAMStack Polling App**](https://macrometacorp.github.io/tutorial-jamstack-pollingapp/)|[github](https://github.com/Macrometacorp/tutorial-jamstack-pollingapp)|
