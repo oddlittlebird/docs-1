@@ -62,3 +62,4 @@ To build theme,
     npm install
     npm run build
 ```
+
