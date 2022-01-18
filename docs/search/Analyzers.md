@@ -26,7 +26,7 @@ Analyzers uses name conventions similar to collections. Each name can use the fo
 * Numbers (`0` through `9`).
 * Underscore (`_`) or dash (`-`).
 
-The first character must be a letter. Analyzer names are case sensitive. The maximum name length is 64 bytes. Non-ASCII characters are invalid. 
+The first character must be a letter. Analyzer names are case sensitive. The maximum name length is 64 bytes. Empty spaces and non-ASCII characters are invalid. 
 
 Custom Analyzers are named differently depending on whether they're global or specific to a database.
 
