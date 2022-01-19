@@ -1,19 +1,25 @@
 # Macrometa MetaFlix
 
-A geo-distributed Netflix clone running at the edge with low latency & superior experience to users.
+A geo-distributed Netflix clone running at the edge with low latency providing superior experience to users.
 
 
-## Setup
+## Setup (Regular)
 
 | **Federation**                                        | **Email**                              | **Passsword** | **Dashboard**|
 | ----------------------------------------------------- | -------------------------------------- | ------------- |--------------|
-| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-ott-app@macrometa.io | `xxxxxxxx`    | [Dashboard](https://macrometacorp.github.io/metaflix-fastly/) |
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-ott-app@macrometa.io | `xxxxxxxx`    | [Dashboard](https://macrometacorp.github.io/demo-ott-app/) |
 
+
+## Setup (Fastly)
+
+| **Federation**                                        | **Email**                              | **Passsword** | **Dashboard**|
+| ----------------------------------------------------- | -------------------------------------- | ------------- |--------------|
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-ott-app@macrometa.io | `xxxxxxxx`    | [Dashboard]( https://macrometacorp.github.io/metaflix-fastly/) |
 
 
 ## Solution
 
-1. Create the following collections in your GDN account:
+* Create the following collections in your GDN account:
 
 ```
 assets (global)
@@ -25,7 +31,7 @@ asset_credit_edge (graph-edge, global)
 genres_asset_edge (graph-edge, local)
 ```
 
-2. Create the following search views in your GDN account:
+* Create the following search views in your GDN account:
 
 **`asset_credit_view`** with Primary sort field `popularity`
 
@@ -42,7 +48,7 @@ genres_asset_edge (graph-edge, local)
 | ------------------------ | --------- | ------------- |
 | genres_asset_edge | asset_type | identity |
 
-3. Create the following graph in your federation:
+* Create the following graph in your federation:
 
 **`OTT`**
 
@@ -51,7 +57,7 @@ genres_asset_edge (graph-edge, local)
 | genres_asset_edge | genres | assets |
 | asset_credit_edge | assets | credits |
 
-4. Create the following Query workers in your GDN Account:
+* Create the following Query workers in your GDN Account:
 
 ```
 getMovieAssetsByGenre
@@ -62,4 +68,7 @@ searchByAsset
 searchByCredits
 ```
 
-**GitHub** - https://github.com/Macrometacorp/metaflix-fastly
+**GitHub**
+
+* Regular - https://github.com/Macrometacorp/demo-ott-app.git
+* Fastly - https://github.com/Macrometacorp/metaflix-fastly.git

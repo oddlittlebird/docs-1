@@ -74,4 +74,4 @@ fasty_unique_visitor_by_country_stats_1m (global)
 }
 ```
 
-**GitHub** - https://github.com/Macrometacorp/demo-fastly-jsc8-realtime-logs/blob/main/README.md
+**GitHub** - https://github.com/Macrometacorp/demo-fastly-jsc8-realtime-logs
