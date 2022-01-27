@@ -14,7 +14,7 @@ A geo-distributed Netflix clone running at the edge with low latency providing s
 
 | **Federation**                                        | **Email**                              | **Passsword** | **Dashboard**|
 | ----------------------------------------------------- | -------------------------------------- | ------------- |--------------|
-| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-ott-app@macrometa.io | `xxxxxxxx`    | [Dashboard]( https://macrometacorp.github.io/metaflix-fastly/) |
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo-ott-app@macrometa.io | `xxxxxxxx`    | [Dashboard]( https://macrometacorp.github.io/demo-ott-app-fastly/) |
 
 
 ## Solution
@@ -37,6 +37,7 @@ genres_asset_edge (graph-edge, local)
 
 | **Mapping - Collection** | **Field** | **Analyzer** |
 | ------------------------ | --------- | ------------- |
+| assets | name | text_en |
 | assets | title | text_en |
 | assets | original_title | text_en |
 | assets | overview | text_en |
@@ -71,4 +72,4 @@ searchByCredits
 **GitHub**
 
 * Regular - https://github.com/Macrometacorp/demo-ott-app.git
-* Fastly - https://github.com/Macrometacorp/metaflix-fastly.git
+* Fastly - https://github.com/Macrometacorp/demo-ott-app-fastly.git
