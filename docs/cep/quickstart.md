@@ -1,37 +1,41 @@
 # Quick Start with Stream Processing
 
-Macrometa GDN allows you to integrate streaming data and take appropriate actions. Most stream processing use cases involve collecting, analyzing, and integrating or acting on data generated during business activities by various sources.
+## Overview
+
+Macrometa GDN allows you to integrate streaming data and take action based on streaming data. Typically the stream processing use cases involve collecting, analyzing and, integrate or acting on data generated during business activities by various sources i.e.,
  
 | Stage | Description |
 |-------|-------------|
-| *Collect* | Receive or capture data from various data sources. |
-| *Analyze* | Analyze data to identify interesting patterns and extract information. |
-| *Act* | Take actions based on the findings. For example, running simple code, calling an external service, or triggering a complex integration. |
-| *Integrate* | Provide processed data for consumer consumption. |
+| **Collect** | Receive or capture data from various data sources. |
+| **Analyze** | Analyze data to identify interesting patterns and to extract information. |
+| **Act** | Take actions based on the results and findings done via processing the data. The action can be executing some random code, calling an external service, or triggering a complex integration. |
+| **Integrate** | Make processed data available for consumers to consume globally in right format with very low latencies. |
 
-If you are new to Macrometa GDN, start by reading the [essentials](../../essentials.md) of Macrometa GDN.
+!!! note
+		Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022. Please contact support@macrometa.com if you have any questions.
+
 
 ![GDN Essentials](images/gdn-cep-overview.png)
 
-You can process streams to perform the following actions with your data:
+The stream processing can be used for
 
-* Transform data from one format to another. For example, from XML to JSON.
-* Enrich data received from a specific source by combining it with databases and services.
-* Correlate data by joining multiple streams to create an aggregate stream.
-* Clean data by filtering it and by modifying the content in messages. For example, obfuscating sensitive information.
-* Derive insights by identifying event patterns in data streams.
-* Summarize data with time windows and incremental aggregations.
-* Real-time ETL for collections, tailing files, and scraping HTTP endpoints.
-* Integrating stream data and trigger actions based on the data. This can be a single service request or a complex enterprise integration flow.
+* `Transforming` your data from one format to another (e.g., to/from XML, JSON, AVRO, etc.).
+* `Enriching data` received from a specific source by combining it with databases, services, etc., via inline calculations and custom functions.
+* `Correlating data` streams by joining multiple streams to create an aggregate stream.
+* `Cleaning data` by filtering it and by modifying the content (e.g., obfuscating) in messages.
+* `Deriving insights` by identifying interesting patterns and sequences of events in data streams.
+* `Summarizing data` as and when it is generated using temporal windows and incremental time series aggregations.
+* `Realtime ETL` for Collections, tailing files, scraping HTTP Endpoints, etc.
+* `Streaming Integrations` i.e., integrating streaming data as well as trigger actions based on data streams. The action can be a single request to a service or a complex enterprise integration flow.
 
-For the following examples, assume these credentials:
+## Pre-requisite
 
-* Tenant name: nemo@nautilus.com
-* Password: xxxxxx
+Let's assume your
 
-## Driver Download
+* tenant name is `nemo@nautilus.com` and 
+* user password is `xxxxxxxx`.
 
-Download the appropriate drivers for your preferred language.
+## Driver download
 
 === "Python"
 
@@ -80,7 +84,7 @@ Download the appropriate drivers for your preferred language.
 
 ## Connect to GDN
 
-Establish a connection to a local region. When this code runs, it initializes the server connection to the region URL you specified.
+The first step in using GDN is to establish a connection to a local region. When this code executes, it initializes the server connection to the region URL you sepcified.
 
 === "Python"
 
@@ -109,14 +113,13 @@ Establish a connection to a local region. When this code runs, it initializes th
 
 ## Validate Stream Application
 
-Validate the stream application for syntax errors before saving.
+Validate the Stream Application before saving for any syntax errors.
 
 === "Python"
 
     ``` py
     stream_app_definition = """
     @App:name('Sample-Cargo-App')
-    @App:qlVersion("2")
     @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
     /**
@@ -136,22 +139,22 @@ Validate the stream application for syntax errors before saving.
             [3]
             [4]
             [5]
-    	*/
+    */
 
-    	-- Create Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-	CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+    -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+    @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+    define stream SampleCargoAppInputTable (weight int);
 
-
-    	-- Create Stream SampleCargoAppDestStream
-	CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
-
+    -- Define Stream SampleCargoAppDestStream
+    @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+    define stream SampleCargoAppDestStream (weight int);
 
     -- Data Processing
     @info(name='Query')
-    INSERT INTO SampleCargoAppDestStream
-    SELECT weight
-    FROM SampleCargoAppInputTable;
-	"""
+    select weight
+    from SampleCargoAppInputTable
+    insert into SampleCargoAppDestStream;
+    """
 
     print("--- Validating Stream Application Definition")
     print(client.validate_stream_app(data=script_app))
@@ -163,7 +166,6 @@ Validate the stream application for syntax errors before saving.
     // Add this snippet in previously created main function
     const appDefinition = `
         @App:name('Sample-Cargo-App')
-        @App:qlVersion("2")
         @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
         /**
@@ -185,19 +187,19 @@ Validate the stream application for syntax errors before saving.
                 [5]
         */
 
-        -- Create Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-		CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json')) (weight int);
+        -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+        @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+        define stream SampleCargoAppInputTable (weight int);
 
-
-        -- Create Stream SampleCargoAppDestStream
-		CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
-
+        -- Define Stream SampleCargoAppDestStream
+        @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+        define stream SampleCargoAppDestStream (weight int);
 
         -- Data Processing
         @info(name='Query')
-        INSERT INTO SampleCargoAppDestStream 
-        SELECT weight
-        FROM SampleCargoAppInputTable;`
+        select weight
+        from SampleCargoAppInputTable
+        insert into SampleCargoAppDestStream ;`
 
     console.log("--- Validating Stream Application Definition");
     result = await client.validateStreamApp(appDefinition);
@@ -205,11 +207,11 @@ Validate the stream application for syntax errors before saving.
 
 ## Save Stream Application
 
-By default, the stream application saves in the local region. Optionally, you can use `dclist` (domain component list) to deploy the stream application in other specified regions or all regions.
-
 === "Python"
 
     ``` py
+    # The stream app will be created by default in the local region. Optionally, you can send dclist to deploy stream
+    # app in all / selected regions
     print("--- Creating Stream Application")
     print(client.create_stream_app(data=script_app))
     ```
@@ -224,8 +226,6 @@ By default, the stream application saves in the local region. Optionally, you ca
     ```
 
 ## Enable or Disable Stream Application
-
-
 
 === "Python"
 
@@ -247,51 +247,41 @@ By default, the stream application saves in the local region. Optionally, you ca
     const result = await client.activateStreamApp("Sample-Cargo-App", false);
     ```
 
-To operate on created applications, you need to create an instance of the stream application.
+To operate on created apps, you need to create an instance of the Stream Application
 
 
-## Example: Update Stream Application
+## Update Stream Application
 
-In this example, we update a stream application to store the input data into itself and another collection called `SampleCargoAppDestTable`. 
+Let's update an Stream Application to store all the input data into it and another collection called `SampleCargoAppDestTable`. 
 
 === "Python"
 
-``` py
+    ``` py
 
-client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
 
-# For the "mytenant" tenant, connect to "test" fabric as tenant admin.
-# This returns an API wrapper for the "test" fabric on tenant 'mytenant'
-# Note that the 'mytenant' tenant should already exist.
-tenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
-fabric = tenant.useFabric('_system')
+    # For the "mytenant" tenant, connect to "test" fabric as tenant admin.
+    # This returns an API wrapper for the "test" fabric on tenant 'mytenant'
+    # Note that the 'mytenant' tenant should already exist.
+    tenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
+    fabric = tenant.useFabric('_system')
 
-# To operate on created apps, you need to create an instance of the app
-app = fabric.stream_app("Sample-Cargo-App")
+    # To operate on created apps, you need to create an instance of the app
+    app = fabric.stream_app("Sample-Cargo-App")
 
-# Update the app using
-data = "@App:name('Sample-Cargo-App') @App:qlVersion("2")
+    # Update the app using
+    data = "@App:name(\'Sample-Cargo-App\')\\n\\n-- Stream\\ndefine stream srcCargoStream (weight int);\\n\\n-- Table\\ndefine table destCargoTable (weight int, totalWeight long);\\n\\n-- Data Processing\\n@info(name=\'Query\')\\nselect weight, sum(weight) as totalWeight\\nfrom srcCargoStream\\ninsert into destCargoTable;"
+    regions = []
+    result = fabric.update(data,regions)
+    print(result)
 
-	-- Stream
-CREATE SOURCE STREAM srcCargoStream (weight int);
-
-	-- Table
-CREATE TABLE destCargoTable (weight int, totalWeight long);
-
-	-- Data Processing
-@info(name='Query')
-INSERT INTO destCargoTable
-SELECT weight, sum(weight) as totalWeight
-FROM srcCargoStream;"
-regions = []
-result = fabric.update(data,regions)
-print(result)
-```
+    ```
 
 === "Javascript"
 
     ``` js
-	CREATE STORE SampleCargoAppDestTable WITH (type = 'database', stream = "SampleCargoAppDestTable") (weight int);
+    @store(type = 'c8db', stream = "SampleCargoAppDestTable")
+    define table SampleCargoAppDestTable (weight int);
     ```
 
 Also add an query to store all the input data into `SampleCargoAppDestTable`.
@@ -299,9 +289,9 @@ Also add an query to store all the input data into `SampleCargoAppDestTable`.
 ```js
  -- Data Processing
  @info(name='Dump')
- INSERT INTO SampleCargoAppDestTable
- SELECT weight
- FROM SampleCargoAppInputTable;
+ select weight
+ from SampleCargoAppInputTable
+ insert into SampleCargoAppDestTable;
 ```
 
 Now, the code to update an Stream Application will look like
@@ -311,8 +301,7 @@ Now, the code to update an Stream Application will look like
     ``` js
     const updatedAppDefinition = `
         @App:name('Sample-Cargo-App')
-        @App:qlVersion("2")
-        @App:description('Basic stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
+        @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
         /**
         Testing the Stream Application:
@@ -341,24 +330,27 @@ Now, the code to update an Stream Application will look like
         */
 
         -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-		CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+        @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+        define stream SampleCargoAppInputTable (weight int);
 
         -- Define Stream SampleCargoAppDestStream
-		CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+        @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+        define stream SampleCargoAppDestStream (weight int);
 
-		CREATE STORE SampleCargoAppDestTable WITH (type = 'database', stream = "SampleCargoAppDestTable") (weight int);
+        @store(type = 'c8db', stream = "SampleCargoAppDestTable")
+        define table SampleCargoAppDestTable (weight int);
 
         -- Data Processing
         @info(name='Query')
-        INSERT INTO SampleCargoAppDestStream
-        SELECT weight
-        FROM SampleCargoAppInputTable;
+        select weight
+        from SampleCargoAppInputTable
+        insert into SampleCargoAppDestStream;
 
         -- Data Processing
         @info(name='Dump')
-        INSERT INTO SampleCargoAppDestTable
-        SELECT weight
-        FROM SampleCargoAppInputTable;`
+        select weight
+        from SampleCargoAppInputTable
+        insert into SampleCargoAppDestTable;`
 
     console.log("--- Updating Stream Application `Sample-Cargo-App`");
     result = await app.updateApplication([], updatedAppDefinition);
@@ -416,14 +408,14 @@ Refer example at the end of the page.
     result = await client.deleteStreamApp()'Sample-Cargo-App';
     ```
 
-## Get Sample Stream Applications
+## Get Sample Stream Apps
 
-You can try out several Stream Apps which are preloaded and ready to run.
+You can try out several Stream Apps which are pre-loaded and ready to run.
 
 === "Python"
 
     ``` py
-    print("--- You can try out several stream applications which are pre-loaded and ready to run.")
+    print("--- You can try out several Stream Apps which are pre-loaded and ready to run.")
     print("Samples", client.get_stream_app_samples())
 
     ```
@@ -439,7 +431,8 @@ You can try out several Stream Apps which are preloaded and ready to run.
 
 ## Complete Example
 
-The following example uses the code snippets provided in this tutorial.
+Complete code example written using above code snippets can be found below.
+There are two ways in which you can use the python driver, both are shown below.
 
 === "Python"
 
@@ -457,8 +450,7 @@ The following example uses the code snippets provided in this tutorial.
 
     stream_app_definition = """
         @App:name('Sample-Cargo-App')
-        @App:qlVersion("2")
-        @App:description('Basic stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
+        @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
         /**
         Testing the Stream Application:
@@ -479,17 +471,19 @@ The following example uses the code snippets provided in this tutorial.
                 [5]
         */
 
-        -- Create Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-		CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+        -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+        @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+        define stream SampleCargoAppInputTable (weight int);
 
-        -- Create Stream SampleCargoAppDestStream
-		CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+        -- Define Stream SampleCargoAppDestStream
+        @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+        define stream SampleCargoAppDestStream (weight int);
 
         -- Data Processing
         @info(name='Query')
-        INSERT INTO SampleCargoAppDestStream
-        SELECT weight
-        FROM SampleCargoAppInputTable;
+        select weight
+        from SampleCargoAppInputTable
+        insert into SampleCargoAppDestStream;
         """
     # Create a stream application
     print(client.create_stream_app(data=stream_app_definition))
@@ -521,12 +515,11 @@ The following example uses the code snippets provided in this tutorial.
 
         stream_app_definition = """
         @App:name('Sample-Cargo-App')
-        @App:qlVersion("2")
-        @App:description('Basic stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
+        @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
         /**
-        Testing the stream application:
-            1. Open stream SampleCargoAppDestStream in Console. The output can be monitored here.
+        Testing the Stream Application:
+            1. Open Stream SampleCargoAppDestStream in Console. The output can be monitored here.
 
             2. Upload following data into SampleCargoAppInputTable C8DB Collection
                 {"weight": 1}
@@ -543,41 +536,42 @@ The following example uses the code snippets provided in this tutorial.
                 [5]
         */
 
-        -- Creates Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-		CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+        -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+        @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+        define stream SampleCargoAppInputTable (weight int);
 
         -- Define Stream SampleCargoAppDestStream
-		CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+        @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+        define stream SampleCargoAppDestStream (weight int);
 
         -- Data Processing
         @info(name='Query')
-        INSERT INTO SampleCargoAppDestStream
-        SELECT weight
-        FROM SampleCargoAppInputTable;
+        select weight
+        from SampleCargoAppInputTable
+        insert into SampleCargoAppDestStream;
         """
 
         print("--- Validating Stream Application Definition")
         result = fabric.validate_stream_app(stream_app_definition)
-        assert result is not False, "Stream application definition is invalid."
+        assert result is not False, "Stream Application definition is invalid."
 
         # The stream app will be created by default in the local region. Optionally, you can send dclist to deploy stream
         # app in all / selected regions
         print("--- Creating Stream Application")
         result = fabric.create_stream_app(stream_app_definition, dclist=[])
-        assert result is not False, "Unable to create stream application"
+        assert result is not False, "Unable to create Stream Application"
 
         print("--- Getting Stream Application instance `Sample-Cargo-App`")
         app = fabric.stream_app("Sample-Cargo-App")
         result = app.get()
-        assert result is not False, "Unable to access stream application `Sample-Cargo-App`"
+        assert result is not False, "Unable to access Stream App `Sample-Cargo-App`"
 
         updated_stream_app_definition = """
             @App:name('Sample-Cargo-App')
-            @App:qlVersion("2")
-            @App:description('Basic stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
+            @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
         
             /**
-            Testing the stream application:
+            Testing the Stream Application:
                 1. Open Stream SampleCargoAppDestStream in Console. The output can be monitored here.
         
                 2. Upload following data into SampleCargoAppInputTable C8DB Collection
@@ -602,32 +596,35 @@ The following example uses the code snippets provided in this tutorial.
                     {"weight":5}
             */
         
-            -- Create Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-			CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+            -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+            @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+            define stream SampleCargoAppInputTable (weight int);
         
-            -- Create Stream SampleCargoAppDestStream
-			CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+            -- Define Stream SampleCargoAppDestStream
+            @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+            define stream SampleCargoAppDestStream (weight int);
         
-			CREATE STORE SampleCargoAppDestTable WITH (type = 'database', stream = "SampleCargoAppDestTable") (weight int);
+            @store(type = 'c8db', stream = "SampleCargoAppDestTable")
+            define table SampleCargoAppDestTable (weight int);
         
             -- Data Processing
             @info(name='Query')
-            INSERT INTO SampleCargoAppDestStream
-            SELECT weight
-            FROM SampleCargoAppInputTable;
+            select weight
+            from SampleCargoAppInputTable
+            insert into SampleCargoAppDestStream;
         
             -- Data Processing
             @info(name='Dump')
-            INSERT INTO SampleCargoAppDestTable
-            SELECT weight
-            FROM SampleCargoAppInputTable;
+            select weight
+            from SampleCargoAppInputTable
+            insert into SampleCargoAppDestTable;
         """
         print("--- Updating Stream Application `Sample-Cargo-App`")
         result = app.update(updated_stream_app_definition, dclist=[])
-        assert result is not False, "Unable to update stream application `Sample-Cargo-App`"
+        assert result is not False, "Unable to update Stream Application `Sample-Cargo-App`"
 
         print("--- Enable Stream Application `Sample-Cargo-App`")
-        # Enable or disable application using change_state function
+        # Enable / Disable app using change_state function
         # pass True to enable and False to disable the app
         result = app.change_state(True)
         assert result is not False, "Unable to enable Stream Application `Sample-Cargo-App`"
@@ -662,7 +659,7 @@ The following example uses the code snippets provided in this tutorial.
     const jsc8 = require("jsc8");
     console.log("--- Connecting to C8");
 
-    // Create an authenticated instance with Token / Apikey
+    // Crete a authenticated instance with Token / Apikey
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName: '_system'});
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName: '_system'});
     // await console.log("Authentication done!!...");
@@ -678,8 +675,7 @@ The following example uses the code snippets provided in this tutorial.
             let result = await client.get();
 
             const appDefinition =
-            `@App:name('Sample-Cargo-App')
-            @App:qlVersion("2")
+                `@App:name('Sample-Cargo-App')
             @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
 
             /**
@@ -702,21 +698,23 @@ The following example uses the code snippets provided in this tutorial.
             */
 
             -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-			CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json') (weight int);
+            @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+            define stream SampleCargoAppInputTable (weight int);
 
             -- Define Stream SampleCargoAppDestStream
-			CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+            @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+            define stream SampleCargoAppDestStream (weight int);
 
             -- Data Processing
             @info(name='Query')
-            INSERT INTO SampleCargoAppDestStream 
-            SELECT weight
-            FROM SampleCargoAppInputTable;`
+            select weight
+            from SampleCargoAppInputTable
+            insert into SampleCargoAppDestStream ;`
 
             console.log("--- Validating Stream Application Definition");
             result = await client.validateStreamApp(appDefinition);
 
-            // By default, the stream application is created in the local region. Optionally, you can send dclist to deploy stream
+            // The stream app will be created by default in the local region. Optionally, you can send dclist to deploy stream
             // app in all / selected regions
             console.log("--- Creating Stream Application");
             result = await client.createStreamApp([], appDefinition);
@@ -731,8 +729,7 @@ The following example uses the code snippets provided in this tutorial.
 
             const updatedAppDefinition = `
             @App:name('Sample-Cargo-App')
-            @App:qlVersion("2")
-            @App:description('Basic stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
+            @App:description('Basic Stream application to demonstrate reading data from input stream and store it in the collection. The stream and collections will be created automatically if they do not already exist.')
       
             /**
             Testing the Stream Application:
@@ -760,26 +757,29 @@ The following example uses the code snippets provided in this tutorial.
                     {"weight":5}
             */
       
-            -- Create Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
-			CREATE SOURCE SampleCargoAppInputTable WITH (type = 'database', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", map.type='json')
+            -- Defines Table SampleCargoAppInputTable to process events having sensorId and temperature(F).
+            @source(type = 'c8db', collection = "SampleCargoAppInputTable", collection.type="doc", replication.type="global", @map(type='json'))
+            define stream SampleCargoAppInputTable (weight int);
       
-            -- Create Stream SampleCargoAppDestStream
-			CREATE SINK SampleCargoAppDestStream WITH (type = 'stream', stream = "SampleCargoAppDestStream", replication.type="local") (weight int);
+            -- Define Stream SampleCargoAppDestStream
+            @sink(type = 'c8streams', stream = "SampleCargoAppDestStream", replication.type="local")
+            define stream SampleCargoAppDestStream (weight int);
       
-			CREATE STORE SampleCargoAppDestTable WITH (type = 'database', stream = "SampleCargoAppDestTable") (weight int);
+            @store(type = 'c8db', stream = "SampleCargoAppDestTable")
+            define table SampleCargoAppDestTable (weight int);
       
             -- Data Processing
             @info(name='Query')
-            INSERT INTO SampleCargoAppDestStream
-            SELECT weight
-            FROM SampleCargoAppInputTable;
+            select weight
+            from SampleCargoAppInputTable
+            insert into SampleCargoAppDestStream;
       
             -- Data Processing
             @info(name='Dump')
-            INSERT INTO SampleCargoAppDestTable
-            SELECT weight
-            FROM SampleCargoAppInputTable;
-      
+            select weight
+            from SampleCargoAppInputTable
+            insert into SampleCargoAppDestTable;
+      `
             const app = client.streamApp("Sample-Cargo-App");
             ressult = await app.retriveApplication();
 
