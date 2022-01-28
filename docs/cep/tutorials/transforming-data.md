@@ -9,19 +9,19 @@ The stream processor allows you to perform a wide range of transformations to th
 The operators that you can configure inline within Stream applications in order to carry out data transformations are listed in the [Stream Processor Query Guide - Inbuild Aggregation Functions section](../reference/query-guide.md).
 
 To show how an inline operators are configured, let's consider an example where readings from a sensor that indicates 
-the temperature of a room every second are transformed to indicate the average tempertature and the average humidity as at each second.
+the temperature of a room every second are transformed to indicate the average temperature and the average humidity as at each second.
 
-1. Open the GUI. Click on `Stream Apps` tab.
-1. Click on **New** to start defining a new stream application.
-1. Enter a **Name** as `TemperatureApp` or feel free to chose any other name for the stream application.
-1. Enter a **Description**.
+1. Open the GUI. Click the **Stream Apps** tab.
+1. Click **New** to define a new stream application.
+1. Type a **Name**. For example, `TemperatureApp`.
+1. Type a **Description**.
 1. Add the following sample stream application.
 1. Let's define the input stream to define the schema based on which data is selected to the streaming integration flow.
 
     In this example, let's assume that each event indicates the device ID, the room ID, and the temperature. Therefore, let's define an input stream as follows:
 
     ```
-    define stream TempStream (deviceID long, roomNo int, temp double);
+	CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
     ```
        
     !!!info
@@ -45,26 +45,26 @@ the temperature of a room every second are transformed to indicate the average t
     1. To group by a specific attribute (by the `roomNo` attribute in this example), specify it via the `group by` clause as shown below.
 
         ```sql
+        insert into OutputStream
         select roomNo, avg(temp) as avgTemp
         from TempStream
-        group by roomNo
-        insert into OutputStream;
+        group by roomNo;
         ```
 
     1. Add the `insert into` clause with the name of the output stream to indicate that the processed events are directed to that stream.
 
         ```sql
-        from TempStream
-        insert into OutputStream;
+        insert into OutputStream
+        from TempStream;
         ```
       
     1. To group by a specific attribute (by the `roomNo` attribute in this example), specify it via the `group by` clause as shown below.
 
         ```sql
+        insert into OutputStream
         select roomNo, deviceID, avg(temp) as avgTemp
         from TempStream
-        group by roomNo
-        insert into OutputStream;
+        group by roomNo;
         ```
 
 1. Save the stream application. The completed stream application is as follows.
@@ -72,16 +72,16 @@ the temperature of a room every second are transformed to indicate the average t
     ```sql
     @App:name("TemperatureApp")
     @App:description("Calculate an average temperature of the room")
+    @App:qlVersion("2")
 
-    define stream TempStream (deviceID long, roomNo int, temp double);
+	CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
-    @sink(type= 'c8streams', stream='OutputStream', @map(type='json'))
-    define stream OutputStream (roomNo int, avgTemp double);
+	CREATE STREAM OutputStream WITH (type='stream', stream='OutputStream', map.type='json') (roomNo int, avgTemp double);
 
+    insert into OutputStream
     select roomNo, avg(temp) as avgTemp
     from TempStream
-    group by roomNo
-    insert into OutputStream;
+    group by roomNo;
     ```
 
 ## Transform data using Plugins
