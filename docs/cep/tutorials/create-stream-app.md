@@ -46,21 +46,23 @@ Macrometa provide in-build source, sink and store explained in the later section
 
 To create a stream application follow the steps below:
 
-1. Open the GUI. Click the **Stream Apps** tab.
-1. Click **New** to define a new stream application.
-1. Type a **Name** for the stream application. For example, `SweetProductionAnalysis`.
-1. Type a **Description**.
+1. Open the GUI. Click on `Stream Apps` tab.
+1. Click on **New** to start defining a new stream application.
+1. Enter a **Name** as `SweetProductionAnalysis` or feel free to chose any other name for the stream application.
+1. Enter a **Description**.
 1. Add the following sample stream application.
 
-```
-CREATE SOURCE SweetProductionStream WITH (type = 'database', collection='SweetProductionData', map.type='json') (name string, amount double);
+    ```
+    @source(type = 'c8db', collection='SweetProductionData', @map(type='json'))
+    define stream SweetProductionStream (name string, amount double);
 
-CREATE SINK ProductionAlertStream WITH (type= 'stream', stream='ProductionAlertStream', map.type='json'
+    @sink(type= 'c8streams', stream='ProductionAlertStream', @map(type='json'))
+    define stream ProductionAlertStream (name string, amount double);
 
-INSERT INTO ProductionAlertStream
-SELECT *
-FROM SweetProductionStream;
-```
+    select *
+    from SweetProductionStream
+    insert into ProductionAlertStream;
+    ```
 
 1. Click `Save` to save the stream app.
 1. Select all the regions to deploy your application in.
@@ -70,19 +72,25 @@ FROM SweetProductionStream;
 
 ### C8Streams
 
-Syntax:
+**Syntax**
 
-	CREATE SOURCE SourceName WITH (type="stream", stream.list="STRING", replication.type="STRING", map.type='type') (strings);
+```
+@source(type="c8streams", stream.list="<STRING>", replication.type="<STRING>", @map(...)))
+```
 
+**Example**
 
-Example:
+```
+@source(type="c8streams", stream.list="OrderStream", replication.type="local", @map(type='json')))
+define stream OrderStream(product_id string, quantity integer)
+```
 
+If `@source` annotation is not provided, `c8stream` is considered as a the default source. Stream application will use the c8stream with the default query parameters explained in the chart below. In the above example, stream can also be defined as
+```
+define stream OrderStream(product_id string, quantity integer)
+```
 
-	CREATE SOURCE OrderStream WITH (type="stream", stream.list="OrderStream", replication.type="local", map.type='json') (product_id string, quantity integer);
-
-Stream application will use the stream with the default query parameters explained in the chart below.
-
-Query Parameters:
+**Query Parameters**
 
 <table>
 <thead>
@@ -114,16 +122,16 @@ Query Parameters:
 
 ### C8DB
 
-Syntax:
+**Syntax**
 
-	CREATE SOURCE SourceName WITH (type="database", collection="STRING", replication.type="STRING", collection.type="STRING", map.type='type') (strings);
+    @source(type = 'c8db', collection="STRING", replication.type="STRING", collection.type="STRING", @map(...))
 
+**Example**
 
-Example:
+    @source(type = 'c8db', collection='SweetProductionData', @map(type='json'))
+    define stream SweetProductionStream (name string, amount double);
 
-	CREATE SOURCE SweetProductionStream WITH (type="database", map.type='json') (name string, amount double);
-
-Query Parameters:
+**Query Parameters**
     
 <table>
 <thead>
@@ -164,17 +172,16 @@ Query Parameters:
 
 ### C8Streams
 
-Syntax:
+**Syntax**
 
-	CREATE SINK SinkName WITH (type="stream", stream="STRING", replication.type="STRING", map.type='type') (strings);
     @sink(type="c8streams", stream="<STRING>", replication.type="<STRING>", @map(...)))
 
-Example:
+**Example**
     
-	CREATE SINK ProductionAlertStream WITH (type="stream", stream='ProductionAlertStream', map.type='json`) (name string, amount double);
+    @sink(type= 'c8streams', stream='ProductionAlertStream', @map(type='json'))
+    define stream ProductionAlertStream (name string, amount double);
 
-
-Query Parameters:
+**Query Parameters**
 
 <table>
 <thead>
@@ -208,16 +215,19 @@ Query Parameters:
 
 ### C8DB
 
-Syntax:
+**Syntax**
 
-	CREATE STORE StoreName WITH (type="database", collection="STRING", replication.type="STRING", collection.type="STRING", map.type='type', from="STRING", to="STRING") (strings);
+    @store(type = 'c8db', collection="STRING", replication.type="STRING", collection.type="STRING", from="STRING", to="STRING")
     
 
-Example:
+**Example**
 
-	CREATE STORE SweetProductionCollection WITH (type="database", collection="SweetProductionCollection", replication.type="local", map.type='json') (strings);
+    @store(type = 'c8db', collection='SweetProductionCollection')
+    define table SweetProductionCollection (name string, amount double);
 
-Stream applications will use the c8db with the default query parameters explained in the chart below. 
+If `@store` annotation is not provided, c8db is considered as a the default store. Stream application will use the c8db with the default query parameters explained in the chart below. In the above example, store can also be defined as
+
+    define table SweetProductionCollection (name string, amount double);
     
 <table>
 <thead>
@@ -277,9 +287,9 @@ Following tutorials cover various user scenarios using Macrometa Stream Processi
 * [Filtering Data](filtering-data.md)
 * [Transforming Data](transforming-data.md)
 * [Enriching Data](enriching-data.md)
-* [Executing Scripts](executing-scripts.md)
+* [Executing Scripts](executing-scripts.md) -->
 * [Correlating Data](correlating-data.md)
 * [Summarizing Data](summarizing-data.md)
 
 
-Refer to [Reference](../reference/overview.md) for additional stream processing examples.
+Please refer to [Reference](../reference/overview.md) for additional stream processing examples.

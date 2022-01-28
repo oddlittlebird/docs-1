@@ -9,22 +9,22 @@ Enriching data involves integrating the data received in the stream with data fr
 This section explains how to enrich the data in a specific stream by joining it with c8db collection. For this purpose, consider 
 a scenario where you receive sales records generated from multiple locations as events via a system. 
 
-1. Open the GUI. Click the **Stream Apps** tab.
-1. Click **New** to define a new stream application.
-1. Type a **Name** for the stream application. For example, `EnrichingTransactionsApp`.
-1. Type a **Description**.
+1. Open the GUI. Click on `Stream Apps` tab.
+1. Click on **New** to start defining a new stream application.
+1. Enter a **Name** as `EnrichingTransactionsApp` or feel free to chose any other name for the stream application.
+1. Enter a **Description**.
 1. Add the following sample stream application.
  
 2. Define the input stream and the c8db collection that need to be joined as follows.
 
     1. Define the stream as follows.
         ```
-        CREATE STREAM TrasanctionStream (userId long, transactionAmount double, location string);
+        define stream TrasanctionStream (userId long, transactionAmount double, location string);
         ```
         
     2. Define the table as follows.
         ```
-        CREATE TABLE UserTable (userId long, firstName string, lastName string);
+        define table UserTable (userId long, firstName string, lastName string);
         ```
         
 3. Then define the stream query to join the stream and the table, and handle the result as required.
@@ -63,18 +63,18 @@ a scenario where you receive sales records generated from multiple locations as 
 
         ```
         @App:name("EnrichingTransactionsApp")
-        @App:qlVersion("2")
 
 
-        CREATE STREAM TrasanctionStream (userId long, transactionAmount double, location string);
+        define stream TrasanctionStream (userId long, transactionAmount double, location string);
 
-        CREATE TABLE UserTable (userId long, firstName string, lastName string);
+        define table UserTable (userId long, firstName string, lastName string);
 
-		CREATE STREAM EnrichedTrasanctionStream WITH (type='stream', stream='EnrichedTrasanctionStream', map.type='json') (userId long, userName string, transactionAmount double, location string);
+        @sink(type= 'c8streams', stream='EnrichedTrasanctionStream', @map(type='json'))
+        define stream EnrichedTrasanctionStream(userId long, userName string, transactionAmount double, location string);
 
-        insert into EnrichedTrasanctionStream
         select t.userId, str:concat( u.firstName, " ", u.lastName) as userName, transactionAmount, location
-        from TrasanctionStream as t join UserTable as u on t.userId == u.userId ;
+        from TrasanctionStream as t join UserTable as u on t.userId == u.userId 
+        insert into EnrichedTrasanctionStream;
         ```
 
     5. To check whether the above stream application works as expected follow below steps
@@ -107,30 +107,31 @@ This section explains how to enrich the data in a specific stream by joining it 
 
 To understand how this is done, consider a scenario where you receive information about cash withdrawals and cash deposits at different bank branches from two separate applications. Therefore, this two types of information are captured via two separate streams. To compare the withdrawals with deposits and observe whether enough deposits are being made to manage the withdrawals, you need to join both these streams. To do this, follow the procedure below.
 
-1. Open the GUI. Click the **Stream Apps** tab.
+1. Open the GUI. Click on `Stream Apps` tab.
 
-1. Click **New** to define a new stream application.
+1. Click on **New** to start defining a new stream application.
 
-1. Type a **Name** for the stream application. For example, `BankTransactionsApp`.
+1. Enter a **Name** as `BankTransactionsApp` or feel free to chose any other name for the stream application.
 
-1. Type a **Description**.
+1. Enter a **Description**.
 
-1. Define the two input streams via which you are receiving information about withdrawals and deposits.
+1. First, define the two input streams via which you are receiving informations about withdrawals and deposits.
         
-    1. Create a stream named `CashWithdrawalStream` to capture information about withdrawals as follows.
+    1. Define a stream named `CashWithdrawalStream` to capture information about withdrawals as follows.
         ```
-        CREATE STREAM CashWithdrawalStream(branchID int, amount long);
+        define stream CashWithdrawalStream(branchID int, amount long);
         ```
 
-    2. Create a stream named `CashDepositsStream` to capture information about deposits as follows.
+    2. Define a stream named `CashDepositsStream` to capture information about deposits as follows.
         ```
-        CREATE STREAM CashDepositsStream(branchID string, amount long);
+        define stream CashDepositsStream(branchID string, amount long);
         ```
         
 3. Now let's define an output stream to which the combined information from both the input streams need to be directed after the join.
 
     ```
-	CREATE STREAM CashFlowStream WITH (type='stream', stream.list='CashFlowStream') (branchID string, withdrawalAmount long, depositAmount long);
+    @sink(type='c8stream', stream.list='CashFlowStream')
+    define stream CashFlowStream(branchID string, withdrawalAmount long, depositAmount long);
     ```
 
     !!!info
@@ -179,19 +180,19 @@ To understand how this is done, consider a scenario where you receive informatio
 
         ```
         @App:name("BankTransactionsApp")
-        @App:qlVersion("2")
 
-        CREATE STREAM CashWithdrawalStream(branchID string, amount long);
+        define stream CashWithdrawalStream(branchID string, amount long);
 
-        CREATE STREAM CashDepositsStream(branchID string, amount long);
+        define stream CashDepositsStream(branchID string, amount long);
 
-		CREATE STREAM CashFlowStream WITH (type='stream', stream='CashFlowStream') (branchID string, withdrawalAmount long, depositAmount long);
+        @sink(type='c8streams', stream='CashFlowStream')
+        define stream CashFlowStream(branchID string, withdrawalAmount long, depositAmount long);
 
-        insert into CashFlowStream
         select w.branchID as branchID, w.amount as withdrawalAmount, d.amount as depositAmount
         from CashWithdrawalStream as w join CashDepositsStream as d 
             on w.branchID == d.branchID
-        having w.amount > d.amount * 0.95;
+        having w.amount > d.amount * 0.95
+        insert into CashFlowStream;
         ```
 
 For the different types of joins you can perform via streams, see [Stream Query Guide - Join](../reference/query-guide.md#join-stream)
@@ -213,7 +214,9 @@ To understand how this is done, consider an example where you have some credit c
 3. To publish the input data to the external application, connect a sink to the stream you created as shown below. For more information about publishing information, see the [Publishing Data guide](publishing-data.md).
 
     ```
-	CREATE STREAM CreditCardStream WITH (type='http-request', publisher.url='https://secure.ftipgw.com/ArgoFire/validate.asmx/GetCardType', method='POST', headers="'Content-Type:application/x-www-form-urlencoded'", sink.id="cardTypeSink", sink.map.type='keyvalue', sink.map.payload = (CardNumber='{{creditCardNo}}')) (creditCardNo string);
+    @sink(type='http-request',publisher.url='https://secure.ftipgw.com/ArgoFire/validate.asmx/GetCardType',method='POST', headers="'Content-Type:application/x-www-form-urlencoded'", sink.id="cardTypeSink", @map(type='keyvalue', @payload(CardNumber='{{creditCardNo}}')))
+    
+    define stream CreditCardStream (creditCardNo string);
     ```
 
     !!! info
@@ -222,16 +225,19 @@ To understand how this is done, consider an example where you have some credit c
         - The `publisher.url` parameter specifies the URL to which the outgoing events need to be published via HTTP.
         - For more information about the HTTP transport, see [Plugins - HTTP](../reference/extensions/io/http.md).
         
-4. To capture the response of the external application once it returns the credit card type, create a stream as follows. For more information about consuming data, see the [Consuming Data guide](./consuming-data.md).
+4. To capture the response of the external application once it returns the credit card type, define a stream as follows. For more information about consuming data, see the [Consuming Data guide](./consuming-data.md).
 
     ```
-    CREATE STREAM EnrichedCreditCardStream (creditCardNo string, creditCardType string);
+    define stream EnrichedCreditCardStream (creditCardNo string, creditCardType string);
     ```
     
-5. Assuming the external application sends its output via HTTP transport, connect a source of the `http`type to the `EnrichedCreditCardStream` stream as follows. For more information about consuming events, see the [Consuming Data guide](./consuming-data.md).
+5. Assuming that the external application sends its output via the HTTP transport, connect a source of the `http`type to the `EnrichedCreditCardStream` stream as follows. For more information about consuming events, see the [Consuming Data guide](./consuming-data.md).
 
     ```
-	CREATE STREAM EnrichedCreditCardInfoStream WITH (source.type='http-response', sink.id='cardTypeSink', map.type='xml', map.namespaces = "xmlns=http://localhost/SmartPayments/", attributes.creditCardNo = 'trp:creditCardNo',creditCardType = ".") (creditCardNo string,creditCardType string);
+    @source(type='http-response' ,sink.id='cardTypeSink',    
+    @map(type='xml', namespaces = "xmlns=http://localhost/SmartPayments/",    
+    @attributes(creditCardNo = 'trp:creditCardNo',creditCardType = ".")))        
+    define stream EnrichedCreditCardInfoStream (creditCardNo string,creditCardType string);
     ```
 
     !!!info
@@ -240,16 +246,16 @@ To understand how this is done, consider an example where you have some credit c
 6. To save the response of the external application, define a table named `CCInfoTable`.
 
     ```
-    CREATE TABLE CCInfoTable (cardNo long, cardType string);
+    define table CCInfoTable (cardNo long, cardType string);
     ```
     
 7. To save the data enriched by integrating the information received from the external service, add a stream query as follows.
 
     ```
-    update or insert into CCInfoTable 
-        on CCInfoTable.creditCardNo == creditCardNo
     select *
-    from EnrichedCreditCardInfoStream;
+    from EnrichedCreditCardInfoStream
+    update or insert into CCInfoTable 
+        on CCInfoTable.creditCardNo == creditCardNo;
     ```
 
     The above query selects all the attributes in the `EnrichedCreditCardInfoStream` and inserts them into the `CCInfoTable` table. If a specific record already exists,the query updates it by replacing the attribute values with the latest values taken from the `EnrichedCreditCardInfoStream`. 
@@ -258,24 +264,30 @@ To understand how this is done, consider an example where you have some credit c
 
     ```
     @App:name("CCTypeIdentificationApp")
-    @App:qlVersion("2")
 
-    CREATE STREAM CreditCardStream (creditCardNo string);
+    define stream CreditCardStream (creditCardNo string);
 
-	CREATE STREAM GetCreditCardInfoStream WITH (type='http-call', publisher.url='http://secure.ftipgw.com/ArgoFire/validate.asmx/GetCardType', method='POST', headers="'Content-Type:application/x-www-form-urlencoded'", sink.id="cardTypeSink", sink.map.type='keyvalue', sink.map.payload = (CardNumber='{{creditCardNo}}')) (creditCardNo string);
+    @sink(type='http-call',publisher.url='http://secure.ftipgw.com/ArgoFire/validate.asmx/GetCardType',method='POST', headers="'Content-Type:application/x-www-form-urlencoded'",
+        sink.id="cardTypeSink",
+        @map(type='keyvalue', @payload(CardNumber='{{creditCardNo}}')))
+    define stream GetCreditCardInfoStream (creditCardNo string);
 
-	CREATE STREAM EnrichedCreditCardInfoStream WITH (source.type='http-response', sink.id='cardTypeSink', map.type='xml', map.namespaces = "xmlns=http://localhost/SmartPayments/", attributes.creditCardNo = 'trp:creditCardNo',creditCardType = ".") (creditCardNo string,creditCardType string);
+    @source(type='http-call-response' ,sink.id='cardTypeSink',    
+        @map(type='json', namespaces = "xmlns=http://localhost/SmartPayments/",
+        @attributes(creditCardNo = 'trp:creditCardNo',creditCardType = ".")))
+    define stream EnrichedCreditCardInfoStream (creditCardNo string,creditCardType string);
 
-    CREATE TABLE CCInfoTable (creditCardNo string,creditCardType string);
+    -- Define `SampleFilteringByValueDestInvalidDataTable`
+    define Table CCInfoTable(creditCardNo string,creditCardType string);
 
-    insert into GetCreditCardInfoStream
     select creditCardNo
-    from CreditCardStream;
+    from CreditCardStream
+    insert into GetCreditCardInfoStream;
 
-    update or insert into CCInfoTable 
-        on CCInfoTable.creditCardNo == creditCardNo
     select *
-    from EnrichedCreditCardInfoStream;
+    from EnrichedCreditCardInfoStream
+    update or insert into CCInfoTable 
+        on CCInfoTable.creditCardNo == creditCardNo;
     ```
 
 ## Enrich data using built-in Plugins
