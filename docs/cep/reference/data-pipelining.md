@@ -2,37 +2,36 @@
 
 ## Stream Joins
 
-Provides examples on joining two stream based on a condition.
+This example shows joining two stream based on a condition.
 
 For more information on other [join operations](../query-guide/#join-stream) refer the [stream query guide](query-guide.md).
 
-**Example:**
 
 ```
-define stream TemperatureStream (roomNo string, temperature double);
+CREATE STREAM TemperatureStream (roomNo string, temperature double);
 
-define stream HumidityStream (roomNo string, humidity double);
+CREATE STREAM HumidityStream (roomNo string, humidity double);
 
 @info(name = 'Equi-join')
 -- Join latest `temperature` and `humidity` events arriving within 1 minute for each `roomNo`.
+insert into TemperatureHumidityStream
 select t.roomNo, t.temperature, h.humidity
 from TemperatureStream#window.unique:time(roomNo, 1 min) as t
     join HumidityStream#window.unique:time(roomNo, 1 min) as h
-    on t.roomNo == h.roomNo
-insert into TemperatureHumidityStream;
+    on t.roomNo == h.roomNo;
 
 
 @info(name = 'Join-on-temperature')
+insert into EnrichedTemperatureStream
 select t.roomNo, t.temperature, h.humidity
 -- Join when events arrive in `TemperatureStream`.
 from TemperatureStream as t
 -- When events get matched in `time()` window, all matched events are emitted, else `null` is emitted.
     left outer join HumidityStream#window.time(1 min) as h
-    on t.roomNo == h.roomNo
-insert into EnrichedTemperatureStream;
+    on t.roomNo == h.roomNo;
 ```
 
-**Join Behavior:**
+### Join Behavior
 
 When events are sent to `TemperatureStream` stream and `HumidityStream` stream, following events will get emitted at `TemperatureHumidityStream` stream via `Equi-join` query, and `EnrichedTemperatureStream` stream via `Join-on-temperature` query.
 
@@ -65,15 +64,14 @@ When events are sent to `TemperatureStream` stream and `HumidityStream` stream, 
 
 ## Partition Events by Value
 
-Provides example on partitioning events by attribute values.
+This example shows partitioning events by attribute values.
 
 For more information on partitioning events based on value ranges, refer other examples under data pipelining section.
 For more information on [partition](../query-guide/#partition) refer the [stream query guide](query-guide.md).
 
-**Example:**
 
 ```
-define stream LoginStream ( userID string, loginSuccessful bool);
+CREATE STREAM LoginStream ( userID string, loginSuccessful bool);
 
 -- Optional purging configuration, to remove partition instances that haven't received events for `1 hour` by checking every `10 sec`.
 @purge(enable='true', interval='10 sec', idle.period='1 hour')
@@ -83,23 +81,24 @@ partition with ( userID of LoginStream )
 begin
     @info(name='Aggregation-query')
 -- Calculates success and failure login attempts from last 3 events of each `userID`.
+    insert into #LoginAttempts
     select userID, loginSuccessful, count() as attempts
     from LoginStream#window.length(3)
-    group by loginSuccessful
+    group by loginSuccessful;
 -- Inserts results to `#LoginAttempts` inner stream that is only accessible within the partition instance.
-    insert into #LoginAttempts;
+    
 
 
     @info(name='Alert-query')
 -- Consumes events from the inner stream, and suspends `userID`s that have 3 consecutive login failures.
+    insert into UserSuspensionStream
     select userID, "3 consecutive login failures!" as message
-    from #LoginAttempts[loginSuccessful==false and attempts==3]
-    insert into UserSuspensionStream;
+    from #LoginAttempts[loginSuccessful==false and attempts==3];
 
 end;
 ```
 
-**Partition Behavior:**
+### Partition Behavior
 
 When events are sent to `LoginStream` stream, following events will be generated at `#LoginAttempts` inner stream via `Aggregation-query` query, and `UserSuspensionStream` stream via `Alert-query` query.
 
@@ -122,42 +121,39 @@ When events are sent to `LoginStream` stream, following events will be generated
 
 ## Scatter and Gather (String)
 
-Provides example on performing scatter and gather on string values.
+This example shows performing scatter and gather on string values.
 
-For more information on performing scatter and gather on json, refer below section.
-
-**Example:**
 
 ```
-define stream PurchaseStream (userId string, items string, store string);
+CREATE STREAM PurchaseStream (userId string, items string, store string);
 
 @info(name = 'Scatter-query')
 -- Scatter value of `items` in to separate events by `,`.
+insert into TokenizedItemStream
 select userId, token as item, store
-from PurchaseStream#str:tokenize(items, ',', true)
-insert into TokenizedItemStream;
+from PurchaseStream#str:tokenize(items, ',', true);
 
 @info(name = 'Transform-query')
 -- Concat tokenized `item` with `store`.
+insert into TransformedItemStream
 select userId, str:concat(store, "-", item) as itemKey
-from TokenizedItemStream
-insert into TransformedItemStream;
+from TokenizedItemStream;
 
 @info(name = 'Gather-query')
+insert into GroupedPurchaseItemStream
 -- Concat all events in a batch separating them by `,`.
 select userId, str:groupConcat(itemKey, ",") as itemKeys
 -- Collect events traveling as a batch via `batch()` window.
-from TransformedItemStream#window.batch()
-insert into GroupedPurchaseItemStream;
+from TransformedItemStream#window.batch();
 ```
 
-**Input:**
+### Input
 
-Below event containing a JSON string is sent to `PurchaseStream`,
+The following event containing a JSON string is sent to `PurchaseStream`:
 
 [`'501'`, `'cake,cookie,bun,cookie'`, `'CA'`]
 
-**Output:**
+### Output
 
 After processing, the events arriving at `TokenizedItemStream` will be as follows:
 
@@ -174,26 +170,24 @@ The event arriving at `GroupedPurchaseItemStream` will be as follows:
 ## Scatter and Gather (JSON)
 
 
-Provides example on performing scatter and gather on string values.
+This example shows performing scatter and gather on string values.
 
-For more information on performing scatter and gather on string, refer above section.
-
-**Example:**
 
 ```
-define stream PurchaseStream (order string, store string);
+CREATE STREAM PurchaseStream (order string, store string);
 
 @info(name = 'Scatter-query')
 -- Scatter elements under `$.order.items` in to separate events.
+insert into TokenizedItemStream
 select json:getString(order, '$.order.id') as orderId,
        jsonElement as item,
        store
-from PurchaseStream#json:tokenize(order, '$.order.items')
-insert into TokenizedItemStream;
+from PurchaseStream#json:tokenize(order, '$.order.items');
 
 
 @info(name = 'Transform-query')
 -- Provide `$5` discount to cakes.
+insert into DiscountedItemStream
 select orderId,
        ifThenElse(json:getString(item, 'name') == "cake",
                   json:toString(
@@ -203,29 +197,28 @@ select orderId,
                   ),
                   item) as item,
        store
-from TokenizedItemStream
-insert into DiscountedItemStream;
+from TokenizedItemStream;
 
 
 @info(name = 'Gather-query')
+insert into GroupedItemStream
 -- Combine `item` from all events in a batch as a single JSON Array.
 select orderId, json:group(item) as items, store
 -- Collect events traveling as a batch via `batch()` window.
-from DiscountedItemStream#window.batch()
-insert into GroupedItemStream;
+from DiscountedItemStream#window.batch();
 
 
 @info(name = 'Format-query')
+insert into DiscountedOrderStream
 -- Format the final JSON by combining `orderId`, `items`, and `store`.
 select str:fillTemplate("""
     {"discountedOrder":
         {"id":"{{1}}", "store":"{{3}}", "items":{{2}} }
     }""", orderId, items, store) as discountedOrder
-from GroupedItemStream
-insert into DiscountedOrderStream;
+from GroupedItemStream;
 ```
 
-**Input:**
+### Input
 
 Below event is sent to `PurchaseStream`,
 
@@ -241,9 +234,9 @@ Below event is sent to `PurchaseStream`,
 }, 'CA']
 ```
 
-**Output:**
+### Output
 
-After processing, following events will be arriving at `TokenizedItemStream`:
+After processing, following events arrive at `TokenizedItemStream`:
 
 [`'501'`, `'{"name":"cake","price":25.0}'`, `'CA'`],<br/>
 [`'501'`, `'{"name":"cookie","price":15.0}'`, `'CA'`],<br/>

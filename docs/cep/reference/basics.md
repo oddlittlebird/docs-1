@@ -13,24 +13,24 @@ Following is an example annotated with descriptive comments.
 
 ```
 -- Defines `InputTemperatureStream` stream to pass events having `sensorId` and `temperature` attributes of types `string` and `double`.
-define stream InputTemperatureStream (sensorId string, temperature double);
+CREATE STREAM InputTemperatureStream (sensorId string, temperature double);
 
 -- Optional `@info` annotation to name the query.
 @info(name = 'Pass-through')
 
 -- Query to consume events from `InputTemperatureStream`, produce new events by selecting all the attributes from the incoming events, and outputs them to `TemperatureStream`.
+insert into TemperatureAndSensorStream
 select *
-from InputTemperatureStream
-insert into TemperatureAndSensorStream;
+from InputTemperatureStream;
 
 @info(name = 'Simple-selection')
 
 
 -- Selects only the `temperature` attribute from events, and outputs to `TemperatureOnlyStream`.
 -- Consumes events from `TemperatureAndSensorStream`. The schema of the stream is inferred from the previous query, hence no need to be defined.
+insert into TemperatureOnlyStream
 select temperature
-from TemperatureAndSensorStream
-insert into TemperatureOnlyStream;
+from TemperatureAndSensorStream;
 ```
 
 ### Events at each stream
@@ -49,23 +49,22 @@ There are multiple source and sink types, but this example only explains c8db so
 
 ### Example
 
+This example creates a C8DB source from which a stream consumes JSON messages:
+
 ```
--- C8DB source to consume `JSON` messages from.
-@source(type='c8db', collection='TemparatureStream', collection.type="doc", replication.type="global", @map(type='json'))
+C8DB source to consume `JSON` messages from.
+CREATE SOURCE TemperatureStream WITH (type='database', collection='TemparatureStream', collection.type="doc", replication.type="global", map.type='json') (sensorId string, temperature double);
+```
 
--- Defines `TemperatureStream` stream having `sensorId` and `temperature` attributes of types `string` and `double`.
-define stream TemperatureStream (sensorId string, temperature double);
+This example creates a sink to log events that arrive from a stream called `TemperatureOnlyStream` with the `temperature` attribute of type `double`:
 
--- C8Streams sink to log events arriving via `TemperatureOnlyStream` stream.
-@sink(type='c8streams', stream="TemperatureOnlyStream", replication.type="local", @map(type='json'))
-
--- Defines `TemperatureOnlyStream` stream having `temperature` attribute of type `double`.
-define stream TemperatureOnlyStream (temperature double);
+```
+CREATE SINK TemperatureOnlyStream WITH (type='stream', stream="TemperatureOnlyStream", replication.type="local", map.type='json') (temperature double);
 
 @info(name = 'Simple-selection')
+insert into TemperatureOnlyStream
 select temperature
-from TemperatureStream
-insert into TemperatureOnlyStream;
+from TemperatureStream;
 ```
 
 ### Input
@@ -107,20 +106,20 @@ Provides introduction to tables and database backed stores that can be used to s
 
 ```
 -- Defines `TemperatureStream` stream having `sensorId` and `temperature` attributes of types `string` and `double`.
-define stream TemperatureStream (sensorId string, temperature double);
+CREATE STREAM TemperatureStream (sensorId string, temperature double);
 
 -- Defines `TemperatureLogTable` having `sensorId`, `roomNo`, and `temperature` attributes of types `string`, `string`, and `double`.
-define table TemperatureLogTable (sensorId string, roomNo string, temperature double);
+CREATE TABLE TemperatureLogTable (sensorId string, roomNo string, temperature double);
 
 -- Defines `SensorIdInfoTable` table.
-define table SensorIdInfoTable (sensorId string, roomNo string);
+CREATE TABLE SensorIdInfoTable (sensorId string, roomNo string);
 
 @info(name = 'Join-query')
 -- Selects `sensorId`, `roomNo`, and `temperature` attributes from stream and table, and adds events to `TemperatureLogTable`.
+insert into TemperatureLogTable
 select t.sensorId as sensorId, s.roomNo as roomNo, t.temperature as temperature
 from TemperatureStream as t join SensorIdInfoTable as s
-     on t.sensorId == s.sensorId
-insert into TemperatureLogTable;
+     on t.sensorId == s.sensorId;
 ```
 
 ### Event at table and store
@@ -150,18 +149,21 @@ Stream App provides an isolated execution environment for processing the executi
 
 ### Example
 
-```
--- `C8DB` source to consume events from other Stream Apps.
-define stream TemperatureStream (sensorId string, temperature double);
+This example creates a C8DB source to consume events from stream applications:
 
--- `InMemory` sink to publish events from other Stream Apps.
-@sink(type='inMemory', topic='Temperature')
-define stream TemperatureOnlyStream (temperature double);
+```
+CREATE STREAM TemperatureStream (sensorId string, temperature double);
+```
+
+This example creates a sink to publish events from stream applications:
+
+```
+CREATE SINK TemperatureOnlyStream WITH (type='inMemory', topic='Temperature') (temperature double);
 
 @info(name = 'Simple-selection')
+insert into TemperatureOnlyStream
 select temperature
-from TemperatureStream
-insert into TemperatureOnlyStream;
+from TemperatureStream;
 ```
 
 ### Input
