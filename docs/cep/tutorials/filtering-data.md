@@ -2,8 +2,7 @@
 
 ## Introduction
 
-When you receive input data, it may consist of data that is not required to generate the 
-required output, null values for certain attributes, etc.  Filtering data refers to refining the input data received. 
+When you receive input data, it may consist of data that is not required to generate the required output, null values for certain attributes, etc.  You can filter data to refine the received data. 
 
 ## Filtering data based on Conditions
 
@@ -19,7 +18,7 @@ To understand the different ways you can filter the specific data you need to tr
 1. Define an input stream to specify the schema based on which events are selected.
 
     ```
-    define stream `InputTempStream` (deviceID long, roomNo string, temp double);
+    CREATE STREAM `InputTempStream` (deviceID long, roomNo string, temp double);
     ```
 
     !!! info
@@ -28,8 +27,7 @@ To understand the different ways you can filter the specific data you need to tr
 1. Define an output stream `Room2233AnalysisStream` to emit the result
 
     ```
-    @sink(type= 'c8streams', stream='Room2233AnalysisStream', @map(type='json'))
-    define stream Room2233AnalysisStream (deviceID long, roomNo string, temp double);
+	CREATE STREAM Room2233AnalysisStream WITH (type='stream', stream='Room2233AnalysisStream', map.type='json') (deviceID long, roomNo string, temp double);
     ```
 
 1. Add a query to generate filtered temperature readings as follows. For this example, let's assume that you want to filter only temperature readings for a specific room number (e.g., room no `2233`).
@@ -46,12 +44,12 @@ To understand the different ways you can filter the specific data you need to tr
         from InputTempStream [roomNo=='2233']
         ```
 
-    3. Add the `insert to` clause and direct the output to a stream named `Room2233AnalysisStream`.
+    3. Add the `insert into` clause and direct the output to a stream named `Room2233AnalysisStream`.
 
         ```
+        insert into Room2233AnalysisStream
         select *
         from InputTempStream [roomNo=='2233']
-        insert into Room2233AnalysisStream
         ```
 
         !!! tip
@@ -59,9 +57,9 @@ To understand the different ways you can filter the specific data you need to tr
 
         ```
         @info(name = 'Filtering2233')
+        insert into Room2233AnalysisStream
         select *
         from InputTempStream [roomNo=='2233']
-        insert into Room2233AnalysisStream
         ```
 
 1. The saved stream application is as follows:
@@ -69,11 +67,11 @@ To understand the different ways you can filter the specific data you need to tr
     ```
     @App:name("TemperatureApp")
     @App:description("Description of the plan")
+    @App:qlVersion("2")
 
-    define stream InputTempStream (deviceID long, roomNo string, temp double);
+    CREATE STREAM InputTempStream (deviceID long, roomNo string, temp double);
 
-    @sink(type= 'c8streams', stream='Room2233AnalysisStream', @map(type='json'))
-    define stream Room2233AnalysisStream (deviceID long, roomNo string, temp double);
+	CREATE STREAM Room2233AnalysisStream WITH (type='stream', stream='Room2233AnalysisStream', map.type='json') (deviceID long, roomNo string, temp double);
 
     @info(name = 'Filtering2233')
     select *
@@ -116,9 +114,9 @@ To filter events as described, follow the procedure below.
 
         ```
         @info(name = 'FilteredRoomRange')
+        insert into FilteredResultsStream
         select deviceID, roomNo, temp
-        from InputTempStream[regex:find('SOU*B*', roomNo)]
-        insert into FilteredResultsStream;
+        from InputTempStream[regex:find('SOU*B*', roomNo)];
         ```
 
 3. Save the stream application.
@@ -128,24 +126,23 @@ To filter events as described, follow the procedure below.
     ```
     @App:name("TemperatureApp1")
     @App:description("Description of the plan")
+    @App:qlVersion("2")
 
-    define stream InputTempStream (deviceID long, roomNo string, temp double);
+    CREATE STREAM InputTempStream (deviceID long, roomNo string, temp double);
 
-    @sink(type= 'c8streams', stream='Room2233AnalysisStream', @map(type='json'))
-    define stream Room2233AnalysisStream (deviceID long, roomNo string, temp double);
+	CREATE STREAM Room2233AnalysisStream WITH (type='stream', stream='Room2233AnalysisStream', map.type='json') (deviceID long, roomNo string, temp double);
 
-    @sink(type= 'c8streams', stream='FilteredResultsStream', @map(type='json'))
-    define stream FilteredResultsStream (deviceID long, roomNo string, temp double);
+	CREATE STREAM FilteredResultsStream WITH (type='stream', stream='FilteredResultsStream', map.type='json') (deviceID long, roomNo string, temp double);
 
     @info(name = 'Filtering2233')
+    insert into Room2233AnalysisStream
     select *
-    from InputTempStream [roomNo=='2233']
-    insert into Room2233AnalysisStream;
+    from InputTempStream [roomNo=='2233'];
 
     @info(name = 'FilteredRoomRange')
+    insert into FilteredResultsStream
     select deviceID, roomNo, temp
-    from InputTempStream[regex:find('SOU*B*', roomNo)]
-    insert into FilteredResultsStream;
+    from InputTempStream[regex:find('SOU*B*', roomNo)];
     ```
     
 ### Filtering based on multiple criteria
@@ -200,16 +197,16 @@ Assume that in the previous example, you do not need the device ID for further p
 4. Insert the results into an output stream as follows.
 
     ```
-    insert into CleansedDataStream;
+    insert into CleansedDataStream
     ```
    
 5. The completed query is as follows:
 
     ```
     @info(name = 'CleaningData')
+    insert into CleansedDataStream
     select deviceID, str:trim(roomNo) as roomNo, temp
-    from FilteredResultsStream
-    insert into CleansedDataStream;
+    from FilteredResultsStream;
     ```
 
 Modifying and replacing is also demonstrated in the [Enriching Data](enriching-data.md) and [Transforming Data](transforming-data.md) pages.
@@ -259,9 +256,9 @@ To do this, follow the procedure below:
     
     ```
     @info(name = 'AddingMissingValues')
-    select deviceID, ifThenElse(roomNo is null, "UNKNOWN", str:trim(roomNo)) as roomNo, temp
-    from FilteredResultsStream
     insert into CleansedDataStream
+    select deviceID, ifThenElse(roomNo is null, "UNKNOWN", str:trim(roomNo)) as roomNo, temp
+    from FilteredResultsStream;
     ```
     
  5. Save the stream application. 
