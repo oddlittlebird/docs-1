@@ -2,27 +2,26 @@
 
 ## Sliding Time
 
-This example shows aggregating events over time in a sliding manner.
+Provides examples on aggregating events over time in a sliding manner.
 
 To aggregate events in batches, based on events, or by session, refer other the examples in Data Summarization section. For more information on [windows](../query-guide/#window) refer to [stream query guide](query-guide.md).
 
+**Example:**
 
 ```
-CREATE STREAM TemperatureStream(sensorId string, temperature double);
+define stream TemperatureStream(sensorId string, temperature double);
 
 @info(name = 'Overall-analysis')
-insert all events into OverallTemperatureStream
 -- Calculate average, maximum, and count for `temperature` attribute.
 select avg(temperature) as avgTemperature,
        max(temperature) as maxTemperature,
        count() as numberOfEvents
 -- Aggregate events over `1 minute` sliding window
-from TemperatureStream#window.time(1 min);
+from TemperatureStream#window.time(1 min)
 -- Output when events are added, and removed (expired) from `window.time()`.
-
+insert all events into OverallTemperatureStream;
 
 @info(name = 'SensorId-analysis')
-insert into SensorIdTemperatureStream
 select sensorId,
 -- Calculate average, and minimum for `temperature`, by grouping events by `sensorId`.
        avg(temperature) as avgTemperature,
@@ -31,11 +30,12 @@ select sensorId,
 from TemperatureStream#window.time(30 sec)       
 group by sensorId
 -- Output events only when `avgTemperature` is greater than `20.0`.
-having avgTemperature > 20.0;
+having avgTemperature > 20.0
 -- Output only when events are added to `window.time()`.
+insert into SensorIdTemperatureStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `TemperatureStream` stream, following events will get emitted at `OverallTemperatureStream` stream via `Overall-analysis` query, and `SensorIdTemperatureStream` stream via `SensorId-analysis` query.
 
@@ -59,26 +59,26 @@ When events are sent to `TemperatureStream` stream, following events will get em
 
 ## Batch (Tumbling) Time
 
-This example shows aggregating events over time in a batch (tumbling) manner.
+Provides examples on aggregating events over time in a batch (tumbling) manner.
 
 To aggregate events in a sliding manner, based on events, or by session, refer other the examples in Data Summarization section. For more information information on [windows](../query-guide/#window) refer to [stream query guide](query-guide.md).
 
+**Example:**
 
 ```
-CREATE STREAM TemperatureStream(sensorId string, temperature double);
+define stream TemperatureStream(sensorId string, temperature double);
 
 @info(name = 'Overall-analysis')
 -- Calculate average, maximum, and count for `temperature` attribute.
-insert into OverallTemperatureStream
 select avg(temperature) as avgTemperature,
        max(temperature) as maxTemperature,
        count() as numberOfEvents
 -- Aggregate events every `1 minute`, from the arrival of the first event.
-from TemperatureStream#window.timeBatch(1 min);
+from TemperatureStream#window.timeBatch(1 min)
+insert into OverallTemperatureStream;
 
 
 @info(name = 'SensorId-analysis')
-insert into SensorIdTemperatureStream
 select sensorId,
 -- Calculate average, and minimum for `temperature`, by grouping events by `sensorId`.
        avg(temperature) as avgTemperature,
@@ -90,10 +90,12 @@ from TemperatureStream#window.timeBatch(30 sec, 0)
 group by sensorId
 
 -- Output events only when `avgTemperature` is greater than `20.0`.
-having avgTemperature > 20.0;
+having avgTemperature > 20.0
+
+insert into SensorIdTemperatureStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `TemperatureStream` stream, following events will get emitted at `OverallTemperatureStream` stream via `Overall-analysis` query, and `SensorIdTemperatureStream` stream via `SensorId-analysis` query.
 
@@ -120,26 +122,26 @@ When events are sent to `TemperatureStream` stream, following events will get em
 
 ## Sliding Event Count
 
-This example shows aggregating events based on event count in a sliding manner.
+Provides examples on aggregating events based on event count in a sliding manner.
 
 To aggregate events in batches, based on time, or by session, refer other the examples in Data Summarization section. For more information information on [windows](../query-guide/#window) refer to [stream query guide](query-guide.md).
 
+**Example:**
 
 ```
-CREATE STREAM TemperatureStream(sensorId string, temperature double);
+define stream TemperatureStream(sensorId string, temperature double);
 
 @info(name = 'Overall-analysis')
-insert into OverallTemperatureStream
 -- Calculate average, maximum, and count for `temperature` attribute.
 select avg(temperature) as avgTemperature,
        max(temperature) as maxTemperature,
        count() as numberOfEvents
 -- Aggregate last `4` events in a sliding manner.
-from TemperatureStream#window.length(4);
+from TemperatureStream#window.length(4)
+insert into OverallTemperatureStream;
 
 
 @info(name = 'SensorId-analysis')
-insert into SensorIdTemperatureStream
 select sensorId,
 -- Calculate average, and minimum for `temperature`, by grouping events by `sensorId`.
        avg(temperature) as avgTemperature,
@@ -149,10 +151,12 @@ select sensorId,
 from TemperatureStream#window.length(5)
 group by sensorId
 -- Output events only when `avgTemperature` is greater than or equal to `20.0`.
-having avgTemperature >= 20.0;
+having avgTemperature >= 20.0
+
+insert into SensorIdTemperatureStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `TemperatureStream` stream, following events will get emitted at `OverallTemperatureStream` stream via `Overall-analysis` query, and `SensorIdTemperatureStream` stream via `SensorId-analysis` query.
 
@@ -173,26 +177,25 @@ When events are sent to `TemperatureStream` stream, following events will get em
 
 ## Batch (Tumbling) Event Count
 
-This example shows aggregating events based on event count in a batch (tumbling) manner.
+Provides examples on aggregating events based on event count in a batch (tumbling) manner.
 
 To aggregate events in a sliding manner, based on time, or by session, refer other the examples in Data Summarization section. For more information information on [windows](../query-guide/#window) refer to [stream query guide](query-guide.md).
 
-### Example
+**Example:**
 
 ```
-CREATE STREAM TemperatureStream(sensorId string, temperature double);
+define stream TemperatureStream(sensorId string, temperature double);
 
 @info(name = 'Overall-analysis')
-insert into OverallTemperatureStream
 -- Calculate average, maximum, and count for `temperature` attribute.
 select avg(temperature) as avgTemperature,
        max(temperature) as maxTemperature,
        count() as numberOfEvents
 -- Aggregate every `4` events in a batch (tumbling) manner.
-from TemperatureStream#window.lengthBatch(4);
+from TemperatureStream#window.lengthBatch(4)
+insert into OverallTemperatureStream;
 
 @info(name = 'SensorId-analysis')
-insert into SensorIdTemperatureStream
 select sensorId,
 -- Calculate average, and minimum for `temperature`, by grouping events by `sensorId`.
        avg(temperature) as avgTemperature,
@@ -201,10 +204,12 @@ select sensorId,
 from TemperatureStream#window.lengthBatch(5)
 group by sensorId
 -- Output events only when `avgTemperature` is greater than or equal to `20.0`.
-having avgTemperature >= 20.0;
+having avgTemperature >= 20.0
+
+insert into SensorIdTemperatureStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `TemperatureStream` stream, following events will get emitted at `OverallTemperatureStream` stream via `Overall-analysis` query, and `SensorIdTemperatureStream` stream via `SensorId-analysis` query.
 
@@ -227,16 +232,17 @@ When events are sent to `TemperatureStream` stream, following events will get em
 
 ## Session
 
-This example shows aggregating events over continuous activity sessions in a sliding manner.
+Provides examples on aggregating events over continuous activity sessions in a sliding manner.
 
 To aggregate events in batches, or based on events, refer other the examples in Data Summarization section. For more information information on [windows](../query-guide/#window) refer to [stream query guide](query-guide.md).
 
+**Example:**
+
 ```
-CREATE STREAM PurchaseStream(userId string, item string, price double);
+define stream PurchaseStream(userId string, item string, price double);
 
 @info(name = 'Session-analysis')
 -- Calculate count and sum of `price` per `userId` during the session.
-insert into OutOfOrderUserIdPurchaseStream
 select userId,
        count() as totalItems,
        sum(price) as totalPrice
@@ -254,11 +260,12 @@ select userId,
 -- Aggregate events over a `userId` based session window with `1 minute` session gap,
 -- and `20 seconds` of allowed latency to capture late event arrivals.
 from PurchaseStream#window.session(1 min, userId, 20 sec)
-group by userId;
+group by userId
 -- Output when events are added to the session.
+insert into OutOfOrderUserIdPurchaseStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `PurchaseStream` stream, following events will get emitted at `UserIdPurchaseStream` stream via `Session-analysis` query, and `OutOfOrderUserIdPurchaseStream` stream via `Session-analysis-with-late-event-arrivals` query.
 
@@ -285,37 +292,38 @@ When events are sent to `PurchaseStream` stream, following events will get emitt
 
 ## Named Window
 
-This example shows defining a named window and summarizing data based on the window. This example uses `time` window as the named window, but any window can be defined and used as a name window. For more information information on [named windows](../query-guide/#named-window) refer to [stream query guide](query-guide.md).
+Provides examples on defining a named window, and summarizing data based on that. This example uses `time` window as the named window, but any window can be defined and used as a name window. For more information information on [named windows](../query-guide/#named-window) refer to [stream query guide](query-guide.md).
 
+**Example:**
 
 ```
-CREATE STREAM TemperatureStream (sensorId string, temperature double);
+define stream TemperatureStream (sensorId string, temperature double);
 
 -- Define a named window with name `OneMinTimeWindow` to retain events over `1 minute` in a sliding manner.
 define window OneMinTimeWindow (sensorId string, temperature double) time(1 min) ;
 
 @info(name = 'Insert-to-window')
 -- Insert events in to the named time window.
-insert into OneMinTimeWindow
-from TemperatureStream;
+from TemperatureStream
+insert into OneMinTimeWindow;
 
 @info(name = 'Min-max-analysis')
 -- Calculate minimum and maximum of `temperature` on events in `OneMinTimeWindow` window.
-insert into MinMaxTemperatureOver1MinStream
 select min(temperature) as minTemperature,
        max(temperature) as maxTemperature
-from OneMinTimeWindow;
+from OneMinTimeWindow
+insert into MinMaxTemperatureOver1MinStream;
 
 @info(name = 'Per-sensor-analysis')
 -- Calculate average of `temperature`, by grouping events by `sensorId`, on the `OneMinTimeWindow` window.
-insert into AvgTemperaturePerSensorStream
 select sensorId,
        avg(temperature) as avgTemperature
 from OneMinTimeWindow
-group by sensorId;
+group by sensorId
+insert into AvgTemperaturePerSensorStream;
 ```
 
-### Aggregation Behavior
+**Aggregation Behavior:**
 
 When events are sent to `TemperatureStream` stream, following events will get emitted at `MinMaxTemperatureOver1MinStream` stream via `Min-max-analysis` query, and `AvgTemperaturePerSensorStream` stream via `Per-sensor-analysis` query.
 

@@ -10,11 +10,13 @@ By default sinks log and drop the events causing event losses, and this can be h
 
 Refer to the [stream query guide](../query-guide/#error-handling) for more information.
 
-In the following example, we attempt to publish abnormal Glucose reading events to an unavailable HTTP endpoint, and the error is recorded to the logs.
+**Example:**
+
+Above is a simple example to publish abnormal Glucose reading events to an unavailable HTTP endpoint and error is handled by logging the events to the logs.
 
 ```
 -- Defines `GlucoseReadingStream` stream which contains events related to Glucose readings.
-CREATE STREAM GlucoseReadingStream (locationRoom string,
+define stream GlucoseReadingStream (locationRoom string,
     locationBed string, timeStamp string, sensorID long,
     patientFirstName string, patientLastName string,
     sensorValue double);
@@ -22,27 +24,34 @@ CREATE STREAM GlucoseReadingStream (locationRoom string,
 
 -- If `HTTP` endpoint which defined in `sink` annotation is unavailable then it logs the event with the error and drops the event.
 -- Errors can be gracefully handled by configuring `on.error` parameter.
+@sink(type = 'http', on.error='log',
+    publisher.url = "http://xyz:8080/logger",
+    method = "POST",
+    @map(type = 'json'))
 
-CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', on.error='log', publisher.url = "http://xyz:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
+define stream AbnormalGlucoseReadingStream
+    (timeStampInLong long, locationRoom string,
+    locationBed string, sensorID long,
+    patientFullName string, sensorReadingValue double);
 
 @info(name='abnormal-reading-identifier')
-insert into AbnormalGlucoseReadingStream
 select math:parseLong(timeStamp) as timeStampInLong,
     locationRoom, locationBed, sensorID,
     -- Concatenate string attributes `patientFirstName` and `patientLastName`
     str:concat(patientFirstName, " ", patientLastName) as patientFullName, sensorValue as sensorReadingValue
 -- Identifies the abnormal Glucose reading if `sensorValue > 220`
-from GlucoseReadingStream[sensorValue > 220];
+from GlucoseReadingStream[sensorValue > 220]
+insert into AbnormalGlucoseReadingStream;
 ```
 
-### Input
+**Input:**
 
 Below event is sent to `GlucoseReadingStream` stream,
 
 [`'Get-1024'`, `'Level2'`, `'1576829362'`, `10348`, `'Alex'`, `'John'`, `250`]
 
 
-### Output
+**Output:**
 
 After processing, the following log gets printed in the console:
 
@@ -52,16 +61,17 @@ ERROR {io.macrometa.cep.core.stream.output.sink.Sink} - Error on 'ErrorHandling'
 
 ## Wait & Retry
 
-This example shows how errors are handled at Sink level by `wait and retry` mode.
+This example explains how errors are handled at Sink level by `wait and retry` mode.
 
 In this mode, publishing threads wait in back-off and re-trying mode, and only send the events when the connection is re-established. During this time the threads will not consume any new messages causing the systems to introduce back pressure on the systems that publish to it.
 
 Refer to the [stream query guide](../query-guide/#error-handling) for more information.
 
+**Example:**
 
 ```
 -- Defines `GlucoseReadingStream` stream which contains events related to Glucose readings.
-CREATE STREAM GlucoseReadingStream (locationRoom string,
+define stream GlucoseReadingStream (locationRoom string,
     locationBed string, timeStamp string, sensorID long,
     patientFirstName string, patientLastName string,
     sensorValue double);
@@ -69,27 +79,34 @@ CREATE STREAM GlucoseReadingStream (locationRoom string,
 -- If `HTTP` endpoint is unavailable then threads who bring events via `AbnormalGlucoseReadingStream` wait in `back-off and re-trying` mode.
 
 -- Errors can be gracefully handled by configuring `on.error` parameter.
+@sink(type = 'http', on.error='wait',
+    publisher.url = "http://localhost:8080/logger",
+    method = "POST",
+    @map(type = 'json'))
 
-CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', on.error='wait', publisher.url = "http://localhost:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
+define stream AbnormalGlucoseReadingStream
+    (timeStampInLong long, locationRoom string,
+    locationBed string, sensorID long,
+    patientFullName string, sensorReadingValue double);
 
 @info(name='abnormal-reading-identifier')
-insert into AbnormalGlucoseReadingStream
 select math:parseLong(timeStamp) as timeStampInLong,
     locationRoom, locationBed, sensorID,
     -- Concatenate string attributes `patientFirstName` and `patientLastName`
     str:concat(patientFirstName, " ", patientLastName) as patientFullName, sensorValue as sensorReadingValue
 -- Identifies the abnormal Glucose reading if `sensorValue > 220`
-from GlucoseReadingStream[sensorValue > 220];
+from GlucoseReadingStream[sensorValue > 220]
+insert into AbnormalGlucoseReadingStream;
 ```
 
 Above is a simple example to publish abnormal Glucose reading events to an unavailable HTTP endpoint and error is handled by `wait and retry` mode.
 
-### Prerequisites
+**prerequisites:**
 
 Download the mock logger service from [here](https://github.com/mohanvive/siddhi-mock-services/releases/download/v2.0.0/logservice-1.0.0.jar).
 
 
-### Input & Output
+**Input & Output:**
 
 - Below event is sent to `GlucoseReadingStream` stream,
 
