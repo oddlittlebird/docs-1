@@ -10,8 +10,8 @@ Macrometa GDN allows you to integrate streaming data and take action based on st
 | **Integrate** | Make processed data available for consumers to consume globally in right format with very low latencies. |
 
 !!! note
-    Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022. Contact support@macrometa.com if you have any questions.
-
+		Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+		Please contact support@macrometa.com if you have any questions.	
 ## Architecture
 
 The architecture of Macrometa stream processing engine fits this natural flow. Following are the major components of our stream processing engine.
