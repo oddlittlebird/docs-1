@@ -302,7 +302,7 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
-    - Meta Flix: demos/meta-flix.md
+    - MetaFlix: demos/meta-flix.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Bookstore: demos/cf-bookstore.md
     - Forever 42: demos/cf-forever42.md
