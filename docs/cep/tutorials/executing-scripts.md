@@ -60,22 +60,23 @@ To write custom function calls, follow the procedure below:
 
 1. Open the GUI. Click on `Stream Apps` tab.
 
-1. Click **New** to start defining a new stream application.
+1. Click on **New** to start defining a new stream application.
 
-1. Type a **Name** as `TemperatureProcessing` or feel free to chose any other name for the stream application.
+1. Enter a **Name** as `TemperatureProcessing` or feel free to chose any other name for the stream application.
 
-1. Type a **Description**.
+1. Enter a **Description**.
     
 1. In the `TemperatureProcessing` stream application, define a source stream as follows.
 
     ```
-    CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
+    define stream TempStream (deviceID long, roomNo int, temp double);
     ```
 
 1. Add sink stream to send results of script function
 
     ```sql
-	CREATE SINK DeviceTempStream WITH (type= 'stream', stream='DeviceTempStream', map.type='json') (id string, temp double);
+    @sink(type= 'c8streams', stream='DeviceTempStream', @map(type='json'))
+    define stream DeviceTempStream (id string, temp double);
     ```
 
 1. In this example, you can write a function that can be used to concatenate the room number and device ID as follows.
@@ -93,9 +94,9 @@ To write custom function calls, follow the procedure below:
 1. Add stream query to apply the script you wrote to the relevant attributes of the input stream definition.
 
     ```sql
-    insert into DeviceTempStream
     select concatFn(roomNo,'-',deviceID) as id, temp
-    from TempStream;
+    from TempStream
+    insert into DeviceTempStream;
     ```
     
 1. Save the stream application. The completed stream application is as follows.
@@ -103,13 +104,13 @@ To write custom function calls, follow the procedure below:
     ```js
     @App:name("TemperatureProcessing")
     @App:description("Calculate an average temperature of the room")
-    @App:qlVersion("2")
     
-    CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
+    define stream TempStream (deviceID long, roomNo int, temp double);
     
-	CREATE SINK DeviceTempStream WITH (type= 'stream', stream='DeviceTempStream', map.type='json') (id string, temp double);
-
-    CREATE FUNCTION concatFn[javascript] return string {
+    @sink(type= 'c8streams', stream='DeviceTempStream', @map(type='json'))
+    define stream DeviceTempStream (id string, temp double);
+    
+    define function concatFn[javascript] return string {
             var str1 = data[0];
             var str2 = data[1];
             var str3 = data[2];
@@ -117,9 +118,9 @@ To write custom function calls, follow the procedure below:
             return responce;
     };
     
-    insert into DeviceTempStream
     select concatFn(roomNo,'-',deviceID) as id, temp
-    from TempStream;
+    from TempStream
+    insert into DeviceTempStream;
     ```
    
 ## Transform complex json data using Custom Functions
@@ -138,16 +139,18 @@ To write custom function calls, follow the procedure below:
 
 1. Enter a **Description**.
 
-1. Define an input C8DB collection
+1. Define an input c8db collection
 
     ```
-	CREATE SOURCE STREAM CompanyXInputStream WITH (type = 'database', collection = "CompanyXInputStream", collection.type="doc" , replication.type="global", map.type='json') (seqNo string, name string, address string);
+    @source(type = 'c8db', collection = "CompanyXInputStream", collection.type="doc" , replication.type="global", @map(type='json'))
+    define stream CompanyXInputStream (seqNo string, name string, address string);
     ```
    
 1. Define an output stream   
 
     ```
-	CREATE SINK CompanyXProfessionalInfo WITH (type = 'c8streams', stream = "CompanyXProfessionalInfo", replication.type="local") (name string, workAddress string);
+    @sink(type = 'c8streams', stream = "CompanyXProfessionalInfo", replication.type="local")
+    define table CompanyXProfessionalInfo (name string, workAddress string);
     ```   
 
 1. Consider that `CompanyXInputStream` will receive employee data in below format.
@@ -194,22 +197,23 @@ To write custom function calls, follow the procedure below:
     ```
     -- Data Processing
     @info(name='Query')
-    insert into CompanyXProfessionalInfo
     select name, getWorkAddress(address) as workAddress
-    from CompanyXInputStream;
+    from CompanyXInputStream
+    insert into CompanyXProfessionalInfo;
     ```
 
 1. Save the stream application. The completed stream application is as follows.
 
     ```js
     @App:name('ProcessEmployeeData')
-    @App:qlVersion("2")
     
-	CREATE SOURCE CompanyXInputStream WITH (type = 'database', collection = "CompanyXInputStream", collection.type="doc" , replication.type="global", map.type='json') (seqNo string, name string, address string);
+    @source(type = 'c8db', collection = "CompanyXInputStream", collection.type="doc" , replication.type="global", @map(type='json'))
+    define stream CompanyXInputStream (seqNo string, name string, address string);
     
-	CREATE SINK CompanyXProfessionalInfo WITH (type = 'c8streams', stream = "CompanyXProfessionalInfo", replication.type="local") (name string, workAddress string);
+    @sink(type = 'c8streams', stream = "CompanyXProfessionalInfo", replication.type="local")
+    define table CompanyXProfessionalInfo (name string, workAddress string);
     
-    CREATE FUNCTION getWorkAddress[javascript] return string {
+    define function getWorkAddress[javascript] return string {
         work_address = JSON.parse(data[0]).work
         formatted_address =  work_address.street + ", " + work_address.city + ", " + work_address.state + ", " + work_address.country + ", " + work_address.zip;
         return formatted_address
@@ -217,7 +221,7 @@ To write custom function calls, follow the procedure below:
     
     -- Data Processing
     @info(name='Query')
-    insert into CompanyXProfessionalInfo
     select name, getWorkAddress(address) as workAddress
-    from CompanyXInputStream;
+    from CompanyXInputStream
+    insert into CompanyXProfessionalInfo;
     ```

@@ -1,24 +1,36 @@
 # Using REST APIs
 
-Modern applications need to be highly responsive, always online, and able to access data instantly across the globe. At the same time, they need to be deployed on datacenters close to their users. Macrometa global data network (GDN) is a real-time materialized view engine that provides instant data to applications and APIs in a simple interface.
+Today’s applications are required to be highly responsive and always online. They need to be deployed in datacenters closer to their users and can access data instantly across the globe. 
 
-If you are new to Macrometa GDN, start by reading the [essentials](../../essentials.md) of Macrometa GDN.
+Macrometa global data network (GDN) is a fully managed realtime materialzed view engine that provides access to data instantly to Apps & APIs in a simple & single interface. 
 
-Prerequisites:
+!!! note
+    Stream Workers is currently an Enterprise only feature. We will be rolling it out to all users in Q1 of 2022.
+    Please contact support@macrometa.com if you have any questions.
 
-A Macrometa GDN tenant account and credentials.
+## Pre-Requiste
+
+A tenant account (and credentials) with Macrometa GDN.
 
 ## API Browser
 
-Your main tool for using REST APIs is the API reference in the [GDN](https://gdn.paas.macrometa.io) web browser interface. Use the built-in API reference to run various calls and view their input and output.
+Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn.paas.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
 
-![GDN API Browser](../images/gdn-api-browser.png)
+![GDN API Browser](/images/gdn-api-browser.png)
 
 ## Stream Processing
 
-Macrometa Stream Processing allows you to integrate streaming data and take appropriate actions. 
+Macrometa Stream Processing engine allows you to integrate streaming data and take action based on streaming data. 
 
+Typically the stream processing use cases involve collecting, analyzing and, integrate or acting on data generated during business activities by various sources i.e.,
 
+- **Collect**: Receive or capture data from various data sources.
+
+- **Analyze**: Analyze data to identify interesting patterns and to extract information.
+
+- **Act**: Take actions based on the results and findings done via processing the data. The action can be executing some random code, calling an external service, or triggering a complex integration.
+
+- **Integrate**: Make processed data available for consumers to consume globally in right format with very low latencies.
 
 === "Python"
 
@@ -31,7 +43,7 @@ Macrometa Stream Processing allows you to integrate streaming data and take appr
     import time
     # Constants
 
-    FEDERATION = "api-gdn-us-west1.prod.macrometa.io"
+    FEDERATION = "api-gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
@@ -42,9 +54,8 @@ Macrometa Stream Processing allows you to integrate streaming data and take appr
     STREAM_APP_NAME = "stream_app_tutorial"
     STREAM_APP ='''
       @App:name('stream_app_tutorial')
-      @App:qlVersion("2")
 
-      CREATE FUNCTION concatFn[javascript] return string {
+      define function concatFn[javascript] return string {
           var str1 = data[0];
           var str2 = data[1];
           var str3 = data[2];
@@ -53,15 +64,15 @@ Macrometa Stream Processing allows you to integrate streaming data and take appr
       };
 
       -- Stream
-      CREATE STREAM tutorialAppInputStream (deviceID string, roomNo int, temperature double);
+      define stream tutorialAppInputStream (deviceID string, roomNo int, temperature double);
 
       -- Table
-      CREATE TABLE tutorialAppOutputTable (id string, temperature double);
+      define table tutorialAppOutputTable (id string, temperature double);
 
       @info(name='Query')
-      INSERT INTO tutorialAppOutputTable
-      SELECT concatFn(roomNo,'-',deviceID) as id, temperature
-      FROM tutorialAppInputStream;
+      select concatFn(roomNo,'-',deviceID) as id, temperature
+      from tutorialAppInputStream
+      insert into tutorialAppOutputTable;
     '''
     INPUT_DATA = [
           {
@@ -227,17 +238,16 @@ Macrometa Stream Processing allows you to integrate streaming data and take appr
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "api-gdn.prod.macrometa.io";
+    const FEDERATION_NAME = "api-gdn.paas.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const IS_GLOBAL = true;
     const STREAM_NAME = `tutorialAppInputStream`;
     const STREAM_APP_NAME = `strean_app_tutorial`;
     const STREAM_APP = `@App:name('strean_app_tutorial')
-      @App:description('This application demonstrates how to use user defined functions in the stream app')
-      @App:qlVersion("2")
+      @App:description('This application demonstrates how to use user defined function in the stream app')
 
-      CREATE FUNCTION concatFn[javascript] return string {
+      define function concatFn[javascript] return string {
           var str1 = data[0];
           var str2 = data[1];
           var str3 = data[2];
@@ -246,15 +256,15 @@ Macrometa Stream Processing allows you to integrate streaming data and take appr
       };
 
       -- Stream
-      CREATE STREAM tutorialAppInputStream (deviceID string, roomNo int, temperature double);
+      define stream tutorialAppInputStream (deviceID string, roomNo int, temperature double);
 
       -- Table
-      CREATE TABLE tutorialAppOutputTable (id string, temperature double);
+      define table tutorialAppOutputTable (id string, temperature double);
 
       @info(name='Query')
-      INSERT INTO tutorialAppOutputTable
-      SELECT concatFn(roomNo,'-',deviceID) as id, temperature
-      FROM tutorialAppInputStream;`;
+      select concatFn(roomNo,'-',deviceID) as id, temperature
+      from tutorialAppInputStream
+      insert into tutorialAppOutputTable;`;
 
     const run = async function () {
       try {
