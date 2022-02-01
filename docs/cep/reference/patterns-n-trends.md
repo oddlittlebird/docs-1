@@ -4,31 +4,30 @@
 
 The pattern is a state machine implementation that detects event occurrences from events arrived via one or more event streams over time.
 
-This application demonstrates a simple pattern use case of detecting high-temperature event occurrence of a continuous event stream.
+This example shows a simple pattern that detects high-temperature event occurrence of a continuous event stream.
 
-**Example:**
+
 ```
 -- Defines `TemperatureStream` having information of room temperature such as `roomNo` and `temp`.
-define stream TemperatureStream(roomNo int, temp double);
+CREATE STREAM TemperatureStream(roomNo int, temp double);
 
-@sink(type = 'log')
 -- Defines `HighTempAlertStream` which contains the alerts for high temperature.
-define Stream HighTempAlertStream(roomNo int, initialTemp double, finalTemp double);
+CREATE SINK HighTempAlertStream WITH (type = 'log') (roomNo int, initialTemp double, finalTemp double);
 
 
 @info(name='temperature-increase-identifier')
 -- Identify if the temperature of a room increases by 5 degrees within 10 min.
+insert into HighTempAlertStream
 select e1.roomNo, e1.temp as initialTemp, e2.temp as finalTemp
 from every( e1 = TemperatureStream ) ->
     e2 = TemperatureStream[ e1.roomNo == roomNo
         and (e1.temp + 5) <= temp ]
-    within 10 min
-insert into HighTempAlertStream;
+    within 10 min;
 ```
 
 This application sends an alert if the temperature of a room increases by 5 degrees within 10 min.
 
-**Input:**
+### Input
 
 Below events are sent to `TemperatureStream` within 10 minutes,
 
@@ -39,7 +38,7 @@ Below events are sent to `TemperatureStream` within 10 minutes,
 [`2`, `40`]
 
 
-**Output:**
+### Output
 
 After processing the above input events, the event arriving at `HighTempAlertStream` will be as follows:
 
@@ -51,33 +50,30 @@ Counting patterns allow to match multiple events that may have been received for
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `TemperatureStream` having information on room temperature such as `sensorID`, `roomNo` and `temp`.
-define stream TemperatureStream (sensorID long, roomNo int, temp double);
+CREATE STREAM TemperatureStream (sensorID long, roomNo int, temp double);
 
 
 -- Defines `RegulatorStream` which contains the events from regulator with attributes `deviceID`, `roomNo`, `tempSet`, and `isOn`.
-define stream RegulatorStream (deviceID long, roomNo int, tempSet double, isOn bool);
+CREATE STREAM RegulatorStream (deviceID long, roomNo int, tempSet double, isOn bool);
 
-@sink(type = 'log')
 -- Defines `TemperatureDiffStream` which contains the events related to temperature difference.
-define stream TemperatureDiffStream(roomNo int, tempDiff double);
-
+CREATE SINK TemperatureDiffStream WITH (type = 'log') (roomNo int, tempDiff double);
 
 -- Calculates the temperature difference between two regulator events. Here, when at least one TemperatureStream event needs to arrive between two RegulatorStream events.
 -- Finds the temperature difference between the first and last temperature event.
+insert into TemperatureDiffStream
 select e1.roomNo, e2[0].temp - e2[last].temp as tempDiff
 from every( e1 = RegulatorStream)
     -> e2 = TemperatureStream[e1.roomNo == roomNo] < 1: >
-    -> e3 = RegulatorStream[e1.roomNo == roomNo]
-insert into TemperatureDiffStream;
+    -> e3 = RegulatorStream[e1.roomNo == roomNo];
 ```
 
 This application calculates the temperature difference between two regulator events. Here, when at least one TemperatureStream event occurs between two RegulatorStream events the pattern is valid and logs can be seen.
 
-**Input:**
+### Input
 
 - First, below event is sent to `RegulatorStream`,
 
@@ -93,7 +89,7 @@ This application calculates the temperature difference between two regulator eve
 
     [`21`, `2`, `30`, `true`]
 
-**Output:**
+### Output
 
 After processing the above input events, the event arriving at `TemperatureDiffStream` will be as follows:
 
@@ -105,23 +101,20 @@ Logical patterns match events that arrive in temporal order and correlate them w
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `RegulatorStateChangeStream` having information of regulator state change such as `deviceID`, `roomNo`, `tempSet` and `action`.
-define stream RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
+CREATE STREAM RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
 
 -- Defines `RoomKeyStream` which contains the events related to room key usage.
-define stream RoomKeyStream(deviceID long, roomNo int, action string);
-
-@sink(type='log')
+CREATE STREAM RoomKeyStream(deviceID long, roomNo int, action string);
 
 -- Defines `RegulatorActionStream` which contains the events related to regulator state changes.
-define stream RegulatorActionStream(roomNo int, action string);
+CREATE SINK RegulatorActionStream WITH (type='log') (roomNo int, action string);
 
 
 -- Sends a stop action on RegulatorActionStream stream, if a removed action is triggered in the RoomKeyStream stream before the regulator state changing to off which is notified RegulatorStateChangeStream stream
-
+insert into RegulatorActionStream
 select e1.roomNo,
 -- Checks whether pattern triggered due to removal of room key.
     ifThenElse( e2 is null, 'none', 'stop' ) as action
@@ -130,13 +123,12 @@ from every e1=RegulatorStateChangeStream[ action == 'on' ]
             [ e1.roomNo == roomNo and action == 'removed' ]
         or e3=RegulatorStateChangeStream
             [ e1.roomNo == roomNo and action == 'off']
-having action != 'none'            
-insert into RegulatorActionStream;
+having action != 'none'            ;
 ```
 
 This application sends a `stop` action on the regulator if a `removed` action is triggered in the RoomKeyStream stream.
 
-**Input:**
+### Input
 
 - First, below event is sent to `RegulatorStateChangeStream`,
 
@@ -147,14 +139,14 @@ This application sends a `stop` action on the regulator if a `removed` action is
     [`10`, `5`, `removed`]
 
 
-**Output:**
+### Output
 
 After processing the above input events, the event arriving at `RegulatorActionStream` will be as follows:
 
 [`5`, `stop`]
 
 
-## Non Occurence Pattern
+## Non Occurrence Pattern
 
 Non occurrence patterns identifies the absence of events when detecting a pattern.
 
@@ -162,36 +154,35 @@ Stream Processor detects non-occurrence of events using the not keyword, and its
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `RegulatorStateChangeStream` having information of regulator state change such as `deviceID`, `roomNo`, `tempSet` and `action`.
-define stream RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
+CREATE STREAM RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
 
 -- Defines `TemperatureStream` having information of room temperature such as `roomNo` and `temp`.
-define stream TemperatureStream (roomNo int, temp double);
+CREATE STREAM TemperatureStream (roomNo int, temp double);
 
-@sink(type='log')
 -- Defines `RoomTemperatureAlertStream` which contains the temperature alerts.
-define stream RoomTemperatureAlertStream(roomNo int);
+CREATE SINK RoomTemperatureAlertStream WITH (type='log') (roomNo int);
+
 
 -- Alerts if no temperature event having a temperature less than what is set in regulator arrives within 5 minutes after switching on the regulator.
+insert into RoomTemperatureAlertStream
 select e1.roomNo as roomNo
 from e1=RegulatorStateChangeStream[action == 'on']
      -> not TemperatureStream[e1.roomNo == roomNo and
-        temp <= e1.tempSet] for 30 sec
-insert into RoomTemperatureAlertStream;
+        temp <= e1.tempSet] for 30 sec;
 ```
 
 This application sends a notification alert if the room temperature is not reduced to the expected level after the regulator is started.
 
-**Input:**
+### Input
 
 - First, below event is sent to `RegulatorStateChangeStream`,
 
     [`10`, `5`, `30`, `on`]
 
-**Output:**
+### Output
 
 After processing the above input event, there will be an alert event arriving at `RoomTemperatureAlertStream` after the 30 seconds (from the first event):
 
@@ -203,33 +194,32 @@ Sequence is a state machine implementation that detects consecutive event occurr
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `StockRateStream` having information on stock rate such as `symbol`, `price` and `volume`.
-define stream StockRateStream (symbol string, price float, volume int);
+CREATE STREAM StockRateStream (symbol string, price float, volume int);
 
-@sink(type='log')
 -- Defines `PeakStockRateStream` which contains the peak stock rate.
-define stream PeakStockRateStream (symbol string, rateAtPeak float);
+CREATE SINK PeakStockRateStream WITH (type='log') (symbol string, rateAtPeak float);
+
 
 -- Partition the `StockRateStream` events by `symbol`
 partition with (symbol of StockRateStream)
 begin
 
 -- Identifies the peak stock price (top rate of the stock price trend)
+    insert into PeakStockRateStream
     select e1.symbol, e2.price as rateAtPeak
     from every e1=StockRateStream,
     	e2=StockRateStream[e1.price < price],
     	e3=StockRateStream[e2.price > price]
-        within 10 min
-    insert into PeakStockRateStream ;
+        within 10 min;
 end;
 ```
 
 This application can be used to detect trends from a stock trades stream; in the above example, peak stock rate identified.
 
-**Input:**
+### Input
 Below events are sent to `StockRateStream` within 10 minutes,
 
 [`mint-leaves`, `35`, `20`]
@@ -238,7 +228,7 @@ Below events are sent to `StockRateStream` within 10 minutes,
 
 [`mint-leaves`, `38`, `20`]
 
-**Output:**
+### Output
 After processing the above input events, the event arriving at `PeakStockRateStream` will be as follows:
 
 [`mint-leaves`, `40`]
@@ -249,38 +239,36 @@ Sequence query does expect the matching events to occur immediately after each o
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `TemperatureStream` having information on room temperatures such as `roomNo` and `temp`.
-define stream TemperatureStream(roomNo int, temp double);
+CREATE STREAM TemperatureStream(roomNo int, temp double);
 
-@sink(type='log') 
--- Defines `PeekTemperatureStream` which contains events related to peak temperature trends.
-define stream PeekTemperatureStream(roomNo int, initialTemp double, peekTemp double, firstDropTemp double);
+-- Defines `PeakTemperatureStream` which contains events related to peak temperature trends.
+CREATE SINK PeakTemperatureStream WITH (type='log') (roomNo int, initialTemp double, peakTemp double, firstDropTemp double);
 
 -- Partition the `TemperatureStream` events by `roomNo`
 partition with (roomNo of TemperatureStream)
 begin
 
     @info(name = 'temperature-trend-analyzer')
+    insert into PeakTemperatureStream 
 -- Projects the lowest, highest and the first drop in the temperature trend
     select e1.roomNo, e1.temp as initialTemp,
-        e2[last].temp as peekTemp, e3.temp as firstDropTemp
+        e2[last].temp as peakTemp, e3.temp as firstDropTemp
 
 -- Identifies the trend of the temperature in a room
     from every e1=TemperatureStream,
          e2=TemperatureStream[ifThenElse(e2[last].temp is null,
                 e1.temp <= temp, e2[last].temp <= temp)]+,
-         e3=TemperatureStream[e2[last].temp > temp]
-    insert into PeekTemperatureStream ;
+         e3=TemperatureStream[e2[last].temp > temp];
 
 end;
 ```
 
-This application identifies temperature peeks by monitoring continuous increases in temp attribute and alerts upon the first drop.
+This application identifies temperature peaks by monitoring continuous increases in temp attribute and alerts upon the first drop.
 
-**Input:**
+### Input
 
 - Below events are sent to `TemperatureStream`,
 
@@ -291,9 +279,9 @@ This application identifies temperature peeks by monitoring continuous increases
     [`20`, `35`]
     [`20`, `33`]
 
-**Output:**
+### Output
 
-After processing the above input events, the event arriving at `PeekTemperatureStream` will be as follows:
+After processing the above input events, the event arriving at `PeakTemperatureStream` will be as follows:
 
 [`20`, `29.0`, `35.0`, `33.0`]
 
@@ -303,37 +291,34 @@ The sequence can repetitively match event `sequences` and use logical event orde
 
 Refer the [stream query guide](query-guide.md) for more information.
 
-**Example:**
 
 ```
 -- Defines `TempSensorStream` having information of temperature sensor device.
-define stream TempSensorStream(deviceID long, isActive bool);
+CREATE STREAM TempSensorStream(deviceID long, isActive bool);
 
 
 -- Defines `HumidSensorStream` having information of humidity sensor device.
-define stream HumidSensorStream(deviceID long, isActive bool);
+CREATE STREAM HumidSensorStream(deviceID long, isActive bool);
 
 
 -- Defines `RegulatorStream` which contains the events from regulator with attributes `deviceID` and `isOn`.
-define stream RegulatorStream(deviceID long, isOn bool);
+CREATE STREAM RegulatorStream(deviceID long, isOn bool);
 
 
-@sink(type='log')
--- Defines `StateNotificationStream` which tells the state of temperature and humidity sensors.
-define stream StateNotificationStream (deviceID long, tempSensorActive bool, humidSensorActive bool);
+CREATE SINK StateNotificationStream WITH (type='log') (deviceID long, tempSensorActive bool, humidSensorActive bool);
 
 
 -- Identifies a regulator activation event immediately followed by both temperature sensor and humidity sensor activation events in either order.
+insert into StateNotificationStream
 select e1.deviceID, e2.isActive as tempSensorActive,
     e3.isActive as humidSensorActive
 from every e1=RegulatorStream[isOn == true],
-    e2=TempSensorStream and e3=HumidSensorStream
-insert into StateNotificationStream;
+    e2=TempSensorStream and e3=HumidSensorStream;
 ```
 
 This application can be used identify a regulator activation event immediately followed by both temperature sensor and humidity sensor activation events in either order.
 
-**Input:**
+### Input
 
 - First, below event is sent to `RegulatorStream`,
 
@@ -347,7 +332,7 @@ This application can be used identify a regulator activation event immediately f
 
     [`242`, `false`]
 
-**Output:**
+### Output
 
 After processing the above input events, the event arriving at `StateNotificationStream` will be as follows:
 

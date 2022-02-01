@@ -32,12 +32,13 @@ To calculate and store time-based aggregation values for the scenario explained 
 
     ```
     @App:name("TradeApp");
+    @App:qlVersion("2")
     ```
 
 2. To capture the input events based on which the aggregations are calculated, define an input stream as follows.
 
     ```
-    define stream TradeStream (symbol string, price double, quantity long, timestamp long);
+    CREATE STREAM TradeStream (symbol string, price double, quantity long, timestamp long);
     ```
     
     !!! info
@@ -47,13 +48,13 @@ To calculate and store time-based aggregation values for the scenario explained 
         * **`<yyyy>-<MM>-<dd> <HH>:<mm>:<ss>`**: This format can be used if the timezone is in GMT.
    
 
-3. Define an aggregation as follows. You can name it `TradeAggregation`.
+3. Create an aggregation as follows. You can name it `TradeAggregation`.
 
     !!! info
         The system uses the aggregation name you define here as part of the database table name. Table name is `<Aggregation_Name>_<Granularity>`. System will automatically create a collection `TradeAggregation_HOUR` in `c8db` as we will be calculating the aggregation hourly in the next step.
         
     ```
-    define aggregation TradeAggregation
+    CREATE AGGREGATION TradeAggregation
     ```
 
 4. To calculate aggregations, include a query as follows:
@@ -86,10 +87,11 @@ To calculate and store time-based aggregation values for the scenario explained 
 
     ```
     @App:name("TradeApp")
+    @App:qlVersion("2")
 
-    define stream TradeStream (symbol string, price double, quantity long, timestamp long);
+    CREATE STREAM TradeStream (symbol string, price double, quantity long, timestamp long);
 
-    define aggregation TradeAggregation
+    CREATE AGGREGATION TradeAggregation
    
     @info(name = 'CalculatingAggregates')
     select symbol, avg(price) as avgPrice, sum(quantity) as total
@@ -108,42 +110,43 @@ To do this, let's add the definitions and queries required for retrieval to the 
 
 2. To retrieve aggregations, you need to make retrieval requests. To capture these requests as events, let's define a stream as follows.
     ```
-    define stream TradeSummaryRetrievalStream (symbol string);
+    CREATE STREAM TradeSummaryRetrievalStream (symbol string);
     ```
     
 3. To process the events captured via the `TradeSummaryRetrievalStream` stream you defined, add a new query as follows.
 
     ```
+    insert into TradeSummaryStream
     select a.symbol, a.total, a.avgPrice 
     from TradeSummaryRetrievalStream as b join TradeAggregation as a
         on a.symbol == b.symbol 
         within "2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30" 
-        per "days" 
-    insert into TradeSummaryStream;
+        per "days" ;
     ```
     
 4. The completed stream application is as follows.
 
     ```
     @App:name("TradeApp")
+    @App:qlVersion("2")
     
-    define stream TradeStream (symbol string, price double, quantity long, timestamp long);
+    CREATE STREAM TradeStream (symbol string, price double, quantity long, timestamp long);
     
-    define stream TradeSummaryRetrievalStream (symbol string);
+    CREATE STREAM TradeSummaryRetrievalStream (symbol string);
     
-    define aggregation TradeAggregation
+    CREATE AGGREGATION TradeAggregation
     select symbol, avg(price) as avgPrice, sum(quantity) as total
     from TradeStream
     group by symbol
     aggregate by timestamp every hour;
     
     @info(name = 'RetrievingAggregates') 
+    insert into TradeSummaryStream
     select a.symbol, a.total, a.avgPrice 
     from TradeSummaryRetrievalStream as b join TradeAggregation as a
         on a.symbol == b.symbol 
         within "2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30" 
-        per "days" 
-    insert into TradeSummaryStream;
+        per "days" ;
     ```
 
 ## Summarization by Windowing Criteria
@@ -162,19 +165,19 @@ To demonstrate this, consider a factory manager who wants to be able to check th
 
    ```
    @App:name('PastHourProductionApp');
+   @App:qlVersion("2")
    ```
 
 2. To capture details about each production run, define an input stream as follows.
 
     ```
-    define stream ProductionStream (name string, amount long, timestamp long);
+    CREATE STREAM ProductionStream (name string, amount long, timestamp long);
     ```
     
 3. To publish the production for the last hour, define the output stream as follows.
 
     ```
-    @sink(type='log', prefix='Production totals over the past hour:')
-    define stream PastHourProductionStream (name string, pastHourTotal long);
+	CREATE STREAM PastHourProductionStream WITH (type='log', prefix='Production totals over the past hour:') (name string, pastHourTotal long);
     ```
 
     !!! note
@@ -197,7 +200,7 @@ To demonstrate this, consider a factory manager who wants to be able to check th
     !!! note
         `window.time` indicates that the window added is a time window. The time considered is one hour. The window is a sliding window which considers the last hour at any given time.
 
-        (e.g., Once stream processor calculates the total production during the time 13.00-14.00, next it calculates the total production during the time 13.01-14.01 after the 13.01 minute as elapsed.) 
+        (For example, when the stream processor calculates the total production during the time 13.00-14.00, next it calculates the total production during the time 13.01-14.01 after the 13.01 minute as elapsed.) 
         
         For details about other window types supported, see [Plugins- Unique](../reference/extensions/execution/unique.md).
         
@@ -210,23 +213,23 @@ To demonstrate this, consider a factory manager who wants to be able to check th
 7. To insert the results into the `PastHourProductionStream` output stream, add the `insert into` clause as follows.
 
     ```
-    insert into PastHourProductionStream;
+    insert into PastHourProductionStream
     ```
 
 8. The completed stream application is as follows:
     
     ```
     @App:name('PastHourProductionApp')
+    @App:qlVersion("2")
     
-    define stream ProductionStream (name string, amount long, timestamp long);
+    CREATE STREAM ProductionStream (name string, amount long, timestamp long);
     
-    @sink(type='log', prefix='Production totals over the past hour:')
-    define stream PastHourProductionStream (name string, pastHourTotal long);
+	CREATE STREAM PastHourProductionStream WITH (type='log', prefix='Production totals over the past hour:') (name string, pastHourTotal long);
     
+    insert into PastHourProductionStream
     select name, sum(amount) as pastHourTotal
     from ProductionStream#window.time(1 hour)
-    group by name
-    insert into PastHourProductionStream;
+    group by name;
     ```
 
 ### Performing a length-based summarization to a batch of events
@@ -238,20 +241,20 @@ To demonstrate this, assume that a factory manager wants to track the maximum pr
 1. Start creating a new stream application. You can name it `ProductionApp` For instructions, see [Creating a Stream Application](create-stream-app.md).
 
    ```
-   @App:name('MaximumProductionApp');
+   @App:name('MaximumProductionApp')
+   @App:qlVersion("2")
    ```
    
 2. Define an input stream as follows to capture details about the production.
 
     ```
-    define stream ProductionStream (name string, amount long);
+    CREATE STREAM ProductionStream (name string, amount long);
     ```
     
 3. To output the maximum production detected every 10 production runs, define an output stream as follows.
 
     ```
-    @sink(type='log', prefix='Maximum production in last 10 runs')
-    define stream DetectedMaximumProductionStream (name string, maximumValue long);
+	CREATE STREAM DetectedMaximumProductionStream WITH (type='log', prefix='Maximum production in last 10 runs') (name string, maximumValue long);
     ```
 
     !!! note
@@ -281,21 +284,22 @@ To demonstrate this, assume that a factory manager wants to track the maximum pr
     
 7. To insert the maximum production detected into the `DetectedMaximumProductionStream` output stream, add the `insert into` clause as follows.
     ```
-    insert into DetectedMaximumProductionStream;
+    insert into DetectedMaximumProductionStream
     ```
 
 The completed stream application is as follows.
 
 ```
 @App:name('MaximumProductionApp') 
+@App:qlVersion("2")
 
-define stream ProductionStream (name string, amount long);
+CREATE STREAM ProductionStream (name string, amount long, timestamp long);
 
-@sink(type='log', prefix='Maximum production in last 10 runs')
-define stream DetectedMaximumProductionStream (name string, maximumValue long);
+CREATE STREAM DetectedMaximumProductionStream WITH (type='log', prefix='Maximum production in last 10 runs') (name string, maximumValue long);
 
+insert into DetectedMaximumProductionStream
 select name, max(amount) as maximumValue
 from ProductionStream#window.lengthBatch(10)
 group by name
-insert into DetectedMaximumProductionStream;
+;
 ```
