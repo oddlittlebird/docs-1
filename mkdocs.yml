@@ -210,8 +210,10 @@ nav:
       - Patterns & Trends: cep/reference/patterns-n-trends.md
       - Data Pipelines: cep/reference/data-pipelining.md
       - Error Handling: cep/reference/error-handling.md
+      - GeoSpatial: cep/reference/geospatial.md
       - Query Guide: cep/reference/query-guide.md
       - Functions: cep/reference/functions.md
+      - Query Language Syntax Update: cep/reference/query-language-update.md
       - Extensions:
         - Execution:
           - Context: cep/reference/extensions/execution/context.md
