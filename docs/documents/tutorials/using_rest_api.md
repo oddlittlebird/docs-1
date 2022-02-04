@@ -97,7 +97,6 @@ For example:
 
     # Create a document collection
 	# Note: Create a test collection. Set "type" to 2 for documents or 3 for edges
-**``JAMES: What exactly are we trying to say with "Note: Create a test collection."?  Are we simply recommending that they test this before they try it in production?``**
 
     url = FED_URL + "/_api/collection"
     payload = {
@@ -136,7 +135,6 @@ For example:
     url = FED_URL + "/_api/document/" + COLLECTION_NAME + "/Lola"
     resp = session.get(url)
     print("\nDocument with ID Lola is: ",resp.text)
-**``JAMES: Is there a way we can replace "Lola" with a generic ID label?  Something like "Document with ID " + ID + " is: "``**
 
     # Read multiple documents
 
@@ -1075,7 +1073,7 @@ A graph consists of *vertices* and *edges* that are all stored as documents in c
 An edge collection contains *edge documents* and shares its namespace with all other collection types. You can manage edge documents with REST API wrappers for regular documents, but edge collection API wrappers provide the following benefits:
 
 * Perform modifications as transactions.
-* When inserting edge documents, check them against edge definitions.  **``JAMES: Is there a reason we call out "named graph" as a term?  Do we need to distinguish between named graphs and another type of graph?``**
+* When inserting edge documents, check them against edge definitions.
 
 Edge documents have two additional required fields:
 
