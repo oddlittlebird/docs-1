@@ -60,8 +60,6 @@ Download the appropriate drivers for Python or JavaScript.
 
 ## Code Sample
 
-**``JAMES: Is there anything we can say here to give a bit of context for each sample?``**
-
 === "Rest API"
 
     ``` js
