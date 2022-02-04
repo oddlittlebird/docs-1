@@ -1,56 +1,55 @@
 # Bulk Update Key-Value Collection with RestQL
 
-This tutorial is about using RestQL to bulk update `Key-Value` Collection data. 
+The following example bulk updates key-value collection data via RestQL.
 
-!!! note
-    If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../../essentials.md)** of Macrometa GDN.
+Assume these credentials:
 
-## Pre-requisite
-
-Let's assume your
-
-* Tenant name is `nemo@nautilus.com` and
-* User password is `xxxxxx`.
+* Tenant name: nemo@nautilus.com
+* Password: xxxxxx
 
 ## Driver download
 
-=== "Python"
+Download the appropriate drivers for Python or JavaScript.
+
+=== "python"
 
     ``` py
 
     pyC8 requires Python 3.5+. Python 3.6 or higher is recommended
 
-    To install pyC8, simply run
+    To install pyC8, run
 
         $ pip3 install pyC8
 
-    or, if you prefer to use conda:
+    Alternatively, you can use conda:
 
         conda install -c conda-forge pyC8
 
-    or pipenv:
+    Alternatively, you can use pipenv:
 
         pipenv install --pre pyC8
 
-    Once the installation process is finished, you can begin developing applications in Python.
+    Any one of these three commands will install Python and enable you to develop applications.
 
     ```
 
-=== "Javascript"
+=== "javascript"
 
     ``` js
 
-    With Yarn or NPM
+    With Yarn:
 
         yarn add jsc8
-        (or)
+    
+	With NPM:
+
         npm install jsc8
 
     If you want to use the driver outside of the current directory, you can also install it globally using the `--global` flag:
 
         npm install --global jsc8
 
-    From source,
+    From source:
 
         git clone https://github.com/macrometacorp/jsc8.git
         cd jsC8
@@ -60,6 +59,8 @@ Let's assume your
     ```
 
 ## Code Sample
+
+**``JAMES: Is there anything we can say here to give a bit of context for each sample?``**
 
 === "Rest API"
 
@@ -143,11 +144,11 @@ Let's assume your
         try {
             const connection = new APIRequest(FEDERATION_URL);
 
-            /* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */
+            /* -------------------- Log in (nemo@nautilus.com/xxxxxxx) -------------------- */
             await connection.login(EMAIL, PASSWORD);
             console.log("Login Successfully using", EMAIL);
 
-            /* -------------------------- Create Doc Collection ------------------------- */
+            /* -------------------------- Create doc collection ------------------------- */
             const collection = await connection.req(`/_fabric/${FABRIC_NAME}/_api/kv/${COLLECTION_NAME}`, {
                 body: { stream: false },
                 method: "POST",
@@ -155,7 +156,7 @@ Let's assume your
 
             console.log("COLLECTION CREATED SUCCESSFULLY", collection);
 
-            /* ------------------------ Saving a Restql Query ----------------------- */
+            /* ------------------------ Save a RestQL query ----------------------- */
             const saveRestQlQuery = (queryName, query, parameter) =>
                 connection.req(`/_fabric/${FABRIC_NAME}/_api/restql`, {
                     body: {
@@ -175,7 +176,7 @@ Let's assume your
 
             console.log("Queries Saved Successfully");
 
-            /* ----------------------- Executing a Restql Query ---------------------- */
+            /* ----------------------- Run a RestQL query ---------------------- */
             const executeRestql = (queryName, parameter) =>
                 connection.req(`/_fabric/${FABRIC_NAME}/_api/restql/execute/${queryName}`, {
                     body: {
@@ -184,7 +185,7 @@ Let's assume your
                     method: "POST",
                 });
 
-            console.log("------- Execute the RestQl Queries  ------");
+            console.log("------- Bulk run RestQl queries  ------");
 
             await executeRestql("insertData", {
                 InputDocs: inputDocs,
@@ -283,7 +284,7 @@ Let's assume your
         client.create_restql(update_data)
         print("Created RESTQLs:{}".format(client.get_restqls()))
 
-        print("\n ------- EXECUTE RESTQLs ------")
+        print("\n ------- RUN RESTQLs ------")
         print("Insert data....")
         response = client.execute_restql(
             "insertRecord", {"bindVars": {"InputDocs": inputDocs}}
@@ -311,7 +312,7 @@ Let's assume your
     ``` js
     const jsc8 = require('jsc8');
 
-    // Create a authenticated instance with Token / Apikey
+    // Create an authenticated instance with a JSON Web Token or API key
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", token: "XXXX", fabricName: '_system'});
     // const client = new jsc8({url: "https://gdn.paas.macrometa.io", apiKey: "XXXX", fabricName: '_system'});
     const client = new jsc8("https://gdn.paas.macrometa.io");
@@ -354,7 +355,7 @@ Let's assume your
         console.log("Collection " + collectionName + " created.\n", collection);
 
         /* Save RestQl Queries */
-        console.log("------- SAVING THE QUERIES  ------");
+        console.log("------- SAVE THE QUERIES  ------");
 
         await client.createRestql("insertData", insertData, {});
         await client.createRestql("getData", getData, {});
@@ -363,7 +364,7 @@ Let's assume your
         console.log("Saved Queries Successfully\n");
 
         /* Execute RestQl Queries */
-        console.log("------- EXECUTING THE QUERIES  ------");
+        console.log("------- RUN THE QUERIES  ------");
 
         await client.executeRestql("insertData", {
             InputDocs: inputDocs
