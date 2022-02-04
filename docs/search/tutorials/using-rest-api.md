@@ -1,31 +1,28 @@
 # Using REST APIs
 
-Today’s applications are required to be highly responsive and always online. They need to be deployed in datacenters closer to their users and can access data instantly across the globe. 
+Modern applications need to be highly responsive, always online, and able to access data instantly across the globe. At the same time, they need to be deployed on datacenters close to their users. Macrometa global data network (GDN) is a real-time materialized view engine that provides instant data to applications and APIs in a simple interface.
 
-Macrometa global data network (GDN) is a fully managed realtime materialzed view engine that provides access to data instantly to Apps & APIs in a simple & single interface. 
+If you are new to Macrometa GDN, start by reading the [essentials](../../essentials.md) of Macrometa GDN.
 
-!!! note
-    If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../../essentials.md)** of Macrometa GDN.
+Prerequisites:
 
-## Pre-Requisite
-
-A tenant account (and credentials) with Macrometa GDN.
+A Macrometa GDN tenant account and credentials.
 
 ## API Browser
 
-Your best friend when working with REST APIs is the REST API browser available in [GDN](https://gdn.paas.macrometa.io) GUI. From there, you can execute various rest apis and see exactly what the inputs and outputs are.
+Your main tool for using REST APIs is the API reference in the [GDN](https://gdn.paas.macrometa.io) web browser interface. Use the built-in API reference to run various calls and view their input and output.
 
 ![GDN API Browser](../images/gdn-api-browser.png)
 
 ## Working with Documents
 
-A **document** is a dictionary/object that is JSON serializable with the following properties:
+A *document* is a JSON-serializable dictionary object with the following properties:
 
-- Contains the `_key` field, which identifies the document uniquely within a specific collection.
-- Contains the `_id` field (also called the handle), which identifies the document uniquely across all collections within a fabric. This ID is a combination of the collection name and the document key using the format `{collection}/{key}` (see example below).
-- Contains the `_rev` field. GDN supports MVCC (Multiple Version Concurrency Control) and is capable of storing each document in multiple revisions. Latest revision of a document is indicated by this field. The field is populated by GDN and is not required as input unless you want to validate a document against its current revision.
+* `_key` identifies a document within a collection.
+* `_id` identifies a document across all collections in a fabric with the following format: `{collection name}/{document key}`. This is also known as a *handle*.
+* `_rev` indicates the latest revision of a document. GDN supports MVCC (Multiple Version Concurrency Control) and stores each document in multiple revisions. This field is automatically populated, but you can use it to validate a document against its current revision.
 
-Here is an example of a valid document:
+For example:
 
 ```json
 {
@@ -44,13 +41,15 @@ Here is an example of a valid document:
 }
 ```
 
+### Tutorial
+
 === "Python"
 
     ``` py
     import requests
     import json
 
-    # Constants
+    # Set constants
 
     FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
@@ -60,7 +59,7 @@ Here is an example of a valid document:
     COLLECTION_NAME = "testcollection"
     AUTH_TOKEN = "bearer "
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -85,7 +84,7 @@ Here is an example of a valid document:
     session.headers.update({"content-type": 'application/json'})
     session.headers.update({"authorization": AUTH_TOKEN})
 
-    # Get List of all regions
+    # Get list of all regions
 
     url = FED_URL + "/_api/datacenter/all"
     dcl_resp = session.get(url)
@@ -94,10 +93,11 @@ Here is an example of a valid document:
     for dcl in dcl_list:
         dcl_url = dcl['tags']['url']
         regions.append(dcl_url)
-    print("\nList of Regions: ",regions)
+    print("\nList of regions: ",regions)
 
     # Create a document collection
-    # Note :- Create a test collection. Collection type = 2 for documents. Collection type = 3 for edges.
+	# Note: Create a test collection. Set "type" to 2 for documents or 3 for edges
+**``JAMES: What exactly are we trying to say with "Note: Create a test collection."?  Are we simply recommending that they test this before they try it in production?``**
 
     url = FED_URL + "/_api/collection"
     payload = {
@@ -109,14 +109,15 @@ Here is an example of a valid document:
     if "error" in resp.keys():
         print("ERROR: " + resp["errorMessage"])
     else:
-        print("\nCollection Created: ", resp.text)
+        print("\nCollection created: ", resp.text)
 
 
-    # Insert a document into collection
+    # Insert a document into a collection
+
     url = FED_URL + "/_api/document/" + COLLECTION_NAME
     payload = {'GPA': 3.5, 'first': 'Lola', 'last': 'Martin', '_key': 'Lola'}
     resp = session.post(url, data = json.dumps(payload))
-    print("\nDocument Inserted: ", resp.text)
+    print("\nDocument inserted: ", resp.text)
 
     # Data can either be a single document or a list of documents
     # Insert multiple documents
@@ -128,15 +129,16 @@ Here is an example of a valid document:
         {'GPA': 4.0, 'first': 'Emma', 'last': 'Park', '_key': 'Emma'}
     ]
     resp = session.post(url, data = json.dumps(data))
-    print("\nMultiple Documents Inserted: ", resp.text)
+    print("\nMultiple documents inserted: ", resp.text)
 
-    # Read a Document with it's Document Id
+    # Read a document with its ID
 
     url = FED_URL + "/_api/document/" + COLLECTION_NAME + "/Lola"
     resp = session.get(url)
-    print("\nDocument with id Lola is: ",resp.text)
+    print("\nDocument with ID Lola is: ",resp.text)
+**``JAMES: Is there a way we can replace "Lola" with a generic ID label?  Something like "Document with ID " + ID + " is: "``**
 
-    # Read multiple Documents
+    # Read multiple documents
 
     url = FED_URL + "/_api/simple/lookup-by-keys"
     payload = {"collection": COLLECTION_NAME,
@@ -145,26 +147,26 @@ Here is an example of a valid document:
     resp = json.loads(resp.text)
     print("\nDocuments: ", resp["documents"])
 
-    # Update a Single Document with it's Id
+    # Update a single document with its ID
     url = FED_URL + "/_api/document/" + COLLECTION_NAME + "/John"
     payload =     {'GPA': 3.6, 'first': 'John', 'last': 'Andrews', '_key': 'John'},
 
     resp = session.patch(url, data = json.dumps(payload))
-    print("\nUpdated Document with id Lola: ",resp.text)
+    print("\nUpdated document with ID Lola: ",resp.text)
 
-    # Update  Documents
+    # Update  documents
     url = FED_URL + "/_api/document/" + COLLECTION_NAME
     payload = [
         {'GPA': 4.6, 'first': 'Lola', 'last': 'Martin', '_key': 'Lola'},
         {'GPA': 3.2, 'first': 'Abby', 'last': 'Stutguard', '_key': 'Abby'}
     ]
     resp = session.patch(url, data = json.dumps(payload))
-    print("\nUpdated Documents: ", resp.text)
+    print("\nUpdated documents: ", resp.text)
 
-    # Remove single document with it's Id
+    # Remove single document with its ID
     url = FED_URL + "/_api/document/" + COLLECTION_NAME + "/John"
     resp = session.delete(url)
-    print("\nDeletd Document with Id John: ", resp.text)
+    print("\nDeleted document with ID John: ", resp.text)
 
 
     # Remove a multiple document
@@ -238,13 +240,13 @@ Here is an example of a valid document:
       try {
         const connection = new APIRequest(FEDERATION_URL);
 
-        /* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */
+        /* -------------------- Log in (nemo@nautilus.com/xxxxxx) -------------------- */
 
         await connection.login(EMAIL, PASSWORD);
 
-        console.log("Login Successfully using", EMAIL);
+        console.log("Logged in successfully using", EMAIL);
 
-        /* -------------------------- Create Doc Collection ------------------------- */
+        /* -------------------------- Create document collection ------------------------- */
 
         const collection = await connection.req(
           "/_fabric/_system/_api/collection",
@@ -256,7 +258,7 @@ Here is an example of a valid document:
 
         console.log("COLLECTION CREATED SUCCESSFULLY", collection);
 
-        /* ---------------------------- Insert Documents ---------------------------- */
+        /* ---------------------------- Insert documents ---------------------------- */
 
         const document = await connection.req(
           `/_fabric/_system/_api/document/${COLLECTION_NAME}`,
@@ -268,7 +270,7 @@ Here is an example of a valid document:
 
         console.log("DOCUMENT CREATED SUCCESSFULLY", document);
 
-        /* ----------------------------- Read Documents ----------------------------- */
+        /* ----------------------------- Read documents ----------------------------- */
 
         const readDocument = await connection.req(
           `/_fabric/_system/_api/document/${document._id}`
@@ -276,7 +278,7 @@ Here is an example of a valid document:
 
         console.log("DOCUMENT READ SUCCESSFULLY", readDocument);
 
-        /* ---------------------------- Update Documents ---------------------------- */
+        /* ---------------------------- Update documents ---------------------------- */
 
         const updateDocument = await connection.req(
           `/_fabric/_system/_api/document/${document._id}`,
@@ -288,7 +290,7 @@ Here is an example of a valid document:
 
         console.log("DOCUMENT UPDATED SUCCESSFULLY", updateDocument);
 
-        /* ----------------------------- Read Documents ----------------------------- */
+        /* ----------------------------- Read documents ----------------------------- */
 
         const updatedReadDocument = await connection.req(
           `/_fabric/_system/_api/document/${document._id}`
@@ -296,7 +298,7 @@ Here is an example of a valid document:
 
         console.log("DOCUMENT UPDATED READ SUCCESSFULLY", updatedReadDocument);
 
-        /* ------------------------------- Delete Docs ------------------------------ */
+        /* ------------------------------- Delete documents ------------------------------ */
         const deletedDocument = await connection.req(
           `/_fabric/_system/_api/document/${document._id}`,
           {
@@ -305,7 +307,7 @@ Here is an example of a valid document:
         );
         console.log("DOCUMENT DELETED SUCCESSFULLY", deletedDocument);
 
-        /* --------------------------- Delete Collection. --------------------------- */
+        /* --------------------------- Delete collection. --------------------------- */
         const deletedCollection = await connection.req(
           `/_fabric/_system/_api/collection/${COLLECTION_NAME}`,
           { method: "DELETE" }
@@ -323,7 +325,9 @@ Here is an example of a valid document:
 
 ## Query using C8QL
 
-CRUD Operations can also be done using C8QL
+You can use C8QL to run CRUD Operations.
+
+### Tutorial
 
 === "Python"
 
@@ -333,7 +337,7 @@ CRUD Operations can also be done using C8QL
     FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -382,19 +386,19 @@ CRUD Operations can also be done using C8QL
     })
     ```
 
-## Pub-Sub with Streams
+## Publish-Subscribe with Streams
 
-**GDN streams** is a high-performance solution for server-to-server messaging.
+GDN streams are a high-performance solution for server-to-server messaging. Streams are built on the *publish-subscribe* (pub-sub) pattern in which producers publish messages to streams, and consumers can subscribe to those streams, process incoming messages, and send an acknowledgment to the producer when finished.
 
-It provides,
+Streams provide:
 
-- Seamless geo-replication of messages across regions,
-- Very low publish and end-to-end latency,
-- Seamless scalability to over a million topics.
-- Multiple subscription modes (`exclusive`, `shared`, and `failover`) for streams.
-- Guaranteed message delivery with persistent message storage.
+* Seamless geo-replication of messages across regions.
+* Low publish and end-to-end latency.
+* Seamless scalability to over a million topics.
+* Multiple subscription modes (`exclusive`, `shared`, and `failover`) for streams.
+* Guaranteed message delivery with persistent message storage.
 
-`Streams` are built on the _publish-subscribe_ pattern, aka pub-sub. In this pattern, producers publish messages to streams. Consumers can then subscribe to those streams, process incoming messages, and send an acknowledgement when processing is complete.
+### Tutorial
 
 === "Python"
 
@@ -419,7 +423,7 @@ It provides,
     CONSUMER_NAME = "testconsumer"
 
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -445,16 +449,17 @@ It provides,
     session.headers.update({"authorization": AUTH_TOKEN})
 
     # Create a stream
-    # Note:- For a global stream pass global=true and global=false for local stream
+	# Set global=true for a global stream or global=false for a local stream
+
     url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "'?global=true"
     resp = session.post(url)
-    print("\nStream Created: ", resp.text)
+    print("\nStream created: ", resp.text)
 
-    # Publish Messages
+    # Publish messages
     /# Send message in body
     url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "/publish'?global=true"
     resp = session.post(url)
-    print("\nStream Created: ", resp.text)
+    print("\nStream created: ", resp.text)
 
     or
 
@@ -486,15 +491,15 @@ It provides,
         msg = json.loads(ws.recv())
         if msg:
             print("received: {}".format(base64.b64decode(msg['payload'])))
-            # Acknowledge successful processing
+	# Acknowledge successful processing
             ws.send(json.dumps({'messageId': msg['messageId']}))
             break
     ws.close()
 
-    # Delete Subscription/ Unsubscribe
+    # Delete subscription (unsubscribe)
     url = FED_URL + "/_api/streams/unsubscribe/" + CONSUMER_NAME
     resp = session.post(url, data = json.dumps(payload))
-    print("Subsrcription Deleted: ", resp.text)
+    print("Subsrcription deleted: ", resp.text)
 
     ```
 
@@ -563,12 +568,12 @@ It provides,
       try {
         const connection = new APIRequest(FEDERATION_URL);
 
-        /* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */
+        /* -------------------- Log in (nemo@nautilus.com/xxxxxxx) -------------------- */
 
         const { tenant } = await connection.login(EMAIL, PASSWORD);
 
-        console.log("Login Successfully using", tenant);
-        /* ------------------------------ Create Stream ----------------------------- */
+        console.log("Logged in successfully using", tenant);
+        /* ------------------------------ Create stream ----------------------------- */
 
         const stream = await connection.req(
           `/_fabric/_system/streams/${STREAM_NAME}?global=${IS_GLOBAL}`,
@@ -580,7 +585,7 @@ It provides,
 
         console.log("STREAM CREATED SUCCESSFULLY", stream);
 
-        /* ----------------- Publish and Subscribe message to stream ---------------- */
+        /* ----------------- Publish and subscribe message to stream ---------------- */
 
         const region = IS_GLOBAL ? "c8global" : "c8local";
         const streamName = `${region}s.${STREAM_NAME}`;
@@ -596,7 +601,7 @@ It provides,
         var producer;
         var producer_interval;
 
-        /* -------------------------- Initalizing Consumer -------------------------- */
+        /* -------------------------- Initalize consumer -------------------------- */
 
         const initConsumer = () => {
           return new Promise((resolve) => {
@@ -632,7 +637,7 @@ It provides,
           });
         };
 
-        /* -------------------------- Initalizing Producer -------------------------- */
+        /* -------------------------- Initalize producer -------------------------- */
 
         const initProducer = () => {
           producer = new WebSocket(producerUrl);
@@ -670,7 +675,7 @@ It provides,
 
         await new Promise((resolve) => setTimeout(resolve, 5000));
 
-        /* ------------------------ Unsubscribe from stream. ------------------------ */
+        /* ------------------------ Unsubscribe from stream ------------------------ */
 
         const consumerUnsubscribe = await connection.req(
           `/_fabric/_system/_api/streams/unsubscribe/${CONSUMER_NAME}`,
@@ -694,21 +699,23 @@ It provides,
 
     ```
 
-## Query as API (RESTQL)
+## Query as API (RestQL)
 
-Globally distributed applications need a geo distributed fast data platform that can transparently replicate the data anywhere in the world to enable the applications to operate on a copy of the data that's close to its users. Similarly the applications need geo-replicated and local streams to handle pub-sub, ETL and real-time updates from the fast data platform.
+Globally distributed applications need a fast data platform that can transparently replicate data anywhere in the world, enabling users to access applications on the closest copy of their data. Additionally, these applications need both geo-replicated and local streams to handle pub-sub, ETL, and real-time updates. 
 
-Macrometa GDN is a geo-distributed realtime data service with turnkey global distribution and transparent multi-master replication. You can run globally distributed, low-latency workloads with GDN. This article is an introduction to using GDN via its REST APIs.
+Macrometa GDN provides turnkey global distribution and transparent multi-master replication. You can run globally distributed, low-latency workloads with GDN.
+
+### Tutorial
 
 === "Python"
 
     ``` py
 
-    ## Using RESTQL
+    # Using RESTQL
     import requests
     import json
 
-    # Constants
+    # Set constants
 
     FEDERATION = "api.gdn.paas.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
@@ -725,7 +732,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     DELETE_QUERY =  "FOR c IN @@collection REMOVE c IN @@collection"
 
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -750,10 +757,10 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     session.headers.update({"content-type": 'application/json'})
     session.headers.update({"authorization": AUTH_TOKEN})
 
-    # Create a RESTQL.
+    # Create RESTQL
     url = FED_URL + "/_api/restql"
 
-    # Save Read Query
+    # Save read query
     payload = {
       "query": {
         "name": QUERY_NAME,
@@ -763,9 +770,9 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     }
 
     resp = session.post(url, data = json.dumps(payload))
-    print("\nRead Query Saved: ", resp.text)
+    print("\nRead query saved: ", resp.text)
 
-    # Save Insert Query
+    # Save insert query
     payload = {
       "query": {
         "name": "insert",
@@ -776,9 +783,9 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     }
 
     resp = session.post(url, data = json.dumps(payload))
-    print("\nInsert Query Saved: ", resp.text)
+    print("\nInsert query saved: ", resp.text)
 
-    # Save Update Query
+    # Save update query
     payload = {
       "query": {
         "name": "update",
@@ -789,7 +796,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     }
 
     resp = session.post(url, data = json.dumps(payload))
-    print("\nUpdate Query Saved: ", resp.text)
+    print("\nUpdate query saved: ", resp.text)
 
     payload = {
       "query": {
@@ -801,41 +808,41 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     }
 
     resp = session.post(url, data = json.dumps(payload))
-    print("\nDelete Query Saved: ", resp.text)
+    print("\nDelete query saved: ", resp.text)
 
 
-    # Execute Saved query
+    # Execute saved query
 
     url = FED_URL + "/_api/restql/execute/insert"
     payload = {
               "bindVars": QUERY_PARAMS,
             }
     resp = session.post(url, data = json.dumps(payload))
-    print("\nInsert Query Executed: ", resp.text)
+    print("\nInsert query executed: ", resp.text)
 
     url = FED_URL + "/_api/restql/execute/" + QUERY_NAME
     payload = {
               "bindVars": QUERY_PARAMS,
             }
     resp = session.post(url, data = json.dumps(payload))
-    print("\nRead Query Executed: ", resp.text)
+    print("\nRead query executed: ", resp.text)
 
     url = FED_URL + "/_api/restql/execute/update"
     payload = {
               "bindVars": QUERY_PARAMS,
             }
     resp = session.post(url, data = json.dumps(payload))
-    print("\nUpdate Query Executed: ", resp.text)
+    print("\nUpdate query executed: ", resp.text)
 
     url = FED_URL + "/_api/restql/execute/delete"
     payload = {
               "bindVars": QUERY_PARAMS,
             }
     resp = session.post(url, data = json.dumps(payload))
-    print("\nDelete Query Executed: ", resp.text)
+    print("\nDelete query executed: ", resp.text)
 
 
-    # Update Saved Query
+    # Update saved query
     url = FED_URL + "/_api/restql/" + QUERY_NAME
 
     payload = {
@@ -846,25 +853,25 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
     }
 
     resp = session.put(url, data = json.dumps(payload))
-    print("Query Updated: ", resp.text)
+    print("Query updated: ", resp.text)
 
-    # Delete Saved Queries
+    # Delete saved queries
 
     url = FED_URL + "/_api/restql/" + QUERY_NAME
     resp = session.delete(url)
-    print("Read Query Deleted: ", resp.text)
+    print("Read query deleted: ", resp.text)
 
     url = FED_URL + "/_api/restql/insert"
     resp = session.delete(url)
-    print("Insert Query Deleted: ", resp.text)
+    print("Insert query deleted: ", resp.text)
 
     url = FED_URL + "/_api/restql/update"
     resp = session.delete(url)
-    print("Update Query Deleted: ", resp.text)
+    print("Update query deleted: ", resp.text)
 
     url = FED_URL + "/_api/restql/delete"
     resp = session.delete(url)
-    print("Delete Query Deleted: ", resp.text)
+    print("Delete query deleted: ", resp.text)
     ```
 
 === "Javascript"
@@ -930,13 +937,13 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
       try {
         const connection = new APIRequest(FEDERATION_URL);
 
-        /* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */
+        /* -------------------- Log in (nemo@nautilus.com/xxxxxx) -------------------- */
 
         await connection.login(EMAIL, PASSWORD);
 
-        console.log("Login Successfully using", EMAIL);
+        console.log("Logged in successfully using", EMAIL);
 
-        /* ------------------------ Saving a Restql Query (with params) ----------------------- */
+        /* ------------------------ Save RestQL query (with params) ----------------------- */
 
         const QUERY = "FOR doc IN @@collection RETURN doc";
 
@@ -953,7 +960,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
         console.log("QUERY CREATED SAVED SUCCESSFULLY", query);
 
-        /* ----------------------- Updating a Restql Query (with params) ---------------------- */
+        /* ----------------------- Update RestQL query (with params) ---------------------- */
 
         const updatedQuery = await connection.req(
           `/_fabric/_system/_api/restql/${QUERY_NAME}`,
@@ -970,7 +977,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
         console.log("QUERY UPDATED  SUCCESSFULLY", updatedQuery);
 
-        /* ----------------------- Executing a Restql Query (with params) ---------------------- */
+        /* ----------------------- Run RestQL query (with params) ---------------------- */
 
         const execute = () =>
           connection.req(`/_fabric/_system/_api/restql/execute/${QUERY_NAME}`, {
@@ -980,7 +987,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
             method: "POST",
           });
 
-        /* -------------------  Insert Query using Cursor (with params) ------------------- */
+        /* -------------------  Insert query using cursor (with params) ------------------- */
 
         const INSERT_QUERY =
           "FOR i IN 1..100 INSERT { result: i } INTO @@collection";
@@ -1000,7 +1007,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
         console.log("DATA AFTER INSERT", insertResults);
 
-        /* ------------------- Update Query using Cursor (with params) ------------------- */
+        /* ------------------- Update query using cursor (with params) ------------------- */
         const CURSOR_QUERY =
           "FOR doc IN @@collection FILTER doc.result >= 35 UPDATE doc._key WITH { qualified :true } IN @@collection";
 
@@ -1018,7 +1025,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
         console.log("DATA AFTER UPDATE", updateResults);
 
-        /* ------------------- Remove Query using Cursor (with params) ------------------- */
+        /* ------------------- Remove query using cursor (with params) ------------------- */
 
         const REMOVE_QUERY = "FOR doc IN @@collection REMOVE doc IN @@collection";
 
@@ -1037,7 +1044,7 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
         console.log("DATA AFTER DELETE", removeResults);
 
-        /* ----------------------------- Delete RESTQL Query with Name ----------------------------- */
+        /* ----------------------------- Delete RestQL query by name ----------------------------- */
 
         const deleteQuery = await connection.req(
           `/_fabric/_system/_api/restql/${QUERY_NAME}`,
@@ -1058,35 +1065,46 @@ Macrometa GDN is a geo-distributed realtime data service with turnkey global dis
 
 ## Working with Graphs
 
-**Edge documents (edges)** are similar to standard documents but with two additional required fields `_from` and `_to`. Values of these fields must be the handles of "from" and "to" vertex documents linked by the edge document in question. Here is an example of a valid edge document:
+*Graphs* enable you to do the following:
+
+* Structure your data models to make them consistent with your domain.
+* Group your data models into logical collections and query them.
+
+A graph consists of *vertices* and *edges* that are all stored as documents in collections. You can store vertices in document collections or edge collections, enabling you to use an edge as a vertex. Edges can only be stored in edge collections. An *edge collection* is similar to a relation table that stores many-to-many relationships between two data tables, and a *vertex collection* is like one of the data tables with connected objects. A graph can use one or more *edge definitions* to determine which collections are used.
+
+An edge collection contains *edge documents* and shares its namespace with all other collection types. You can manage edge documents with REST API wrappers for regular documents, but edge collection API wrappers provide the following benefits:
+
+* Perform modifications as transactions.
+* When inserting edge documents, check them against edge definitions.  **``JAMES: Is there a reason we call out "named graph" as a term?  Do we need to distinguish between named graphs and another type of graph?``**
+
+Edge documents have two additional required fields:
+
+*  `_from`
+*  `_to`
+
+Edges use these fields to point from one document to another stored in vertex collections. The values of `_from` and `_to` must match the IDs of vertex documents linked by the edge document. For example:
 
 ```json
 {
   "_id": "friends/001",
   "_key": "001",
   "_rev": "_Wm3dyle--_",
-  "_from": "students/john",
-  "_to": "students/jane",
+  "_from": "students/john",  // This value must match the ID of the "from" document.
+  "_to": "students/jane",  // This value must match the ID of the "to" document.
   "closeness": 9.5
 }
 ```
 
-A **Graph** consists of vertices and edges. Edges are stored as documents in edge collections. A vertex can be a document of a document collection or of an edge collection (so edges can be used as vertices). Which collections are used within a named graph is defined via edge definitions. A `named graph` can contain more than one edge definition, at least one is needed. Graphs allow you to structure your models in line with your domain and group them logically in collections and giving you the power to query them in the same graph queries.
+In queries, you can define permissions for the direction of edge relations. For example:
 
-In SQL you commonly have the construct of a relation table to store `n:m` relations between two data tables. An `edge collection` is somewhat similar to these relation tables. `Vertex collections` resemble the data tables with the objects to connect.
+* OUTBOUND: `_from` → `_to`
+* INBOUND: `_from` ← `_to`
+* ANY: `_from` ↔ `_to`
 
-While simple graph queries with fixed number of hops via the relation table may be doable in SQL with several nested joins, graph databases can handle an arbitrary number of these hops over edge collections - this is called `traversal`. Also edges in one edge collection may point to several vertex collections. Its common to have attributes attached to edges, i.e. a label naming this interconnection.
 
-Edges have a direction, with their relations `_from` and `_to` pointing from one document to another document stored in vertex collections. In queries you can define in which directions the edge relations may be followed i.e.,
+While simple graph queries with a fixed number of hops via the relation table may be doable in SQL with several nested joins, graph databases can handle an arbitrary number of these hops over edge collections - this is called `traversal`. Also edges in one edge collection may point to several vertex collections. It is common to have attributes attached to edges, i.e. a label naming this interconnection.
 
-- OUTBOUND: `_from` → `_to`
-- INBOUND: `_from` ← `_to`
-- ANY: `_from` ↔ `_to`.
-
-An **edge collection** contains edge documents and shares its namespace with all other types of collections. You can manage edge documents via standard collection API wrappers, but using edge collection API wrappers provides additional safeguards:
-
-- All modifications are executed in transactions.
-- Edge documents are checked against the edge definitions on insert.
+### Tutorial
 
 To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/collection` and pass `type:3` in payload.
 
@@ -1111,7 +1129,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     GRAPH_NAME = "lectureteacher"
 
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -1136,7 +1154,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     session.headers.update({"content-type": 'application/json'})
     session.headers.update({"authorization": AUTH_TOKEN})
 
-    # Create Doc Collections and Insert Data to Document Collections
+    # Create document collections and insert data
 
 
     url = FED_URL + "/_api/collection"
@@ -1144,13 +1162,13 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nDocument Collection1 Created: ",result)
+    print("\nDocument collection 1 created: ",result)
 
     payload = { 'name': COLLECTION_NAME_2 }
 
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nDocument Collection2 Created: ",result)
+    print("\nDocument collection 2 created: ",result)
 
     payload = [
         {
@@ -1182,7 +1200,7 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     url = FED_URL + "/_api/document/" + COLLECTION_NAME_1
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nDocuments Inserted: ",result)
+    print("\nDocuments inserted: ",result)
 
     payload = [
         {'_id': 'lectures/CSC101', 'difficulty': 'easy', '_key':'CSC101', 'firstname':'Jean'},
@@ -1195,16 +1213,16 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     url = FED_URL + "/_api/document/" + COLLECTION_NAME_2
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nDocuments Inserted: ",result)
+    print("\nDocuments inserted: ",result)
 
-    # Create Edge Collection
+    # Create edge collection
 
     payload = { 'name': EDGE_COLL_NAME, "type":3 }
 
     url = FED_URL + "/_api/collection"
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nEdge Collection Created: ",result)
+    print("\nEdge collection created: ",result)
     payload = [
         {
         '_key': 'Jean-CSC101',
@@ -1236,8 +1254,10 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     url = FED_URL + "/_api/document/" + EDGE_COLL_NAME
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nDocuments Inserted: ",result)
-    # Create a Graph
+    print("\nDocuments inserted: ",result)
+
+    # Create a graph
+
     payload ={
       "edgeDefinitions": [
         {
@@ -1257,10 +1277,11 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
     url = FED_URL + "/_api/graph"
     resp = session.post(url,data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nGraph Created: ",result)
+    print("\nGraph created: ",result)
 
-    # Graph Traversal
-    # Note :- To use Outbound Traversal use direction: out and direction: in for Inbound Traversal
+    # Graph traversal
+    # To use outbound traversal, set direction to `out`. To use inbound traversal, set direction to `in`.
+
     params = {
         "vertex": "Jean",
         "direction": "out"
@@ -1270,18 +1291,18 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
     resp = session.get(url,params=params)
     result = json.loads(resp.text)
-    print("\nGraph Traversal: ",result)
+    print("\nGraph traversal: ",result)
 
-    # Delete Graph and Collections
-    # Note:- If you want to delete just the graph and keep collections then
-    # set dropCollection to False
+    # Delete graph and collections
+	# To delete the graph and save the collections, set dropCollection to `false`.
+
     params = {"dropCollection": True}
 
     url = FED_URL + "/_api/graph/" + GRAPH_NAME
 
     resp = session.delete(url,params=params)
     result = json.loads(resp.text)
-    print("Graph and Collections Deleted: ", result)
+    print("Graph and collections deleted: ", result)
     ```
 
 === "Javascript"
@@ -1340,15 +1361,15 @@ To create `edge collection` use same endpoint `/_fabric/{fabric_name}/_api/colle
 
 ## Stream Processing
 
-Macrometa Stream Processing engine allows you to integrate streaming data and take action based on streaming data. Typically the stream processing use cases involve collecting, analyzing and, integrate or acting on data generated during business activities by various sources i.e.,
+Macrometa Stream processing enables you to integrate streaming data into your tenant and enables you to automatically respond to events. A stream processing engine must collect and analyze data generated by business activities, then integrate or act on the data.
 
-- **Collect**: Receive or capture data from various data sources.
+* Collect: Capture or receive data from various data sources.
 
-- **Analyze**: Analyze data to identify interesting patterns and to extract information.
+* Analyze: Analyze data to identify interesting patterns and extract information.
 
-- **Act**: Take actions based on the results and findings done via processing the data. The action can be executing some random code, calling an external service, or triggering a complex integration.
+* Act: Take actions based on processing results. For example, you can execute code, call an external service, or trigger a complex integration.
 
-- **Integrate**: Make processed data available for consumers to consume globally in right format with very low latencies.
+* Integrate: Make processed data globally available for consumers in the correct format with low latency.
 
 === "Python"
 
@@ -1359,7 +1380,8 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     import base64
     import six
     import time
-    # Constants
+
+    # Set constants
 
     FEDERATION = "api-gdn-us-west.prod.macrometa.io"
     FED_URL = "https://{}".format(FEDERATION)
@@ -1404,7 +1426,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
         ]
     SELECT_QUERY = "FOR doc IN tutorialAppOutputTable return doc"
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -1429,7 +1451,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     session.headers.update({"content-type": 'application/json'})
     session.headers.update({"authorization": AUTH_TOKEN})
 
-    # Create a Stream Application
+    # Create stream application
 
     url = FED_URL + "/_api/streamapps"
     payload = {
@@ -1439,19 +1461,19 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
 
     resp = session.post(url, data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nStream App Created: ", result)
+    print("\nStream application created: ", result)
 
-    # Activate Stream Application
+    # Activate stream application
 
     url = FED_URL + "/_api/streamapps/" + STREAM_APP_NAME + "/active?active=true"
     resp = session.patch(url)
     result = json.loads(resp.text)
-    print("\nStream App Activated: ", result)
+    print("\nStream application activated: ", result)
 
     # Wait for all inputs and outputs to initialize
     time.sleep(20)
 
-    # Publish Messages to the input stream
+    # Publish messages to the input stream
     stream_type = "c8local"
     producerurl = "wss://" + FEDERATION + "/_ws/ws/v2/producer/persistent/" + TENANT_NAME +\
                     "/" + stream_type + "." + FABRIC + "/" + stream_type + "s." + STREAM_NAME
@@ -1493,17 +1515,18 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     }
     resp = session.post(url, data=json.dumps(payload))
     result = json.loads(resp.text)
-    print("\nStream App Results: ", result)
-    # Delete Stream Apllication
+    print("\nStream application results: ", result)
+
+    # Delete stream application
 
     url = FED_URL + "/_api/streamapps/" + STREAM_APP_NAME
     resp = session.delete(url)
     result = json.loads(resp.text)
-    print("\nStream App Deleted: ", result)
+    print("\nStream application deleted: ", result)
 
     ```
 
-=== "Javascript"
+=== "JavaScript"
 
     ``` js
     class APIRequest {
@@ -1556,7 +1579,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
     }
     const EMAIL = "nemo@nautilus.com";
     const PASSWORD = "xxxxxx";
-    const FEDERATION_NAME = "api.gdn.paas.macrometa.io";
+    const FEDERATION_NAME = "api-gdn.prod.macrometa.io";
     const FEDERATION_URL = `https://${FEDERATION_NAME}`;
 
     const IS_GLOBAL = true;
@@ -1588,11 +1611,11 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
       try {
         const connection = new APIRequest(FEDERATION_URL);
 
-        /* -------------------- Login (nemo@nautilus.com/xxxxxx) -------------------- */
+        /* -------------------- Log in (nemo@nautilus.com/xxxxxx) -------------------- */
 
         const { tenant } = await connection.login(EMAIL, PASSWORD);
 
-        console.log("Login Successfully using", tenant);
+        console.log("Logged in successfully using", tenant);
 
         /* ---------------------------- Create StreamApp ---------------------------- */
         const streamApp = await connection.req("/_fabric/_system/_api/streamapps", {
@@ -1620,7 +1643,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
 
         console.log("STREAM APP ACTIVATED SUCCESSFULLY");
 
-        /* ------------------ Publish messages to Sample StreamApp ------------------ */
+        /* ------------------ Publish messages to sample StreamApp ------------------ */
         const region = IS_GLOBAL ? "c8global" : "c8local";
         const streamName = `${region}s.${STREAM_NAME}`;
         const url = IS_GLOBAL
@@ -1629,7 +1652,7 @@ Macrometa Stream Processing engine allows you to integrate streaming data and ta
 
         const producerUrl = `wss://${url}/_ws/ws/v2/producer/persistent/${tenant}/${region}._system/${streamName}`;
 
-        /* -------------------------- Initalizing Producer -------------------------- */
+        /* -------------------------- Initalize producer -------------------------- */
 
         const producer = new WebSocket(producerUrl);
 
