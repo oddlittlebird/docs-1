@@ -2,12 +2,10 @@
 
 This tutorial is about using C8QL queries as API (aka Query Workers) in Macrometa GDN with low latencies across the globe.
 
-## Pre-requisite
+For this example, we use the following credentials:
 
-Let's assume your
-
-* Tenant name is `nemo@nautilus.com` and
-* User password is `xxxxxx`.
+* Tenant name: `nemo@nautilus.com`
+* User password: `xxxxxx`.
 
 ## Driver download
 
@@ -178,7 +176,7 @@ Let's assume your
     // Variables - DB
     const global_url = "https://gdn.paas.macrometa.io";
 
-    // Crete a authenticated instance with Token / Apikey
+    // Crete a authenticated instance with Token / apiKey
     // const client = new jsc8({url: global_url, token: "XXXX", fabricName: '_system'});
     // const client = new jsc8({url: global_url, apiKey: "XXXX", fabricName: '_system'});
     // await console.log("Authentication done!!...");

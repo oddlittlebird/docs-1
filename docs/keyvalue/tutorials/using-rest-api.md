@@ -1,22 +1,10 @@
 # Getting Started
 
-!!! note
-    If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../../essentials.md)** of Macrometa GDN.
+For the following examples, assume these credentials:
 
-Macrometa GDN is a `geo-distribued real time coordination-free materialized views engine` supporting multiple data models. You can use GDN as a geo-replicated realtime key-value datastore or key-value database. 
+* Tenant name: nemo@nautilus.com
+* Password: xxxxxx
 
-In GDN, each document stored in a collection (aka table) contains a primary key `_key`. The rest of the document is considered as value. In the absence of any additional `secondary indexes` on the collection, the collection behaves like a simple key/value store.
-
-The key-value store has no query languages. The permissible operations are `key lookups` (single & batch gets) and key/value pair `inserts`, `updates` and `deletes`. If no sharding attribute is speficed then `_key` is used for sharding the data. The simplicity of this model makes a key-value store fast, easy to use, scalable, portable and flexible.
-
-You can enable `time_to_live (TTL)` during collection creation and use `expireAt` field to specify the expiration time for each document in the KV collection. 
-
-## Pre-requisite
-
-Let's assume your
-
-* Tenant name is `nemo@nautilus.com` and 
-* User password is `xxxxxx`.
 
 ## API Browser
 
@@ -41,7 +29,7 @@ Your best friend when working with REST APIs is the REST API browser available i
     FABRIC = "_system"
     AUTH_TOKEN = "bearer "
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -96,7 +84,7 @@ Insert Key Value pairs into collection.
 
     ```py
 
-    # Insert KV pairs in a Collection
+    # Insert KV pairs into a collection
     data = [
       {
         "_key": "John",
@@ -134,7 +122,7 @@ Get value for a given key.
 === "Python"
 
     ```py
-    # Get Value for a given key
+    # Get value for a key
 
     KEY = "Monika"
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME + "/value/" + KEY
@@ -150,7 +138,7 @@ Get size of the kv collection.
 === "Python"
 
     ```py
-    # Get Collection Count
+    # Get collection count
 
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME + "/count"
     resp = session.get(url)
@@ -183,12 +171,12 @@ Delete value for a given key.
 === "Python"
 
     ```py
-    # Delete Value for a Key
+    # Delete value for a Key
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME +"/value/" + KEY
     resp = session.delete(url)
     print("\nDocument with specified Key Deleted: ", resp.text)
 
-    # Delete Value for multiple Keys
+    # Delete value for multiple Keys
     data = ["Alex", "Alice", "John"]
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME +"/values"
     resp = session.delete(url, data = json.dumps(data))
@@ -203,7 +191,7 @@ Get collections.
 === "Python"
 
     ```py
-    # Get Collections
+    # Get collections
     url = FED_URL + "/_api/kv"
     resp = session.get(url)
     print("\nCollections : ",resp.text)
@@ -217,7 +205,7 @@ Delete collection.
 === "Python"
 
     ```py
-    # Delete Collection
+    # Delete collection
 
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME 
     resp = session.delete(url)
@@ -243,7 +231,7 @@ Delete collection.
     AUTH_TOKEN = "bearer "
     COLLECTION_NAME = "students"
 
-    # Create a HTTPS Session
+    # Create HTTPS session
 
     url = "{}/_open/auth".format(FED_URL)
     payload = {
@@ -268,7 +256,7 @@ Delete collection.
     session.headers.update({"content-type": 'application/json'})
     session.headers.update({"authorization": AUTH_TOKEN})
 
-    # Get List of all regions
+    # Get list of all regions
 
     url = FED_URL + "/_api/datacenter/all"
     dcl_resp = session.get(url)
@@ -319,14 +307,14 @@ Delete collection.
     resp = session.put(url, data = json.dumps(data))
     print("\nMultiple Documents Inserted: ", resp.text)
 
-    # Get Value for a given key
+    # Get value for a given key
 
     KEY = "Monika"
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME + "/value/" + KEY
     resp = session.get(url)
     print("\nDocument with specified Key is: ",resp.text)
 
-    # Get Collection Count
+    # Get collection count
 
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME + "/count"
     resp = session.get(url)
@@ -342,24 +330,24 @@ Delete collection.
     resp = session.put(url, data = json.dumps(data))
     print("\nDocument Updated: ", resp.text)
 
-    # Delete Value for a Key
+    # Delete value for a key
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME +"/value/" + KEY
     resp = session.delete(url)
     print("\nDocument with specified Key Deleted: ", resp.text)
 
-    # Delete Value for multiple Keys
+    # Delete value for multiple keys
     data = ["Alex", "Alice", "John"]
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME +"/values"
     resp = session.delete(url, data = json.dumps(data))
     print("\nDocument with specified Key Deleted: ", resp.text)
 
-    # Get Collections
+    # Get collections
     url = FED_URL + "/_api/kv"
     resp = session.get(url)
     print("\nCollections : ",resp.text)
 
 
-    # Delete Collection
+    # Delete collection
 
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME 
     resp = session.delete(url)
@@ -428,13 +416,13 @@ Delete collection.
       try {
       const connection = new APIRequest(FEDERATION_URL);
       
-      /* -------------------- Login (nemo@nautilus.com/xxxxxxx) -------------------- */
+      /* -------------------- Log in (nemo@nautilus.com/xxxxxxx) -------------------- */
       
       await connection.login(EMAIL, PASSWORD);
       
       console.log("Login Successfully using", EMAIL);
       
-      /* -------------------------- Create Collection ------------------------- */
+      /* -------------------------- Create collection ------------------------- */
       
       const collection = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}`,
@@ -445,7 +433,7 @@ Delete collection.
       
       console.log("COLLECTION CREATED SUCCESSFULLY", collection);
       
-      /* ---------------------------- Insert KV Pairs ---------------------------- */
+      /* ---------------------------- Insert key-value pairs ---------------------------- */
       
       const document = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}/value`,
@@ -479,7 +467,7 @@ Delete collection.
       
       console.log("KV PAIRS INSERTED SUCCESSFULLY", document);
       
-      /* ----------------------------- Get Value for Given Key ----------------------------- */
+      /* ----------------------------- Get value for a Key ----------------------------- */
       let key = "Monika";
       const readVal = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}/value/${key}`
@@ -487,7 +475,7 @@ Delete collection.
       
       console.log("VALUE FOR SPECIFIED KEY IS", readVal);
       
-      /* ---------------------------- Get Collection Count ---------------------------- */
+      /* ---------------------------- Get collection count ---------------------------- */
       
       const collCount = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}/count`,
@@ -498,7 +486,7 @@ Delete collection.
       
       console.log("COLLECTION COUNT", collCount);
       
-      /* ----------------------------- Update Value for a Key ----------------------------- */
+      /* ----------------------------- Update value for a key ----------------------------- */
       
       const updateValue = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}/value`,
@@ -516,7 +504,7 @@ Delete collection.
       );
       
       console.log("KV PAIR UPDATED SUCCESSFULLY", updateValue);
-      /* --------------------------- Delete Value for Key ---------------------------- */
+      /* --------------------------- Delete value for a key ---------------------------- */
       
       const deletedValue = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}/value/${key}`,
@@ -524,7 +512,7 @@ Delete collection.
       );
 
       
-      /* --------------------------- Delete Collection ---------------------------- */
+      /* --------------------------- Delete collection ---------------------------- */
       const deletedCollection = await connection.req(
       `/_fabric/_system/_api/kv/${COLLECTION_NAME}`,
       { method: "DELETE" }

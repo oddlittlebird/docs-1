@@ -1,24 +1,23 @@
 # Quick Start with Key Value Store
 
-!!! note
-    If you are new to Macrometa GDN, we strongly recommend reading **[Essentials](../essentials.md)** of Macrometa GDN.
+Macrometa GDN is a geodistributed real-time coordination-free materialized views engine that supports multiple data models. You can use GDN as a geo-replicated real-time key-value datastore or database. 
 
-Macrometa GDN is a `geo-distribued real time coordination-free materialized views engine` supporting multiple data models. You can use GDN as a geo-replicated realtime key-value datastore or key-value database. 
+If you are new to Macrometa GDN, start by reading the [essentials](../../essentials.md) of Macrometa GDN.
 
-In GDN, each document stored in a collection (aka table) contains a primary key `_key`. The rest of the document is considered as value. In the absence of any additional `secondary indexes` on the collection, the collection behaves like a simple key/value store.
+Each document stored in a *collection* (or table) contains a primary key `_key`. The rest of the document is considered a value. The collection behaves like a simple *key-value* (KV) store if it has no secondary indexes.
 
-The key-value store has no query languages. The permissible operations are `key lookups` (single & batch gets) and key/value pair `inserts`, `updates` and `deletes`. If no sharding attribute is specified then `_key` is used for sharding the data. The simplicity of this model makes a key-value store fast, easy to use, scalable, portable and flexible.
+The key-value store has no query languages. The permissible operations are key look-ups (single & batch) and key-value pair insertions, updates and deletions. If you don't specify a sharding attribute, we use `_key` to shard the data. The simplicity of this model makes a key-value store fast, easy to use, scalable, portable, and flexible.
 
-You can enable `time_to_live (TTL)` during collection creation and use `expireAt` field to specify the expiration time for each document in the KV collection. 
+You can enable `time_to_live` (TTL) during collection creation and add an `expireAt` value to specify the expiration time for each document in the KV collection. 
 
-## Pre-requisite
+For the following examples, assume these credentials:
 
-Let's assume your
-
-* tenant name is `nemo@nautilus.com` and 
-* user password is `xxxxxx`.
+* Tenant name: nemo@nautilus.com
+* Password: xxxxxx
 
 ## Driver download
+
+Download the appropriate drivers for Python or JavaScript.
 
 === "python"
 
@@ -26,19 +25,19 @@ Let's assume your
 
     pyC8 requires Python 3.5+. Python 3.6 or higher is recommended
 
-    To install pyC8, simply run
+    To install pyC8, run
 
         $ pip3 install pyC8
 
-    or, if you prefer to use conda:
+    Alternatively, you can use conda:
 
         conda install -c conda-forge pyC8
 
-    or pipenv:
+    Alternatively, you can use pipenv:
 
         pipenv install --pre pyC8
 
-    Once the installation process is finished, you can begin developing applications in Python.
+    Any one of these three commands will install Python and enable you to develop applications.
 
     ```
 
@@ -46,17 +45,19 @@ Let's assume your
 
     ``` js
 
-    With Yarn or NPM
+    With Yarn:
 
         yarn add jsc8
-        (or)
+    
+	With NPM:
+
         npm install jsc8
 
     If you want to use the driver outside of the current directory, you can also install it globally using the `--global` flag:
 
         npm install --global jsc8
 
-    From source,
+    From source:
 
         git clone https://github.com/macrometacorp/jsc8.git
         cd jsC8
@@ -67,7 +68,7 @@ Let's assume your
 
 ## Connect to GDN
 
-The first step in using GDN is to establish a connection to a local region. When this code executes, it initializes the server connection to the region URL you sepcified. You can create an API key from the GUI or REST API.
+Establish connection to a local region. When this code runs, it initializes the server connection to the region URL you specify. You can create an API key from the GUI or REST API.
 
 === "Python"
 
@@ -80,11 +81,11 @@ The first step in using GDN is to establish a connection to a local region. When
                             email='nemo@nautilus.com', password="xxxxxx",
                             geofabric='_system')
 
-    # OR Using token
+    # Or Using token
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     token="XXXX")
 
-    # OR Using API Key
+    # Or Using API Key
     client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443,
     apikey="<your-api-key>")
     ```
@@ -105,7 +106,7 @@ The first step in using GDN is to establish a connection to a local region. When
 
 ## Create Collection
 
-Create a Collection for saving the Key Value Pairs
+Create a Collection for saving the key-value pairs.
 
 === "Python"
 
@@ -144,7 +145,7 @@ Create a Collection for saving the Key Value Pairs
 
 ## Insert Key Value Pairs
 
-Insert key value pairs into the collection.
+Insert key-value pairs into the collection.
 
 === "Python"
 
@@ -248,9 +249,9 @@ Get value for a given key.
     console.log("Value for provided key: ", result);
     ```
 
-## Get KV Count
+## Get Key-Value Count
 
-Get Key-Value count from a given collection.
+Get key-value count from a given collection.
 
 === "Python"
 
@@ -325,9 +326,9 @@ Update value for a given key.
     }
     ```
 
-## Delete Key Value
+## Delete Key-Value
 
-Delete KV pairs from a collection.
+Delete key-value pairs from a collection.
 
 === "Python"
 
@@ -367,7 +368,7 @@ Delete KV pairs from a collection.
 
 ## Delete Collection
 
-Delete KV collection
+Delete key-value collection
 
 === "Python"
 
@@ -402,7 +403,7 @@ Delete KV collection
 
 ## Complete Example
 
-Complete code example written using above code snippets can be found below.
+The following complete examples are a composite of the previous code snippets:
 
 === "Python"
 
