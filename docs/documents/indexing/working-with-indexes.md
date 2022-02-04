@@ -2,20 +2,30 @@
 
 ## Indexing Attributes & Sub-Attributes
 
-Top-level as well as nested attributes can be indexed. For attributes at the top level, the attribute names alone are required. To index a single field, pass an array with a single element (string of the attribute key) to the *fields* parameter of the [ensureIndex() method](#creating-an-index). To create a combined index over multiple fields, simply add more members to the *fields* array:
+Top-level as well as nested attributes can be indexed. For attributes at the top level, the attribute names alone are required. To index a single field, pass an array with a single element (string of the attribute key) to the *fields* parameter of the ensureIndex() method. 
 
-```js
-// { name: "Smith", age: 35 }
-posts.ensureIndex({ type: "hash", fields: [ "name" ] })
-posts.ensureIndex({ type: "hash", fields: [ "name", "age" ] })
+To create an index:
+
+```cURL
+curl -X POST "https://api-gdn.eng.macrometa.io/_fabric/_system/_api/index/hash?collection=c1" 
+-H "Authorization: bearer <token>" 
+-d "{ \"fields\": [ \"name\" ], \"sparse\": true, \"type\": \"hash\", \"unique\": true}"
+```
+
+To create a combined index over multiple fields, add more members to the *fields* array. For example:
+
+```cURL
+curl -X POST "https://api-gdn.eng.macrometa.io/_fabric/_system/_api/index/hash?collection=c1"
+-H "Authorization: bearer <token>" 
+-d "{ \"fields\": [ \"name\", \"age\" ], \"sparse\": true, \"type\": \"hash\", \"unique\": true}"
 ```
 
 To index sub-attributes, specify the attribute path using the dot notation:
 
-```js
-// { name: {last: "Smith", first: "John" } }
-posts.ensureIndex({ type: "hash", fields: [ "name.last" ] })
-posts.ensureIndex({ type: "hash", fields: [ "name.last", "name.first" ] })
+```cURL
+curl -X POST "https://api-gdn.eng.macrometa.io/_fabric/_system/_api/index/hash?collection=c1" 
+-H "Authorization: bearer <token>" 
+-d "{ \"fields\": [ \"name.first\", \"name.last\" ], \"type\": \"hash\"}"
 ```
 
 ## Indexing Array Values
@@ -26,9 +36,10 @@ To make an index insert the individual array members into the index instead of t
 
 The following example creates an array hash index on the `tags` attribute in a collection named `posts`:
 
-```js
-posts.ensureIndex({ type: "hash", fields: [ "tags[*]" ] });
-posts.insert({ tags: [ "foobar", "baz", "quux" ] });
+```cURL
+curl -X POST "https://api-gdn.eng.macrometa.io/_fabric/_system/_api/document/c1" 
+-H "Authorization: bearer <token>"
+-d "{ \"tags\" : [ \"foobar\", \"baz\", \"quux\" ]}"
 ```
 
 This array index can then be used for looking up individual `tags` values from C8QL queries via the `IN` operator:
@@ -47,7 +58,7 @@ FOR doc IN posts
   RETURN doc
 ```
 
-The following FILTER conditions will **not use** the array index:
+The following FILTER conditions will *not* use the array index:
 
 ```js
 FILTER doc.tags ANY == 'foobar'
@@ -59,9 +70,10 @@ FILTER 'foobar' == doc.tags
 
 It is also possible to create an index on subattributes of array values. This makes sense if the index attribute is an array of objects, e.g.
 
-```js
-posts.ensureIndex({ type: "hash", fields: [ "tags[*].name" ] });
-posts.insert({ tags: [ { name: "foobar" }, { name: "baz" }, { name: "quux" } ] });
+```cURL
+curl -X POST "https://api-gdn.eng.macrometa.io/_fabric/_system/_api/document/c1" 
+-H "Authorization: bearer <token>"
+-d "{ \"tags\": [ { \"name\": \"foobar\" }, { \"name\": \"baz\" }, { \"name\": \"quux\" } ] }"
 ```
 
 The following query will then use the array index (this does require the [array expansion operator](https://macrometacorp.github.io/docs-c8/reference/c8ql/advanced-features/array-operators/#array-expansion)):
@@ -74,7 +86,7 @@ FOR doc IN posts
 
 If you store a document having the array which does contain elements not having the subattributes this document will also be indexed with the value `null`, which in GDN is equal to attribute not existing.
 
-GDN supports creating array indexes with a single <i>[\*]</i> operator per index attribute. For example, creating an index as follows is **not supported**:
+GDN supports creating array indexes with a single <i>[\*]</i> operator per index attribute. For example, creating an index as follows is *not* supported:
 
 ```js
 posts.ensureIndex({ type: "hash", fields: [ "tags[*].name[*].value" ] });
@@ -253,16 +265,16 @@ Let's further assume the following document now gets inserted into the collectio
     { "creationDate" : 1550165973 }
 ```
 
-This document will be indexed with a reference point in time value of `1550165973`, which translates to the human-readable date/time `2019-02-14T17:39:33Z`. The document will expire 600 seconds afterwards, which is at timestamp `1550166573` (or `2019-02-14T17:49:33Z` in the human-readable version). From that point on, the document is a candidate for being removed.
+This document will be indexed with a reference point in time value of `1550165973`, which translates to the human-readable date/time `2019-02-14T17:39:33.000Z`. The document will expire 600 seconds afterwards, which is at timestamp `1550166573` (or `2019-02-14T17:49:33.000Z` in the human-readable version). From that point on, the document is a candidate for being removed.
 
 The numeric date time values for the index attribute need to be specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current timestamp using JavaScript in this format, use: `Date.now() / 1000`. To calculate it from an arbitrary `Date` instance, use: `Date.getTime() / 1000`. In C8QL, you also have to divide the timestamp, e.g. `DATE_NOW() / 1000`.
 
-Alternatively, the reference points in time can be specified as a date string in format `YYYY-MM-DDTHH:MM:SS` with and an optional timezone offset. All date strings without a timezone offset will be interpreted as UTC dates.
+Alternatively, the reference points in time can be specified as a date string in format `YYYY-MM-DDTHH:MM:SS` with an optional timezone offset. All date strings without a timezone offset will be interpreted as UTC dates.
   
 The above example document using a date string attribute value would be
 
 ```json
-    { "creationDate" : "2019-02-14T17:39:33Z" }
+    { "creationDate" : "2019-02-14T17:39:33.000Z" }
 ```
 
 Now any data-modification access to the document could update the value in the document's `creationDate` attribute to the current date/time, which would prolong the existence of the document and keep it from being expired and removed. 
