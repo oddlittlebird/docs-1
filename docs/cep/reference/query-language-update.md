@@ -2,9 +2,9 @@
 
 We updated the query language syntax for Stream QL applications to be more consistent with the industry standard. This section describes the differences between the updated syntax (version 2) and the old syntax (version 1), and how to update your applications from version 1 to version 2. Updating to version 2 is not necessary as version 1 applications are still supported. Applications provided by Macrometa are automatically updated.
 
-You must include `@App:version('2')` at the beginning of the stream application so Stream QL recognizes it as version 2.
+You must include `@App:qlversion('2')` at the beginning of the stream application so Stream QL recognizes it as version 2.
 
-For all queries, version 2 replaces annotations such as `@sink` and `@source` with `WITH()` properties. For example:
+For all queries, version 2 replaces annotations such as `@sink` and `@source` are replaced by keywords such as `SINK` and `SOURCE` and `WITH()` properties. For example:
 
 * Version 1:
     ```
@@ -84,12 +84,13 @@ Additionally, the following key words are added for more granular querying:
 
 ### Define Tables
 
-Tables and collections also no longer require `@sink` or `@source` annotations.
+Tables no longer require `@sink` or `@source` annotations.
 
 * Version 1:
 
     ```
-    define table ExampleTable (data string);
+    @store(type=’c8db’, collection=`<table_name>`)
+    define table <table_name> (<attribute_name> <attribute_type>, ...);
     ```
 
 * Version 2:
