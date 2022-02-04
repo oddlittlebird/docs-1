@@ -2278,7 +2278,7 @@ from TempStream[ServerRoomTable.roomNo == roomNo in ServerRoomTable];
 Named aggregation allows you to obtain aggregates in an incremental manner for a specified set of time periods.
 
 This not only allows you to calculate aggregations with varied time granularity, but also allows you to access them in an interactive
- manner for reports, dashboards, and for further processing. Its schema is defined via the **aggregation definition**.
+ manner for reports, dashboards, and for further processing. Its schema is defined via the *aggregation definition*.
 
 **Purpose**
 
@@ -2333,11 +2333,9 @@ The above syntax includes the following:
 This Stream Application defines an aggregation named `TradeAggregation` to calculate the average and sum for the `price` attribute of events arriving at the `TradeStream` stream. These aggregates are calculated per every time granularity in the second-year range.
 
 ```sql
-define stream TradeStream (symbol string, price double, volume long, timestamp long);
+CREATE STREAM TradeStream (symbol string, price double, volume long, timestamp long);
 
-@purge(enable='true', interval='10 sec',@retentionPeriod(sec='120 sec',min='24 hours',hours='30 days',days='1 year',months='all',years='all'))
-
-define aggregation TradeAggregation WITH (purge.enable='true', purge.interval='10 sec', purge.retention.period=(sec='120 sec',min='24 hours',hours='30 days',days='1 year',months='all',years='all'))
+CREATE AGGREGATION TradeAggregation WITH (purge.enable='true', purge.interval='10 sec', purge.retentionPeriod.sec='120 sec', purge.retentionPeriod.min='24 hours', purge.retentionPeriod.hours='30 days', purge.retentionPeriod.days='1 year', purge.retentionPeriod.months='all', purge.retentionPeriod.years='all')
   from TradeStream
   select symbol, avg(price) as avgPrice, sum(price) as total
     group by symbol
