@@ -1,13 +1,11 @@
 # Concepts
 
-Query Workers (aka `Query as API`) are named, parameterized C8QL queries stored in GDN that can be executed from a dedicated REST endpoint. C8QL is a mix of SQL & Javascript providing rich set of primitives to query & update GDN.
+GDN stores named and parameterized C8QL queries called *query workers* (or *query as API*), which can be executed from a dedicated REST endpoint. C8QL is a mix of SQL & JavaScript and provides a rich set of primitives to query & update GDN.
 
 !!! note
-    When the user saves a Query Worker, the query is automatically converted to an API and is deployed globally to serve the users from the region closest to them with local latencies.
+* When the user saves a query worker, the query is automatically converted to an API and is deployed globally to serve the users from the region closest to them with local latencies.
+* We recommend using Query Workers to build applications backed by GDN as opposed to querying with C8QL directly from application code or setting up a centralized middleware.
 
-!!! note
-    We recommend using Query Workers to build applications backed by GDN as opposed to querying with C8QL directly from application code or setting up a centralized middleware.
+You can create and update query workers with the GDN console or by using the REST API. Each query worker is tied to a specific *query text* and parameter set. You can set optional or mandatory default values for query parameters 
 
-Query Workers can be created and updated using the GDN Console or by using the REST API directly. Each Query Worker is tied to a specific `query text` and parameter set. You can set default values for query parameters (making them optional during executions of your Query Workers), or you can make them mandatory for each execution (failing to pass along will result in an error).
-
-Each Query Worker is exposed as its own endpoint and is protected. The Query Workers are organized by the fabric (or database) enabling you to have different Query Workers for different `geo-regions` as well as for different `fabrics within same region`.
+Each query worker is protected and exposed as its own endpoint. Query workers are organized by fabric (or database) so you can have query workers for different geo-regions or fabrics within same region.

@@ -305,6 +305,7 @@ nav:
     - Crypto Trading: demos/crypto-trading.md
     - MetaFlix: demos/meta-flix.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
+    - Data Privacy: demos/data-privacy.md
     - Bookstore: demos/cf-bookstore.md
     - Forever 42: demos/cf-forever42.md
     - Fashion store and Fashion Store Dynamo: demos/fashion-store.md
