@@ -5,8 +5,7 @@
 Errors in stream apps can be handled at the Streams and in the Sinks. This example explains how errors are handled at Sink level.
 
 There can be cases where external systems becoming unavailable or coursing errors when the events are published to them.
-By default sinks log and drop the events causing event losses, and this can be handled gracefully by configuring
-`on.error` parameter of the `@sink` annotation.
+By default sinks log and drop the events causing event losses, and this can be handled gracefully by adding `OnError.action="<action>",` to the `WITH()` property for creating a sink.
 
 Refer to the [stream query guide](../query-guide/#error-handling) for more information.
 
@@ -23,7 +22,7 @@ CREATE STREAM GlucoseReadingStream (locationRoom string,
 -- If `HTTP` endpoint which defined in `sink` annotation is unavailable then it logs the event with the error and drops the event.
 -- Errors can be gracefully handled by configuring `on.error` parameter.
 
-CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', on.error='log', publisher.url = "http://xyz:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
+CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', OnError.action="log", publisher.url = "http://xyz:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
 
 @info(name='abnormal-reading-identifier')
 insert into AbnormalGlucoseReadingStream
@@ -70,7 +69,7 @@ CREATE STREAM GlucoseReadingStream (locationRoom string,
 
 -- Errors can be gracefully handled by configuring `on.error` parameter.
 
-CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', on.error='wait', publisher.url = "http://localhost:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
+CREATE SINK AbnormalGlucoseReadingStream WITH (type = 'http', OnError.action="wait", publisher.url = "http://localhost:8080/logger", method = "POST", map.type = 'json') (timeStampInLong long, locationRoom string, locationBed string, sensorID long, patientFullName string, sensorReadingValue double);
 
 @info(name='abnormal-reading-identifier')
 insert into AbnormalGlucoseReadingStream

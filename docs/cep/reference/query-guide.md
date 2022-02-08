@@ -22,7 +22,7 @@ StreamApp provides an isolated execution environment for your processing logic t
 The following diagram depicts some of the key Stream QL elements of Stream Application and how **event flows** through the elements.
 
 !!! tip "Have different business use cases in separate Stream Applications."
-    This is recommended as it allows users to selectively deploy the applications based their on business needs. It is also recommended to move the repeated steam processing logic that exist in multiple Stream Applications such as message retrieval and preprocessing, to a common Stream Application, whereby reducing code duplication and improving maintainability. In this case, to pass the events from one Stream App to another, configure them using a common stream or collection using `c8streams` Sink and `c8streams` Source.
+    This is recommended as it allows users to selectively deploy the applications based their on business needs. It is also recommended to move the repeated steam processing logic that exist in multiple Stream Applications such as message retrieval and preprocessing, to a common Stream Application, whereby reducing code duplication and improving maintainability. In this case, to pass the events from one Stream App to another, configure them using a common stream or collection using `stream` Sink and `stream` Source.
 
 ![Event Flow](../images/event-flow.png?raw=true "Event Flow")
 
@@ -34,19 +34,19 @@ Below table provides brief description of a few key elements in the Stream QL La
 | Event     | An event is a single event object associated with a stream. All events of a stream contains a timestamp and an identical set of typed attributes based on the schema of the stream they belong to.|
 | Table     | A structured representation of data stored with a defined schema. Stored data is backed by C8DB. The tables (aka collections) can be `local` or `geo-replicated`. Similarly the tables can be `document` or `graph` collections. The tables can be accessed and manipulated at runtime. |
 | Named Window     | A structured representation of data stored with a defined schema and eviction policy. Window data is stored `In-Memory` and automatically cleared by the named window constrain. Other stream processor elements can only query the values in windows at runtime but they cannot modify them.
-| Named Aggregation     | A structured representation of data that's incrementally aggregated and stored with a defined schema and aggregation granularity such as seconds, minutes, hours, etc. Aggregation data is stored in `c8db`. Other stream processor elements can only query the values in windows at runtime but they cannot modify them. |
+| Named Aggregation     | A structured representation of data that's incrementally aggregated and stored with a defined schema and aggregation granularity such as seconds, minutes, hours, etc. Aggregation data is stored in `database`. Other stream processor elements can only query the values in windows at runtime but they cannot modify them. |
 | Query	    | A logical construct that processes events in streaming manner by by consuming data from one or more streams, tables, windows and aggregations, and publishes output events into a stream, table or a window. |
-| Source    | A construct that consumes data from external sources (such as `C8DB`, `C8Streams`, `TCP`, `Kafka`, `HTTP`, etc) with various event formats such as `XML`, `JSON`, `binary`, etc, convert then to stream events, and passes into streams for processing.
+| Source    | A construct that consumes data from external sources (such as `database`, `stream`, `TCP`, `Kafka`, `HTTP`, etc) with various event formats such as `XML`, `JSON`, `binary`, etc, convert then to stream events, and passes into streams for processing.
 | Sink      | A construct that consumes events arriving at a stream, maps them to a predefined data format (such as `XML`, `JSON`, `binary`, etc), and publishes them to external endpoints (such as `E-mail`, `TCP`, `Kafka`, `HTTP`, etc). |
 | Stream/Query Callback | A mechanism to programmatically consume output events from streams or queries. |
 | Partition	| A logical container that isolates the processing of queries based on the partition keys derived from the events. |
 | Inner Stream | A positionable stream that connects portioned queries with each other within the partition. |
 
-**Grammar**
+#### Syntax
 
 StreamApp is a collection of Stream QL elements composed together as a script. Here each stream query element must be separated by a semicolon `;`.
 
-Hight level syntax of StreamApp is as follows.
+High level syntax of StreamApp is as follows.
 
 ```
 <stream app>  :
@@ -56,37 +56,34 @@ Hight level syntax of StreamApp is as follows.
         ;
 ```
 
-**Example**
-
-Stream Application with name `Temperature-Analytics` defined with a stream named `TempStream` and a query named `5minAvgQuery`.
+For example, this stream application with name `Temperature-Analytics` creates a stream named `TempStream` and a query named `5minAvgQuery`.
 
 ```
 @app:name('Temperature-Analytics')
+@App:qlVersion("2")
 
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
 @name('5minAvgQuery')
+insert into OutputStream
 select roomNo, avg(temp) as avgTemp
 from TempStream#window.time(5 min)
-group by roomNo
-insert into OutputStream;
+group by roomNo;
 ```
 
 ## Stream
 
-A stream is a logical series of events ordered in time. Its schema is defined via the **stream definition**. A stream definition contains the stream name and a set of attributes with specific types and uniquely identifiable names within the stream. All events associated to the stream will have the same schema (i.e., have the same attributes in the same order).
-
-**Purpose**
+A stream is a logical series of events ordered in time. Its schema is defined via the *stream definition*. A stream definition contains the stream name and a set of attributes with specific types and uniquely identifiable names within the stream. All events associated to the stream will have the same schema (i.e., have the same attributes in the same order).
 
 Stream processor groups common types of events together with a schema. This helps in various ways such as, processing all events together in queries and performing data format transformations together when they are consumed and published via sources and sinks.
 
-**Syntax**
+### Syntax
 
 The syntax for defining a new stream is as follows.
 
 ```sql
-define stream <stream name> (<attribute name> <attribute type>,
-                             <attribute name> <attribute type>, ... );
+CREATE STREAM <stream_name> (<attribute_name> <attribute_type>,
+                             <attribute_name> <attribute_type>, ... );
 ```
 
 The following parameters are used to configure a stream definition.
@@ -99,19 +96,17 @@ The following parameters are used to configure a stream definition.
 
 To use and refer stream and attribute names that do not follow `[a-zA-Z_][a-zA-Z_0-9]*` format enclose them in ``` ` ```. E.g. ``` `$test(0)` ```.
 
-To make the stream process events in multi-threading and asynchronous way use the `@Async` annotation as shown in [Multi-threading and Asynchronous Processing](##multi-threading-and-asynchronous-processing) configuration section.
+To make the stream process events with multi-threading and asynchronously, we add `Async` to the `WITH()` property. For example: `WITH(async='true')`
 
-**Example**
-
-```sql
-define stream TempStream (deviceID long, roomNo int, temp double);
-```
-
-The above creates a stream with name `TempStream` having the following attributes.
+This example creates a stream called `TempStream` with the following attributes:
 
 + `deviceID` of type `long`
 + `roomNo` of type `int`
 + `temp` of type `double`
+
+```sql
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
+```
 
 
 ### Source
@@ -127,55 +122,50 @@ Source provides a way to consume events from internal & external services and co
 
 **Syntax**
 
-To configure a stream that consumes events via a source, add the source configuration to a stream definition by adding the `@source` annotation with the required parameter values.
+To configure a stream that consumes events via a source, add the source configuration to a stream definition by adding the `source.type` annotation with the required parameter values.
 
 The source syntax is as follows:
 
 ```sql
-@source(type='<source type>', <static.key>='<value>', <static.key>='<value>',
-    @map(type='<map type>', <static.key>='<value>', <static.key>='<value>',
-        @attributes( <attribute1>='<attribute mapping>', <attributeN>='<attribute mapping>')
-    )
-)
-define stream <stream name> (<attribute1> <type>, <attributeN> <type>);
+CREATE SOURCE <source_name> WITH (type = 'source_type', <static_key>='<value>', map.type='json') (<attribute1>='<attribute mapping>', <attribute2>='<attribute mapping>')
 ```
 
 This syntax includes the following annotations.
 
 **Source**
 
-The `type` parameter of `@source` annotation defines the source type that receives events. The other parameters of `@source` annotation depends upon the selected source type, and here some of its parameters can be optional.
+The `type` parameter of `CREATE SOURCE` annotation defines the source type that receives events. The other parameters of `source.type` annotation depends upon the selected source type, and here some of its parameters can be optional.
 
 The following is the list of source types supported by Stream:
 
 |Source type | Description|
 | ------------- |-------------|
-| c8db | Allow stream app to consume events from collections (doc, graphs) running in the same or different geo fabric. |
-| c8streams | Allow stream app to consume events from streams (local, geo-replicated) running in the same or different geo fabric. |
-| Kafka | Subscribe to Kafka topic to consume events.|
+| `database` | Allow stream app to consume events from collections (doc, graphs) running in the same or different geo fabric. |
+| `stream` | Allow stream app to consume events from streams (local, geo-replicated) running in the same or different geo fabric. |
+| `Kafka` | Subscribe to Kafka topic to consume events.|
 
 #### Source Mapper
 
-Each `@source` configuration can have a mapping denoted by the `@map` annotation that defines how to convert the incoming event format to Stream events.
+Each `source.type` configuration can have a mapping denoted by the `map.type` annotation that defines how to convert the incoming event format to Stream events.
 
-The `type` parameter of the `@map` defines the map type to be used in converting the incoming events. The other parameters of `@map` annotation depends on the mapper selected, and some of its parameters can be optional.
+The `type` parameter of the `map.type` defines the map type to be used in converting the incoming events. The other parameters of `map.type` annotation depends on the mapper selected, and some of its parameters can be optional.
 
 For detailed information about the parameters see the documentation of the relevant mapper.
 
 **Map Attributes**
 
-`@attributes` is an optional annotation used with `@map` to define custom mapping. When `@attributes` is not provided, each mapper assumes that the incoming events adheres to its own default message format and attempt to convert the events from that format. By adding the `@attributes` annotation, users can selectively extract data from the incoming message and assign them to the attributes.
+`attributes` is an optional annotation used with `map.type` to define custom mapping. When `attributes` is not provided, each mapper assumes that the incoming events adheres to its own default message format and attempt to convert the events from that format. By adding the `attributes` annotation, users can selectively extract data from the incoming message and assign them to the attributes.
 
-There are two ways to configure `@attributes`.
+There are two ways to configure `attributes`. In both cases, add the attributes in parentheses after the query:
 
-1. Define attribute names as keys, and mapping configurations as values:<br/>
+* Define attribute names as keys, and mapping configurations as values:<br/>
   ```
-  @attributes( <attribute1>='<mapping>', <attributeN>='<mapping>')
+  ... ( <attribute1>='<mapping>', <attributeN>='<mapping>')
   ```
 
-2. Define the mapping configurations in the same order as the attributes defined in stream definition:<br/>
+* Define the mapping configurations in the same order as the attributes defined in stream definition:<br/>
   ```
-  @attributes( '<mapping for attribute1>', '<mapping for attributeN>')
+  ... ( '<mapping for attribute1>', '<mapping for attributeN>')
   ```
 
 **Supported Source Mapping Types**
@@ -192,11 +182,11 @@ The following is the list of source mapping types supported by Stream:
 | CSV | Converts CSV like delimiter separated events to Stream events.|
 
 !!! tip
-    When the `@map` annotation is not provided `@map(type='passThrough')` is used as default, that passes the consumed stream events directly to the streams without any data conversion.
+    When the `map.type` annotation is not provided `map.type='passThrough'` is used as default, that passes the consumed stream events directly to the streams without any data conversion.
 
 **Example 1**
 
-Receive `JSON` messages via `c8streams`, and direct them to `InputStream` stream for processing. The stream expects the `JSON` messages to be on the default data format that's supported by the `JSON` mapper as follows.
+Receive `JSON` messages via `stream`, and direct them to `InputStream` stream for processing. The stream expects the `JSON` messages to be on the default data format that's supported by the `JSON` mapper as follows.
 
 ```json
 {
@@ -206,16 +196,15 @@ Receive `JSON` messages via `c8streams`, and direct them to `InputStream` stream
 }
 ```
 
-The configuration of the `c8streams` source and `JSON` source mapper to achieve the above is as follows.
+The configuration of the `stream` source and `JSON` source mapper to achieve the above is as follows.
 
 ```sql
-@source(type='c8streams', streams.list='foo', @map(type='json'))
-define stream InputStream (name string, age int, country string);
+CREATE SOURCE InputStream WITH (source.type='stream', streams.list='foo', map.type='json') (name string, age int, country string);
 ```
 
 **Example 2**
 
-Receive `JSON` messages via `c8db`, and direct them to `StockStream` stream for processing. Here the incoming `JSON`, as given bellow, do not adhere to the default data format that's supported by the `JSON` mapper.
+Receive `JSON` messages via `database`, and direct them to `StockStream` stream for processing. Here the incoming `JSON`, as given below, do not adhere to the default data format that's supported by the `JSON` mapper.
 
 ```json
 {
@@ -231,25 +220,16 @@ Receive `JSON` messages via `c8db`, and direct them to `StockStream` stream for 
 }
 ```
 
-The configuration of the `c8db` source and the custom `JSON` source mapping to achieve the above is as follows.
+The configuration of the `database` source and the custom `JSON` source mapping to achieve the above is as follows.
 
 ```
-@source(type='c8db', collection='foo',
-  @map(type='json', enclosing.element="$.portfolio",
-    @attributes(symbol = "stock.company.symbol", price = "stock.price",
-                volume = "stock.volume")))
-
-define stream StockStream (symbol string, price float, volume long);
+CREATE SOURCE StockStream WITH (source.type='database', collection='foo', map.type='json', enclosing.element="$.portfolio",) (symbol = "stock.company.symbol", price = "stock.price", volume = "stock.volume");
 ```
 
-The same can also be configured by omitting the attribute names as bellow.
+The same can also be configured by omitting the attribute names as below.
 
 ```
-@source(type='c8db', collection='foo',
-  @map(type='json', enclosing.element="$.portfolio",
-    @attributes("stock.company.symbol", "stock.price", "stock.volume")))
-
-define stream StockStream (symbol string, price float, volume long);
+CREATE SOURCE StockStream WITH (source.type='database', collection='foo', map.type='json', enclosing.element="$.portfolio",) ("stock.company.symbol", "stock.price", "stock.volume");
 ```
 
 ### Sink
@@ -264,18 +244,12 @@ Sink provides a way to publish stream events of a stream to external systems by 
 
 **Syntax**
 
-To configure a stream to publish events via a sink, add the sink configuration to a stream definition by adding the `@sink` annotation with the required parameter values.
+To configure a stream to publish events via a sink, add the sink configuration to a stream definition by adding the `sink.type` annotation with the required parameter values.
 
 The sink syntax is as follows:
 
 ```
-@sink(type='<sink type>', <static.key>='<value>', <dynamic.key>='{{<value>}}',
-    @map(type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}',
-        @payload('<payload mapping>')
-    )
-)
-
-define stream <stream name> (<attribute1> <type>, <attributeN> <type>);
+CREATE SINK <stream name> WITH (sink.type='<sink type>', <static.key>='<value>', <dynamic.key>='{{<value>}}', map.type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}', map.payload'<payload mapping>')) (<attribute1> <type>, <attributeN> <type>);
 ```
 
 !!! Note "Dynamic Properties"
@@ -295,13 +269,13 @@ This syntax includes the following annotations.
 
 **Sink**
 
-The `type` parameter of the `@sink` annotation defines the sink type that publishes the events. The other parameters of the `@sink` annotation depends upon the selected sink type, and here some of its parameters can be optional and/or dynamic.
+The `type` parameter of the `sink.type` annotation defines the sink type that publishes the events. The other parameters of the `sink.type` annotation depends upon the selected sink type, and here some of its parameters can be optional and/or dynamic.
 
 The following is a list of sink types supported by stream processor:
 
 |Source type | Description|
 | ------------- |-------------|
-| c8db | Allow StreamApp to publish events to collections (doc, graphs) in the same or different geofabric. |
+| database | Allow StreamApp to publish events to collections (doc, graphs) in the same or different geofabric. |
 | HTTP| Publish events to an HTTP endpoint.|
 | Kafka | Publish events to Kafka topic. |
 | TCP | Publish events to a TCP service. |
@@ -321,7 +295,7 @@ Distributed sink provides a way to publish Stream events to multiple endpoints i
 
 **Syntax**
 
-To configure distributed sink add the sink configuration to a stream definition by adding the `@sink` annotation and add the configuration parameters that are common of all the destination endpoints inside it, along with the common parameters also add the `@distribution` annotation specifying the distribution strategy (i.e. `roundRobin` or `partitioned`) and `@destination` annotations providing each endpoint specific configurations.
+To configure distributed sink add the sink configuration to a stream definition by adding the `sink.type` property and add the configuration parameters that are common of all the destination endpoints inside it, along with the common parameters also add the `distribution.strategy` property specifying the distribution strategy (i.e. `roundRobin` or `partitioned`) and `destination` properties providing each endpoint specific configurations.
 
 The distributed sink syntax is as follows:
 
@@ -330,15 +304,7 @@ The distributed sink syntax is as follows:
 Publishes events to defined destinations in a round robin manner.
 
 ```
-@sink(type='<sink type>', <common.static.key>='<value>', <common.dynamic.key>='{{<value>}}',
-    @map(type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}',
-        @payload('<payload mapping>')
-    )
-    @distribution(strategy='roundRobin',
-        @destination(<destination.specific.key>='<value>'),
-        @destination(<destination.specific.key>='<value>')))
-)
-define stream <stream name> (<attribute1> <type>, <attributeN> <type>);
+CREATE SINK <stream name> WITH (sink.type='<sink type>', <common.static.key>='<value>', <common.dynamic.key>='{{<value>}}', map.type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}', map.payload='<payload mapping>' distribution.strategy='roundRobin', destination.<key>='<value>', destination.<key>='<value>') (<attribute1> <type>, <attributeN> <type>);
 ```
 
 **_Partitioned Distributed Sink_**
@@ -346,38 +312,31 @@ define stream <stream name> (<attribute1> <type>, <attributeN> <type>);
 Publishes events to defined destinations by partitioning them based on the partitioning key.
 
 ```
-@sink(type='<sink type>', <common.static.key>='<value>', <common.dynamic.key>='{{<value>}}',
-    @map(type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}',
-        @payload('<payload mapping>')
-    )
-    @distribution(strategy='partitioned', partitionKey='<partition key>',
-        @destination(<destination.specific.key>='<value>'),
-        @destination(<destination.specific.key>='<value>')))
-)
-define stream <stream name> (<attribute1> <type>, <attributeN> <type>);
+
+CREATE SINK <stream name> WITH (sink.type='<sink type>', <common.static.key>='<value>', <common.dynamic.key>='{{<value>}}', map.type='<map type>', <static.key>='<value>', <dynamic.key>='{{<value>}}', map.payload='<payload mapping>', distribution.strategy='partitioned', partitionKey='<partition key>', destination.<key>='<value>', destination.<key>='<value>') (<attribute1> <type>, <attributeN> <type>);
 ```
 
 #### Sink Mapper
 
-Each `@sink` configuration can have a mapping denoted by the `@map` annotation that defines how to convert Stream events to outgoing messages with the defined format.
+Each `sink.type` configuration can have a mapping denoted by the `map.type` annotation that defines how to convert Stream events to outgoing messages with the defined format.
 
-The `type` parameter of the `@map` defines the map type to be used in converting the outgoing events. The other parameters of `@map` annotation depends on the mapper selected, and some of its parameters can be optional and/or dynamic.
+The `type` parameter of the `map.type` defines the map type to be used in converting the outgoing events. The other parameters of `map.type` annotation depends on the mapper selected, and some of its parameters can be optional and/or dynamic.
 
 For detailed information about the parameters see the documentation of the relevant mapper.
 
 **Map Payload**
 
-`@payload` is an optional annotation used with `@map` to define custom mapping. When the `@payload` annotation is not provided, each mapper maps the outgoing events to its own default event format. The `@payload` annotation allow users to configure mappers to produce the output payload of their choice, and by using dynamic properties within the payload they can selectively extract and add data from the published Stream events.
+`map.payload` is an optional annotation used with `map.type` to define custom mapping. When the `map.payload` annotation is not provided, each mapper maps the outgoing events to its own default event format. The `map.payload` annotation allow users to configure mappers to produce the output payload of their choice, and by using dynamic properties within the payload they can selectively extract and add data from the published Stream events.
 
-There are two ways you to configure `@payload` annotation.
+There are two ways you to configure `map.payload` annotation.
 
 1. Some mappers such as `XML`, `JSON`, and `Test` only accept one output payload: <br/>
   ```
-  @payload( 'This is a test message from {{user}}.')
+  map.payload='This is a test message from {{user}}.'
   ```
 2. Some mappers such `key-value` accept series of mapping values: <br/>
   ```
-  @payload( key1='mapping_1', 'key2'='user : {{user}}')
+  map.payload= key1='mapping_1', 'key2'='user : {{user}}'
   ```
   Here, the keys of payload mapping can be defined using the dot notation as ```a.b.c```, or using any constant string value as `'$abc'`.
 
@@ -395,7 +354,7 @@ The following is a list of sink mapping types supported by Stream:
 | CSV | Converts CSV like delimiter separated events to Stream events.|
 
 !!! tip
-    When the `@map` annotation is not provided `@map(type='passThrough')` is used as default, that passes the outgoing Stream events directly to the sinks without any data conversion.
+    When the `map.type` annotation is not provided `map.type='passThrough'` is used as default, that passes the outgoing Stream events directly to the sinks without any data conversion.
 
 **Example 1**
 
@@ -404,13 +363,8 @@ Publishes `OutputStream` events by converting them to `JSON` messages with the d
 The configuration of the `HTTP` sink and `JSON` sink mapper to achieve the above is as follows.
 
 ```
-@sink(type='http', publisher.url='http://localhost:8005/endpoint',
-      method='POST', headers='Accept-Date:20/02/2017',
-      basic.auth.enabled='true', basic.auth.username='admin',
-      basic.auth.password='admin',
-      @map(type='json'))
 
-define stream OutputStream (name string, age int, country string);
+CREATE SINK OutputStream WITH (sink.type='http', publisher.url='http://localhost:8005/endpoint', method='POST', headers='Accept-Date:20/02/2017', basic.auth.enabled='true', basic.auth.username='admin', basic.auth.password='admin', map.type='json') (name string, age int, country string);
 ```
 
 This will publish a `JSON` message on the following format:
@@ -432,11 +386,7 @@ Publishes `StockStream` events by converting them to user defined `JSON` message
 The configuration of the `HTTP` sink and custom `JSON` sink mapping to achieve the above is as follows.
 
 ```
-@sink(type='http', publisher.url='http://localhost:8005/stocks',
-      @map(type='json', validate.json='true', enclosing.element='$.Portfolio',
-           @payload("""{"StockData":{ "Symbol":"{{symbol}}", "Price":{{price}} }}""")))
-
-define stream StockStream (symbol string, price float, volume long);
+CREATE SINK StockStream WITH (sink.type='http', publisher.url='http://localhost:8005/stocks', map.type='json', validate.json='true', enclosing.element='$.Portfolio', map.payload="""{"StockData":{ "Symbol":"{{symbol}}", "Price":{{price}} }}""") (symbol string, price float, volume long);
 ```
 
 This will publish a single event as the `JSON` message on the following format:
@@ -480,14 +430,7 @@ Publishes events from the `OutputStream` stream to multiple the `HTTP` endpoints
 The configuration of the distributed `HTTP` sink and `JSON` sink mapper to achieve the above is as follows.
 
 ```
-@sink(type='http', method='POST', basic.auth.enabled='true',
-      basic.auth.username='admin', basic.auth.password='admin',
-      @map(type='json'),
-      @distribution(strategy='partitioned', partitionKey='country',
-        @destination(publisher.url='http://localhost:8005/endpoint1'),
-        @destination(publisher.url='http://localhost:8006/endpoint2')))
-
-define stream OutputStream (name string, age int, country string);
+CREATE SINK OutputStream WITH (sink.type='http', method='POST', basic.auth.enabled='true', basic.auth.username='admin', basic.auth.password='admin', map.type='json', distribution.strategy='partitioned', partitionKey='country', destination.publisher.url='http://localhost:8005/endpoint1', destination.publisher.url='http://localhost:8006/endpoint2') (name string, age int, country string);
 ```
 
 This will partition the outgoing events and publish all events with the same country attribute value to the same endpoint. The `JSON` message published will be on the following format:
@@ -508,21 +451,19 @@ Errors in Stream can be handled at the Streams and in Sinks.
 
 #### Error Handling at Stream
 
-When errors are thrown by Stream elements subscribed to the stream, the error gets propagated up to the stream that delivered the event to those Stream elements. By default the error is logged and dropped at the stream, but this behavior can be altered by by adding `@OnError` annotation to the corresponding stream definition.
+When errors are thrown by Stream elements subscribed to the stream, the error gets propagated up to the stream that delivered the event to those Stream elements. By default the error is logged and dropped at the stream, but this behavior can be altered by by adding `OnError` property to the corresponding stream definition.
 
-`@OnError` annotation can help users to capture the error and the associated event, and handle them gracefully by sending them to a fault stream.
+`OnError` property can help users to capture the error and the associated event, and handle them gracefully by sending them to a fault stream.
 
-The `@OnError` annotation and the required `action` to be specified as bellow.
+The `OnError` property and the required `action` to be specified as below.
 
 ```
-@OnError(action='on error action')
-define stream <stream name> (<attribute name> <attribute type>,
-                             <attribute name> <attribute type>, ... );
+CREATE SOURCE <stream name> WITH (OnError.action='<action>') (<attribute name> <attribute type>, <attribute name> <attribute type>, ... );
 ```
 
-The `action` parameter of the `@OnError` annotation defines the action to be executed during failure scenarios.
+The `action` parameter of the `OnError` property defines the action to be executed during failure scenarios.
 
-The following actions can be specified to `@OnError` annotation to handle erroneous scenarios.
+The following actions can be specified to `OnError` property to handle erroneous scenarios.
 
 * `STREAM`: Creates a fault stream and redirects the event and the error to it. The created fault stream will have all the attributes defined in the base stream to capture the error causing event, and in addition it also contains `_error` attribute of type `object` to containing the error information. The fault stream can be referred by adding `!` in front of the base stream name as `!<stream name>`.
 
@@ -530,18 +471,17 @@ The following actions can be specified to `@OnError` annotation to handle errone
 
 Handle errors in `TempStream` by redirecting the errors to a fault stream.
 
-The configuration of `TempStream` stream and `@OnError` annotation is as follows.
+The configuration of `TempStream` stream and `OnError` property is as follows.
 
 ```
-@OnError(action='STREAM')
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM TempStream WITH(OnError.action="STREAM") (deviceID long, roomNo int, temp double;
 ```
 
-Stream will infer and automatically defines the fault stream of `TempStream` as given bellow.
+Stream infers and automatically defines the fault stream of `TempStream` as given below.
 
 
 ```
-define stream !TempStream (deviceID long, roomNo int, temp double, _error object);
+CREATE STREAM !TempStream (deviceID long, roomNo int, temp double, _error object);
 ```
 
 The StreamApp extending the above the use-case by adding failure generation and error handling with the use of [queries](#query) is as follows.
@@ -550,35 +490,32 @@ Note: Details on writing processing logics via [queries](#query) will be explain
 
 ```
 -- Define fault stream to handle error occurred at TempStream subscribers
-@OnError(action='STREAM')
-define stream TempStream (deviceID long, roomNo int, temp double);
+
+CREATE STREAM TempStream WITH(OnError.action="STREAM") (deviceID long, roomNo int, temp double;
 
 -- Error generation through a custom function `createError()`
 @name('error-generation')
-from TempStream#custom:createError()
-insert into IgnoreStream1;
+insert into IgnoreStream1
+from TempStream#custom:createError();
 
 -- Handling error by simply logging the event and error.
 @name('handle-error')
-from !TempStream#log("Error Occurred!")
+insert into IgnoreStream2
 select deviceID, roomNo, temp, _error
-insert into IgnoreStream2;
+from !TempStream#log("Error Occurred!");
 ```
 
 #### Error Handling at Sink
 
-There can be cases where external systems becoming unavailable or coursing errors when the events are published to them. By default sinks log and drop the events causing event losses, and this can be handled gracefully by configuring `on.error` parameter of the `@sink` annotation.
+There can be cases where external systems becoming unavailable or coursing errors when the events are published to them. By default sinks log and drop the events causing event losses, and this can be handled gracefully by configuring `on.error` parameter of the `sink.type` annotation.
 
-The `on.error` parameter of the `@sink` annotation can be specified as bellow.
+The `on.error` parameter of the `sink.type` annotation can be specified as below.
 
 ```
-@sink(type='<sink type>', on.error='<on error action>', <key>='<value>', ...)
-
-define stream <stream name> (<attribute name> <attribute type>,
-                             <attribute name> <attribute type>, ... );
+CREATE SINK <stream name> WITH (sink.type='<sink type>', on.error.action='<on error action>', <key>='<value>', ...) (<attribute name> <attribute type>, <attribute name> <attribute type>, ... );
 ```  
 
-The following actions can be specified to `on.error` parameter of `@sink` annotation to handle erroneous scenarios.
+The following actions can be specified to `on.error` parameter of `sink.type` annotation to handle erroneous scenarios.
 
 * `WAIT` : Publishing threads wait in `back-off and re-trying` mode, and only send the events when the connection is re-established. During this time the threads will not consume any new messages causing the systems to introduce back pressure on the systems that publishes to it.
 
@@ -588,36 +525,28 @@ The following actions can be specified to `on.error` parameter of `@sink` annota
 
 Introduce back pressure on the threads who bring events via `TempStream` when the system cannot connect to Kafka.
 
-The configuration of `TempStream` stream and `@sink` Kafka annotation with `on.error` property is as follows.
+The configuration of `TempStream` stream and `sink.type` Kafka annotation with `on.error` property is as follows.
 
 ```
-@sink(type='kafka', on.error='WAIT', topic='{{roomNo}}',
-      bootstrap.servers='localhost:9092',
-      @map(type='xml'))
-
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE SINK TempStream WITH (sink.type='kafka', on.error.action='WAIT', topic='{{roomNo}}', bootstrap.servers='localhost:9092', map.type='xml') (deviceID long, roomNo int, temp double);
 ```
 
 **Example 2**
 
 Send events to the fault stream of `TempStream` when the system cannot connect to Kafka.
 
-The configuration of `TempStream` stream with associated fault stream, `@sink` Kafka annotation with `on.error` property and a [queries](#query) to handle the error is as follows.
+The configuration of `TempStream` stream with associated fault stream, `sink.type` Kafka annotation with `on.error` property and a [queries](#query) to handle the error is as follows.
 
 Note: Details on writing processing logics via [queries](#query) will be explained in later sections.
 
 ```
-@OnError(action='STREAM')
-@sink(type='kafka', on.error='STREAM', topic='{{roomNo}}',
-      bootstrap.servers='localhost:9092',
-      @map(type='xml'))
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE SINK TempStream WITH (sink.type='kafka', on.error.action='STREAM', topic='{{roomNo}}', bootstrap.servers='localhost:9092', map.type='xml') (deviceID long, roomNo int, temp double);
 
 -- Handling error by simply logging the event and error.
 @name('handle-error')
-from !TempStream#log("Error Occurred!")
-select deviceID, roomNo, temp, _error
 insert into IgnoreStream;
+select deviceID, roomNo, temp, _error
+from !TempStream#log("Error Occurred!")
 ```
 
 ## Query
@@ -634,9 +563,9 @@ The high level query syntax for defining processing logics is as follows:
 
 ```
 @name('<query name>')
-from <input>
-<projection>
 <output action>
+<projection>
+from <input>
 ```
 
 The following parameters are used to configure a stream definition.
@@ -653,14 +582,14 @@ The following parameters are used to configure a stream definition.
 A query consumes events from the `TempStream` stream and output only the `roomNo` and `temp` attributes to the `RoomTempStream` stream, from which another query consumes the events and sends all its attributes to `AnotherRoomTempStream` stream.
 
 ```
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
-from TempStream
+insert into RoomTempStream
 select roomNo, temp
-insert into RoomTempStream;
+from TempStream;
 
-from RoomTempStream
-insert into AnotherRoomTempStream;
+insert into AnotherRoomTempStream
+from RoomTempStream;
 ```
 
 !!! tip "Inferred Stream"
@@ -954,35 +883,35 @@ Following are some inbuilt Stream functions, for more functions refer [Functions
 
 |Inbuilt function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../functions/#eventtimestamp-function">eventTimestamp</a> | Returns event's timestamp. |
-| <a target="_blank" href="../functions/#currenttimemillis-function">currentTimeMillis</a> | Returns current time of StreamApp runtime. |
-| <a target="_blank" href="../functions/#default-function">default</a> | Returns a default value if the parameter is null. |
-| <a target="_blank" href="../functions/#ifthenelse-function">ifThenElse</a> | Returns parameters based on a conditional parameter. |
-| <a target="_blank" href="../functions/#uuid-function">UUID</a> | Generates a UUID. |
-| <a target="_blank" href="../functions/#cast-function">cast</a> | Casts parameter type. |
-| <a target="_blank" href="../functions/#convert-function">convert</a> | Converts parameter type. |
-| <a target="_blank" href="../functions/#coalesce-function">coalesce</a> | Returns first not null input parameter. |
-| <a target="_blank" href="../functions/#maximum-function">maximum</a> | Returns the maximum value of all parameters. |
-| <a target="_blank" href="../functions/#minimum-function">minimum</a> | Returns the minimum value of all parameters. |
-| <a target="_blank" href="../functions/#instanceofboolean-function">instanceOfBoolean</a> | Checks if the parameter is an instance of Boolean. |
-| <a target="_blank" href="../functions/#instanceofdouble-function">instanceOfDouble</a> | Checks if the parameter is an instance of Double. |
-| <a target="_blank" href="../functions/#instanceoffloat-function">instanceOfFloat</a> | Checks if the parameter is an instance of Float. |
-| <a target="_blank" href="../functions/#instanceofinteger-function">instanceOfInteger</a> | Checks if the parameter is an instance of Integer. |
-| <a target="_blank" href="../functions/#instanceoflong-function">instanceOfLong</a> | Checks if the parameter is an instance of Long. |
-| <a target="_blank" href="../functions/#instanceofstring-function">instanceOfString</a> | Checks if the parameter is an instance of String. |
-| <a target="_blank" href="../functions/#createset-function">createSet</a> | Creates  HashSet with given input parameters. |
-| <a target="_blank" href="../functions/#minimum-function">sizeOfSet</a> | Returns number of items in the HashSet, that's passed as a parameter. |
+| <a target="_blank" href="../api/latest/#eventtimestamp-function">eventTimestamp</a> | Returns event's timestamp. |
+| <a target="_blank" href="../api/latest/#currenttimemillis-function">currentTimeMillis</a> | Returns current time of StreamApp runtime. |
+| <a target="_blank" href="../api/latest/#default-function">default</a> | Returns a default value if the parameter is null. |
+| <a target="_blank" href="../api/latest/#ifthenelse-function">ifThenElse</a> | Returns parameters based on a conditional parameter. |
+| <a target="_blank" href="../api/latest/#uuid-function">UUID</a> | Generates a UUID. |
+| <a target="_blank" href="../api/latest/#cast-function">cast</a> | Casts parameter type. |
+| <a target="_blank" href="../api/latest/#convert-function">convert</a> | Converts parameter type. |
+| <a target="_blank" href="../api/latest/#coalesce-function">coalesce</a> | Returns first not null input parameter. |
+| <a target="_blank" href="../api/latest/#maximum-function">maximum</a> | Returns the maximum value of all parameters. |
+| <a target="_blank" href="../api/latest/#minimum-function">minimum</a> | Returns the minimum value of all parameters. |
+| <a target="_blank" href="../api/latest/#instanceofboolean-function">instanceOfBoolean</a> | Checks if the parameter is an instance of Boolean. |
+| <a target="_blank" href="../api/latest/#instanceofdouble-function">instanceOfDouble</a> | Checks if the parameter is an instance of Double. |
+| <a target="_blank" href="../api/latest/#instanceoffloat-function">instanceOfFloat</a> | Checks if the parameter is an instance of Float. |
+| <a target="_blank" href="../api/latest/#instanceofinteger-function">instanceOfInteger</a> | Checks if the parameter is an instance of Integer. |
+| <a target="_blank" href="../api/latest/#instanceoflong-function">instanceOfLong</a> | Checks if the parameter is an instance of Long. |
+| <a target="_blank" href="../api/latest/#instanceofstring-function">instanceOfString</a> | Checks if the parameter is an instance of String. |
+| <a target="_blank" href="../api/latest/#createset-function">createSet</a> | Creates  HashSet with given input parameters. |
+| <a target="_blank" href="../api/latest/#minimum-function">sizeOfSet</a> | Returns number of items in the HashSet, that's passed as a parameter. |
 
 **Example**
 
 Query that converts the `roomNo` to `string` using `convert` function, finds the maximum temperature reading with `maximum` function, and adds a unique `messageID` using the `UUID` function.
 
 ```
+insert into RoomTempStream
 select convert(roomNo, 'string') as roomNo,
        maximum(tempReading1, tempReading2) as temp,
        UUID() as messageID
-from TempStream
-insert into RoomTempStream;
+from TempStream;
 ```
 
 ### Filter
@@ -998,9 +927,9 @@ Filter helps to select the events that are relevant for the processing and omit 
 Filter conditions should be defined in square brackets (`[]`) next to the input stream as shown below.
 
 ```
-select <attribute name>, <attribute name>, ...
-from <input stream>[<filter condition>]
 insert into <output stream>
+select <attribute name>, <attribute name>, ...
+from <input stream>[<filter condition>] ;
 ```
 
 **Example**
@@ -1009,9 +938,9 @@ Query to filter `TempStream` stream events, having `roomNo` within the range of 
 and insert them into `HighTempStream` stream.
 
 ```
+insert into HighTempStream
 select roomNo, temp
-from TempStream[(roomNo >= 100 and roomNo < 210) and temp > 40]
-insert into HighTempStream;
+from TempStream[(roomNo >= 100 and roomNo < 210) and temp > 40];
 ```
 
 ### Window
@@ -1029,9 +958,9 @@ Windows help to retain events based on a criterion, such that the values of thos
 Window should be defined by using the `#window` prefix next to the input stream as shown below.
 
 ```
-from <input stream>#window.<window name>(<parameter>, <parameter>, ... )
-select <attribute name>, <attribute name>, ...
 insert <ouput event type>? into <output stream>
+select <attribute name>, <attribute name>, ...
+from <input stream>#window.<window name>(<parameter>, <parameter>, ... );
 ```
 
 !!! note
@@ -1043,18 +972,18 @@ Following are some inbuilt Stream windows, for more windows refer [execution ext
 
 |Inbuilt function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../functions/#time-window">time</a> | Retains events based on time in a sliding manner.|
-| <a target="_blank" href="../functions/#timebatch-window">timeBatch</a> | Retains events based on time in a tumbling/batch manner. |
-| <a target="_blank" href="../functions/#length-window">length</a> | Retains events based on number of events in a sliding manner. |
-| <a target="_blank" href="../functions/#lengthbatch-window">lengthBatch</a> | Retains events based on number of events in a tumbling/batch manner. |
-| <a target="_blank" href="../functions/#timelength-window">timeLength</a> | Retains events based on time and number of events in a sliding manner. |
-| <a target="_blank" href="../functions/#session-window">session</a> | Retains events for each session based on session key. |
-| <a target="_blank" href="../functions/#batch-window">batch</a> | Retains events of last arrived event chunk. |
-| <a target="_blank" href="../functions/#sort-window">sort</a> | Retains top-k or bottom-k events based on a parameter value. |
-| <a target="_blank" href="../functions/#cron-window">cron</a> | Retains events based on cron time in a tumbling/batch manner. |
-| <a target="_blank" href="../functions/#externaltime-window">externalTime</a> | Retains events based on event time value passed as a parameter in a sliding manner.|
-| <a target="_blank" href="../functions/#externaltimebatch-window">externalTimeBatch</a> | Retains events based on event time value passed as a parameter in a a tumbling/batch manner.|
-| <a target="_blank" href="../functions/#delay-window">delay</a> | Retains events and delays the output by the given time period in a sliding manner.|
+| <a target="_blank" href="../api/latest/#time-window">time</a> | Retains events based on time in a sliding manner.|
+| <a target="_blank" href="../api/latest/#timebatch-window">timeBatch</a> | Retains events based on time in a tumbling/batch manner. |
+| <a target="_blank" href="../api/latest/#length-window">length</a> | Retains events based on number of events in a sliding manner. |
+| <a target="_blank" href="../api/latest/#lengthbatch-window">lengthBatch</a> | Retains events based on number of events in a tumbling/batch manner. |
+| <a target="_blank" href="../api/latest/#timelength-window">timeLength</a> | Retains events based on time and number of events in a sliding manner. |
+| <a target="_blank" href="../api/latest/#session-window">session</a> | Retains events for each session based on session key. |
+| <a target="_blank" href="../api/latest/#batch-window">batch</a> | Retains events of last arrived event chunk. |
+| <a target="_blank" href="../api/latest/#sort-window">sort</a> | Retains top-k or bottom-k events based on a parameter value. |
+| <a target="_blank" href="../api/latest/#cron-window">cron</a> | Retains events based on cron time in a tumbling/batch manner. |
+| <a target="_blank" href="../api/latest/#externaltime-window">externalTime</a> | Retains events based on event time value passed as a parameter in a sliding manner.|
+| <a target="_blank" href="../api/latest/#externaltimebatch-window">externalTimeBatch</a> | Retains events based on event time value passed as a parameter in a a tumbling/batch manner.|
+| <a target="_blank" href="../api/latest/#delay-window">delay</a> | Retains events and delays the output by the given time period in a sliding manner.|
 
 
 **Example 1**
@@ -1080,9 +1009,9 @@ Here, the `length` window operates in a sliding manner where the following 3 eve
 Query to find out the maximum temperature out of the **every 10 events**, using the window of `lengthBatch` 10 and `max()` aggregation function, from the `TempStream` stream and insert the results into the `MaxTempStream` stream.
 
 ```
+insert into MaxTempStream
 select max(temp) as maxTemp
-from TempStream#window.lengthBatch(10)
-insert into MaxTempStream;
+from TempStream#window.lengthBatch(10);
 ```
 
 Here, the window operates in a batch/tumbling manner where the following 3 event subsets are calculated and outputted when a list of 30 events are received in a sequential order.
@@ -1098,9 +1027,9 @@ Here, the window operates in a batch/tumbling manner where the following 3 event
 Query to find out the maximum temperature out of the events arrived **during last 10 minutes**, using the window of `time` 10 minutes and `max()` aggregation function, from the `TempStream` stream and insert the results into the `MaxTempStream` stream.
 
 ```
+insert into MaxTempStream
 select max(temp) as maxTemp
-from TempStream#window.time(10 min)
-insert into MaxTempStream;
+from TempStream#window.time(10 min);
 ```
 
 Here, the `time` window operates in a sliding manner with millisecond accuracy, where it will process events in the following 3 time durations and output aggregated events when a list of events are received in a sequential order.
@@ -1116,9 +1045,9 @@ Here, the `time` window operates in a sliding manner with millisecond accuracy, 
 Query to find out the maximum temperature out of the events arriving **every 10 minutes**, using the window of `timeBatch` 10 and `max()` aggregation function, from the `TempStream` stream and insert the results into the `MaxTempStream` stream.
 
 ```
+insert into MaxTempStream
 select max(temp) as maxTemp
-from TempStream#window.timeBatch(10 min)
-insert into MaxTempStream;
+from TempStream#window.timeBatch(10 min);
 ```
 
 Here, the window operates in a batch/tumbling manner where the window will process evetns in the following 3 time durations and output aggregated events when a list of events are received in a sequential order.
@@ -1142,9 +1071,9 @@ Event type helps to specify when a query should output events to the stream, suc
 Event type should be defined in between `insert` and `into` keywords for insert queries as follows.
 
 ```
+insert <event type> into <output stream>
 select <attribute name>, <attribute name>, ...
 from <input stream>#window.<window name>(<parameter>, <parameter>, ... )
-insert <event type> into <output stream>
 ```
 
 Event type should be defined next to the `for` keyword for delete queries as follows.
@@ -1192,13 +1121,13 @@ The event types can be defined using the following keywords to manipulate query 
 Query to output only the expired events from a 1 minute time window to the `DelayedTempStream` stream. This can be used for delaying the events by a minute.
 
 ```
+insert expired events into DelayedTempStream
 select *
 from TempStream#window.time(1 min)
-insert expired events into DelayedTempStream
 ```
 
 !!! Note
-    This is just to illustrate how expired events work, it is recommended to use [delay](../functions/#delay-window) window for usecases where we need to delay events by a given time period.
+    This is just to illustrate how expired events work, it is recommended to use [delay](../api/latest/#delay-window) window for usecases where we need to delay events by a given time period.
 
 ### Aggregate Function
 
@@ -1215,9 +1144,9 @@ Aggregate function can be used in query projection (as part of the `select` clau
 The syntax of aggregate function is as follows,
 
 ```
+insert into <output stream>
 select <aggregate function>(<parameter>, <parameter>, ... ) as <attribute name>, <attribute2 name>, ...
-from <input stream>#window.<window name>(<parameter>, <parameter>, ... )
-insert into <output stream>;
+from <input stream>#window.<window name>(<parameter>, <parameter>, ... );
 ```
 
 Here `<aggregate function>` uniquely identifies the aggregate function. The `<parameter>` defined input parameters the aggregate function can accept. The input parameters can be attributes, constant values, results of other functions or aggregate functions, results of mathematical or logical expressions, or time values. The number and type of parameters an aggregate function accepts depend on the function itself.
@@ -1228,28 +1157,28 @@ Following are some inbuilt aggregation functions.
 
 |Inbuilt aggregate function | Description|
 | ------------- |-------------|
-| <a target="_blank" href="../functions/#sum-aggregate-function">sum</a> | Calculates the sum from a set of values. |
-| <a target="_blank" href="../functions/#count-aggregate-function">count</a> | Calculates the count from a set of values. |
-| <a target="_blank" href="../functions/#distinctcount-aggregate-function">distinctCount</a> | Calculates the distinct count based on a parameter from a set of values. |
-| <a target="_blank" href="../functions/#avg-aggregate-function">avg</a> | Calculates the average from a set of values.|
-| <a target="_blank" href="../functions/#max-aggregate-function">max</a> | Finds the maximum value from a set of values. |
-| <a target="_blank" href="../functions/#min-aggregate-function">max</a> | Finds the minimum value from a set of values. |
+| <a target="_blank" href="../api/latest/#sum-aggregate-function">sum</a> | Calculates the sum from a set of values. |
+| <a target="_blank" href="../api/latest/#count-aggregate-function">count</a> | Calculates the count from a set of values. |
+| <a target="_blank" href="../api/latest/#distinctcount-aggregate-function">distinctCount</a> | Calculates the distinct count based on a parameter from a set of values. |
+| <a target="_blank" href="../api/latest/#avg-aggregate-function">avg</a> | Calculates the average from a set of values.|
+| <a target="_blank" href="../api/latest/#max-aggregate-function">max</a> | Finds the maximum value from a set of values. |
+| <a target="_blank" href="../api/latest/#min-aggregate-function">max</a> | Finds the minimum value from a set of values. |
 
-| <a target="_blank" href="../functions/#maxforever-aggregate-function">maxForever</a> | Finds the maximum value from all events throughout its lifetime irrespective of the windows. |
-| <a target="_blank" href="../functions/#minforever-aggregate-function">minForever</a> | Finds the minimum value from all events throughout its lifetime irrespective of the windows. |
-| <a target="_blank" href="../functions/#stddev-aggregate-function">stdDev</a> | Calculates the standard deviation from a set of values. |
-| <a target="_blank" href="../functions/#and-aggregate-function">and</a> | Calculates boolean and from a set of values. |
-| <a target="_blank" href="../functions/#or-aggregate-function">or</a> | Calculates boolean or from a set of values. |
-| <a target="_blank" href="../functions/#unionset-aggregate-function">unionSet</a> | Calculates union as a Set from a set of values. |
+| <a target="_blank" href="../api/latest/#maxforever-aggregate-function">maxForever</a> | Finds the maximum value from all events throughout its lifetime irrespective of the windows. |
+| <a target="_blank" href="../api/latest/#minforever-aggregate-function">minForever</a> | Finds the minimum value from all events throughout its lifetime irrespective of the windows. |
+| <a target="_blank" href="../api/latest/#stddev-aggregate-function">stdDev</a> | Calculates the standard deviation from a set of values. |
+| <a target="_blank" href="../api/latest/#and-aggregate-function">and</a> | Calculates boolean and from a set of values. |
+| <a target="_blank" href="../api/latest/#or-aggregate-function">or</a> | Calculates boolean or from a set of values. |
+| <a target="_blank" href="../api/latest/#unionset-aggregate-function">unionSet</a> | Calculates union as a Set from a set of values. |
 
 **Example**
 
 Query to calculate average, maximum, and minimum values on `temp` attribute of the `TempStream` stream in a sliding manner, from the events arrived over the last 10 minutes and to produce outputs `avgTemp`, `maxTemp` and `minTemp` respectively to the `AvgTempStream` output stream.
 
 ```
+insert into AvgTempStream
 select avg(temp) as avgTemp, max(temp) as maxTemp, min(temp) as minTemp
-from TempStream#window.time(10 min)
-insert into AvgTempStream;
+from TempStream#window.time(10 min);
 ```
 
 ### Group By
@@ -1265,10 +1194,10 @@ Group By allows users to aggregate values of multiple events based on the given 
 The syntax for the Group By with aggregate function is as follows.
 
 ```
+insert into <output stream>
 select <aggregate function>( <parameter>, <parameter>, ...) as <attribute1 name>, <attribute2 name>, ...
 from <input stream>#window.<window name>(...)
-group by <attribute1 name>, <attribute2 name>, ...
-insert into <output stream>;
+group by <attribute1 name>, <attribute2 name>, ...;
 ```
 
 Here the group by attributes should be defined next to the `group by` keyword separating each attribute by a comma.
@@ -1278,10 +1207,10 @@ Here the group by attributes should be defined next to the `group by` keyword se
 Query to calculate the average `temp` per `roomNo` and `deviceID` combination, from the events arrived from `TempStream` stream, during the last 10 minutes time-window in a sliding manner.
 
 ```
+insert into AvgTempStream
 select roomNo, deviceID, avg(temp) as avgTemp
 from TempStream#window.time(10 min)
-group by roomNo, deviceID
-insert into AvgTempStream;
+group by roomNo, deviceID;
 ```
 
 ### Having
@@ -1297,11 +1226,11 @@ Having helps to select the events that are relevant for the output based on the 
 The syntax for the Having clause is as follows.
 
 ```
+insert into <output stream>
 select <aggregate function>( <parameter>, <parameter>, ...) as <attribute1 name>, <attribute2 name>, ...
 from <input stream>#window.<window name>( ... )
 group by <attribute1 name>, <attribute2 name> ...
-having <condition>
-insert into <output stream>;
+having <condition>;
 ```
 
 Here the having `<condition>` should be defined next to the `having` keyword and having can be used with or without `group by` clause.
@@ -1311,11 +1240,11 @@ Here the having `<condition>` should be defined next to the `having` keyword and
 Query to calculate the average `temp` per `roomNo` for the last 10 minutes, and alerts if the `avgTemp` exceeds 30 degrees.
 
 ```
+insert into AlertStream
 select roomNo, avg(temp) as avgTemp
 from TempStream#window.time(10 min)
 group by roomNo
-having avgTemp > 30
-insert into AlertStream;
+having avgTemp > 30;
 ```
 
 ### Order By
@@ -1331,12 +1260,12 @@ Order By helps to sort the events in the outputs chunks produced by the query. O
 The syntax for the Order By clause is as follows:
 
 ```
+insert into <output stream>
 select <aggregate function>( <parameter>, <parameter>, ...) as <attribute1 name>, <attribute2 name>, ...
 from <input stream>#window.<window name>( ... )
 group by <attribute1 name>, <attribute2 name> ...
 having <condition>
-order by <attribute1 name> (asc|desc)?, <attribute2 name> (asc|desc)?, ...
-insert into <output stream>;
+order by <attribute1 name> (asc|desc)?, <attribute2 name> (asc|desc)?, ...;
 ```
 
 Here the order by attributes should be defined next to the `order by` keyword separating each by a comma, and optionally specifying the event ordering using `asc` (default) or `desc` keywords.
@@ -1346,11 +1275,11 @@ Here the order by attributes should be defined next to the `order by` keyword se
 Query to calculate the average `temp` per `roomNo` and `deviceID` combination on every 10 minutes batches, and order the generated output events in ascending order by `avgTemp` and then by descending order of `roomNo` (if the more than one event have the same `avgTemp` value).
 
 ```
+insert into AvgTempStream
 select roomNo, deviceID, avg(temp) as avgTemp
 from TempStream#window.timeBatch(10 min)
 group by roomNo, deviceID
-order by avgTemp, roomNo desc
-insert into AvgTempStream;
+order by avgTemp, roomNo desc;
 ```
 
 ### Limit & Offset
@@ -1366,14 +1295,14 @@ Limit & Offset helps to output only the selected set of events from large event 
 The syntax for the Limit & Offset clauses is as follows:
 
 ```
+insert into <output stream>
 select <aggregate function>( <parameter>, <parameter>, ...) as <attribute1 name>, <attribute2 name>, ...
 from <input stream>#window.<window name>( ... )
 group by <attribute1 name>, <attribute2 name> ...
 having <condition>
 order by <attribute1 name> (asc | desc)?, <attribute2 name> (<ascend/descend>)?, ...
 limit <positive integer>?
-offset <positive integer>?
-insert into <output stream>;
+offset <positive integer>?;
 ```
 
 Here both `limit` and `offset` are optional, when `limit` is omitted the query will output all the events, and when `offset` is omitted `0` is taken as the default offset value.
@@ -1383,25 +1312,25 @@ Here both `limit` and `offset` are optional, when `limit` is omitted the query w
 Query to calculate the average `temp` per `roomNo` and `deviceID` combination for every 10 minutes batches, from the events arriving at the `TempStream` stream, and emit only two events having the highest `avgTemp` value.
 
 ```
+insert into HighestAvgTempStream
 select roomNo, deviceID, avg(temp) as avgTemp
 from TempStream#window.timeBatch(10 min)
 group by roomNo, deviceID
 order by avgTemp desc
-limit 2
-insert into HighestAvgTempStream;
+limit 2;
 ```
 
 **Example 2**
 Query to calculate the average `temp` per `roomNo` and `deviceID` combination for every 10 minutes batches, for events that arriving at the `TempStream` stream, and emits only the third, forth and fifth events when sorted in descending order based on their `avgTemp` value.
 
 ```
+insert into HighestAvgTempStream
 select roomNo, deviceID, avg(temp) as avgTemp
 from TempStream#window.timeBatch(10 min)
 group by roomNo, deviceID
 order by avgTemp desc
 limit 3
-offset 2
-insert into HighestAvgTempStream;
+offset 2;
 ```
 
 ### Join (Stream)
@@ -1423,11 +1352,11 @@ stream's window based on the given condition, and the output events are generate
 The syntax for a join is as follows:
 
 ```
+insert into <output stream>
 select <attribute name>, <attribute name>, ...
 from <input stream>#window.<window name>(<parameter>, ... ) {unidirectional} {as <reference>}
          join <input stream>#window.<window name>(<parameter>,  ... ) {unidirectional} {as <reference>}
     on <join condition>
-insert into <output stream>
 ```
 
 Here, the `<join condition>` allows you to match the attributes from both the streams.
@@ -1448,14 +1377,14 @@ Assuming that the temperature of regulators are updated every minute.
 Following is a Stream App that controls the temperature regulators if they are not already `on` for all the rooms with a room temperature greater than 30 degrees.  
 
 ```
-define stream TempStream(deviceID long, roomNo int, temp double);
-define stream RegulatorStream(deviceID long, roomNo int, isOn bool);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM RegulatorStream (deviceID long, roomNo int, isOn bool);
 
+insert into RegulatorActionStream
 select T.roomNo, R.deviceID, 'start' as action
 from TempStream[temp > 30.0]#window.time(1 min) as T
   join RegulatorStream[isOn == false]#window.length(1) as R
-  on T.roomNo == R.roomNo
-insert into RegulatorActionStream;
+  on T.roomNo == R.roomNo;
 ```
 
 **Supported join types**
@@ -1501,11 +1430,11 @@ Following are the supported operations of a join clause.
     match for the `symbol` attribute in the other stream or not.
 
     <pre>
+    insert into outputStream 
     select S.symbol as symbol, T.tweet, S.price
     from StockStream#window.time(1 min) as S
       full outer join TwitterStream#window.length(1) as T
-      on S.symbol== T.symbol
-    insert into outputStream ;    </pre>
+      on S.symbol== T.symbol;    </pre>
 
 
 ### Patterns
@@ -1543,10 +1472,10 @@ Stream also supports pattern matching with counting events and matching events i
 This query sends an alert if the temperature of a room increases by 5 degrees within 10 min.
 
 ```
+insert into AlertStream
 select e1.roomNo, e1.temp as initialTemp, e2.temp as finalTemp
 from every( e1=TempStream ) -> e2=TempStream[ e1.roomNo == roomNo and (e1.temp + 5) <= temp ]
-    within 10 min
-insert into AlertStream;
+    within 10 min;
 ```
 
 Here, the matching process begins for each event in the `TempStream` stream (because `every` is used with `e1=TempStream`),
@@ -1563,11 +1492,11 @@ The number of events matched per condition can be limited via condition postfixe
 Each matching condition can contain a collection of events with the minimum and maximum number of events to be matched as shown in the syntax below.
 
 ```
+insert into <output stream>
 select <event reference>([event index])?.<attribute name>, ...
 from (every)? <event reference>=<input stream>[<filter condition>] (<<min count>:<max count>>)? ->  
     ...
     (within <time gap>)?     
-insert into <output stream>
 ```
 
 |Postfix|Description|Example
@@ -1591,12 +1520,12 @@ Square brackets can be used to indicate the event index where `1` can be used as
 The following Stream App calculates the temperature difference between two regulator events.
 
 ```
-define stream TempStream (deviceID long, roomNo int, temp double);
-define stream RegulatorStream (deviceID long, roomNo int, tempSet double, isOn bool);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM RegulatorStream (deviceID long, roomNo int, tempSet double, isOn bool);
 
+insert into TempDiffStream
 select e1.roomNo, e2[0].temp - e2[last].temp as tempDiff
-from every( e1=RegulatorStream) -> e2=TempStream[e1.roomNo==roomNo]<1:> -> e3=RegulatorStream[e1.roomNo==roomNo]
-insert into TempDiffStream;
+from every( e1=RegulatorStream) -> e2=TempStream[e1.roomNo==roomNo]<1:> -> e3=RegulatorStream[e1.roomNo==roomNo];
 ```
 
 #### Logical Patterns
@@ -1607,11 +1536,11 @@ Logical patterns match events that arrive in temporal order and correlate them w
 **Syntax**
 
 ```
+insert into <output stream>
 select <event reference>([event index])?.<attribute name>, ...
 from (every)? (not)? <event reference>=<input stream>[<filter condition>]
           ((and|or) <event reference>=<input stream>[<filter condition>])? (within <time gap>)? ->  
     ...
-insert into <output stream>
 ```
 
 Keywords such as `and`, `or`, or `not` can be used to illustrate the logical relationship.
@@ -1657,36 +1586,36 @@ Pattern|Detected Scenario
 Following Stream App, sends the `stop` control action to the regulator when the key is removed from the hotel room.
 
 ```
-define stream RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
-define stream RoomKeyStream(deviceID long, roomNo int, action string);
+CREATE STREAM RegulatorStateChangeStream (deviceID long, roomNo int, tempSet double, action string);
+CREATE STREAM RoomKeyStream (deviceID long, roomNo int, action string);
 
+insert into RegulatorActionStream
 select e1.roomNo, ifThenElse( e2 is null, 'none', 'stop' ) as action
 from every( e1=RegulatorStateChangeStream[ action == 'on' ] ) ->
       e2=RoomKeyStream[ e1.roomNo == roomNo and action == 'removed' ] or e3=RegulatorStateChangeStream[ e1.roomNo == roomNo and action == 'off']
-having action != 'none'
-insert into RegulatorActionStream;
+having action != 'none';
 ```
 
 This Stream Application generates an alert if we have switch off the regulator before the temperature reaches 12 degrees.  
 
 ```
-define stream RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM RegulatorStateChangeStream (deviceID long, roomNo int, tempSet double, action string);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
+insert into AlertStream
 select e1.roomNo as roomNo
-from e1=RegulatorStateChangeStream[action == 'start'] -> not TempStream[e1.roomNo == roomNo and temp < 12] and e2=RegulatorStateChangeStream[action == 'off']
-insert into AlertStream;
+from e1=RegulatorStateChangeStream[action == 'start'] -> not TempStream[e1.roomNo == roomNo and temp < 12] and e2=RegulatorStateChangeStream[action == 'off'];
 ```
 
 This Stream Application generates an alert if the temperature does not reduce to 12 degrees within 5 minutes of switching on the regulator.  
 
 ```
-define stream RegulatorStateChangeStream(deviceID long, roomNo int, tempSet double, action string);
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE STREAM RegulatorStateChangeStream (deviceID long, roomNo int, tempSet double, action string);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
+insert into AlertStream
 select e1.roomNo as roomNo
-from e1=RegulatorStateChangeStream[action == 'start'] -> not TempStream[e1.roomNo == roomNo and temp < 12] for '5 min'
-insert into AlertStream;
+from e1=RegulatorStateChangeStream[action == 'start'] -> not TempStream[e1.roomNo == roomNo and temp < 12] for '5 min';
 ```
 
 ### Sequence
@@ -1704,12 +1633,12 @@ This allows you to detect a specified event sequence over a specified time perio
 The syntax for a sequence query is as follows:
 
 ```
+insert into <output stream>
 select <event reference>.<attribute name>, <event reference>.<attribute name>, ...
 from (every)? <event reference>=<input stream>[<filter condition>],
     <event reference>=<input stream [<filter condition>],
     ...
     (within <time gap>)?     
-insert into <output stream>
 ```
 
 | Items | Description |
@@ -1725,9 +1654,9 @@ insert into <output stream>
 This query generates an alert if the increase in the temperature between two consecutive temperature events exceeds one degree.
 
 ```sql
-from every e1=TempStream, e2=TempStream[e1.temp + 1 < temp]
+insert into AlertStream
 select e1.temp as initialTemp, e2.temp as finalTemp
-insert into AlertStream;
+from every e1=TempStream, e2=TempStream[e1.temp + 1 < temp];
 ```
 
 #### Counting Sequence
@@ -1743,12 +1672,12 @@ The matching events can also be retrieved using event indexes, similar to how it
 Each matching condition in a sequence can contain a collection of events as shown below.
 
 ```
+insert into <output stream>
 select <event reference>.<attribute name>, <event reference>.<attribute name>, ...
 from (every)? <event reference>=<input stream>[<filter condition>](+|*|?)?,
     <event reference>=<input stream [<filter condition>](+|*|?)?,
     ...
     (within <time gap>)?     
-insert into <output stream>
 ```
 
 |Postfix symbol|Required/Optional |Description|
@@ -1763,11 +1692,11 @@ insert into <output stream>
 This Stream application identifies temperature peeks.
 
 ```
-define stream TempStream(deviceID long, roomNo int, temp double);
+CREATE STREAM TempStream(deviceID long, roomNo int, temp double);
 
+insert into PeekTempStream
 select e1.temp as initialTemp, e2[last].temp as peakTemp
-from every e1=TempStream, e2=TempStream[e1.temp <= temp]+, e3=TempStream[e2[last].temp > temp]
-insert into PeekTempStream;
+from every e1=TempStream, e2=TempStream[e1.temp <= temp]+, e3=TempStream[e2[last].temp > temp];
 ```
 
 #### Logical Sequence
@@ -1778,11 +1707,11 @@ Logical sequences identify logical relationships using `and`, `or` and `not` on 
 The syntax for a logical sequence is as follows:
 
 ```
+insert into <output stream>
 select <event reference>([event index])?.<attribute name>, ...
 from (every)? (not)? <event reference>=<input stream>[<filter condition>]
           ((and|or) <event reference>=<input stream>[<filter condition>])? (within <time gap>)?,
     ...
-insert into <output stream>
 ```
 
 Keywords such as `and`, `or`, or `not` can be used to illustrate the logical relationship, similar to how it is done in **Logical Patterns**.
@@ -1792,13 +1721,13 @@ Keywords such as `and`, `or`, or `not` can be used to illustrate the logical rel
 This Stream application notifies the state when a regulator event is immediately followed by both temperature and humidity events.
 
 ```
-define stream TempStream(deviceID long, temp double);
-define stream HumidStream(deviceID long, humid double);
-define stream RegulatorStream(deviceID long, isOn bool);
+CREATE STREAM TempStream(deviceID long, temp double);
+CREATE STREAM HumidStream(deviceID long, humid double);
+CREATE STREAM RegulatorStream(deviceID long, isOn bool);
 
+insert into StateNotificationStream
 select e2.temp, e3.humid
-from every e1=RegulatorStream, e2=TempStream and e3=HumidStream
-insert into StateNotificationStream;
+from every e1=RegulatorStream, e2=TempStream and e3=HumidStream;
 ```
 
 ### Output rate limiting
@@ -1814,10 +1743,10 @@ This allows you to limit the output to avoid overloading the subsequent executio
 The syntax of an output rate limiting configuration is as follows:
 
 ```
+insert into <output stream>
 select <attribute name>, <attribute name>, ...
 from <input stream> ...
 output <rate limiting configuration>
-insert into <output stream>
 ```
 
 Stream supports three types of output rate limiting configurations as explained in the following table:
@@ -1843,11 +1772,11 @@ The possible values are as follows:
     In this example, the last temperature per sensor is emitted for every 10 events.
 
     <pre>
+    insert into LowRateTempStream
     select temp, deviceID
     from TempStreamselect
     group by deviceID
-    output last every 10 events
-    insert into LowRateTempStream;    </pre>
+    output last every 10 events;    </pre>
 
 + Returning events based on time
 
@@ -1856,9 +1785,9 @@ The possible values are as follows:
     In this example, emits all temperature events every 10 seconds  
 
     <pre>
+    insert into LowRateTempStream
     from TempStreamoutput
-    output every 10 sec
-    insert into LowRateTempStream;    </pre>
+    output every 10 sec;    </pre>
 
 + Returning a periodic snapshot of events
 
@@ -1868,9 +1797,9 @@ The possible values are as follows:
     This query emits a snapshot of the events in a time window of 5 seconds every 1 second.
 
     <pre>
+    insert into SnapshotTempStream
     from TempStream#window.time(5 sec)
-    output snapshot every 1 sec
-    insert into SnapshotTempStream;    </pre>
+    output snapshot every 1 sec;    </pre>
 
 
 ## Partition
@@ -1909,9 +1838,9 @@ A partition key can be generated in the following two methods:
     <pre>
     partition with ( deviceID of TempStream )
     begin
-        from TempStream#window.length(10)
+        insert into DeviceTempStream
         select roomNo, deviceID, max(temp) as maxTemp
-        insert into DeviceTempStream;
+        from TempStream#window.length(10);
     end;
     </pre>
 
@@ -1940,9 +1869,9 @@ A partition key can be generated in the following two methods:
                      roomNo < 1030 and roomNo >= 330 as 'officeRoom' or
                      roomNo < 330 as 'lobby' of TempStream)
     begin
-        from TempStream#window.time(10 min)
-        select roomNo, deviceID, avg(temp) as avgTemp
         insert into AreaTempStream
+        select roomNo, deviceID, avg(temp) as avgTemp
+        from TempStream#window.time(10 min)
     end;
     </pre>  
 
@@ -1963,13 +1892,13 @@ This partition calculates the average temperature of every 10 events for each se
 <pre>
 partition with ( deviceID of TempStream )
 begin
-    from TempStream#window.lengthBatch(10)
-    select roomNo, deviceID, avg(temp) as avgTemp
     insert into #AvgTempStream
+    select roomNo, deviceID, avg(temp) as avgTemp
+    from TempStream#window.lengthBatch(10)
 
-    from every (e1=#AvgTempStream),e2=#AvgTempStream[e1.avgTemp + 5 < avgTemp]
-    select e1.deviceID, e1.avgTemp as initialAvgTemp, e2.avgTemp as finalAvgTemp
     insert into DeviceTempIncreasingStream
+    select e1.deviceID, e1.avgTemp as initialAvgTemp, e2.avgTemp as finalAvgTemp
+    from every (e1=#AvgTempStream),e2=#AvgTempStream[e1.avgTemp + 5 < avgTemp]
 end;
 </pre>
 
@@ -1989,10 +1918,16 @@ The syntax of partition purge configuration is as follows:
 @purge(enable='true', interval='<purge interval>', idle.period='<idle period of partition instance>')
 partition with ( <partition key> of <input stream> )
 begin
+    insert into <output stream>
     select <attribute name>, <attribute name>, ...
     from <input stream> ...
-    insert into <output stream>
 end;
+```
+
+When using purge with an Aggregation, use a `WITH()` property instead. For example:
+
+```
+
 ```
 
 Partition purge configuration| Description
@@ -2008,19 +1943,19 @@ Mark partition instances eligible for purging, if there are no events from a par
 @purge(enable='true', interval='1 sec', idle.period='15 sec')
 partition with ( deviceID of TempStream )
 begin
+    insert into #AvgTempStream
     select roomNo, deviceID, avg(temp) as avgTemp
     from TempStream#window.lengthBatch(10)
-    insert into #AvgTempStream
 
+    insert into DeviceTempIncreasingStream
     select e1.deviceID, e1.avgTemp as initialAvgTemp, e2.avgTemp as finalAvgTemp
     from every (e1=#AvgTempStream),e2=#AvgTempStream[e1.avgTemp + 5 < avgTemp]
-    insert into DeviceTempIncreasingStream
 end;
 ```
 
 ## Table (Collection)
 
-A table is a stored version of an stream or a table of events. Its schema is defined via the **table definition** that is similar to a stream definition. These events are stored in c8db.
+A table is a stored version of an stream or a table of events. Its schema is defined via the **table definition** that is similar to a stream definition. These events are stored in database.
 
 **Purpose**
 
@@ -2031,7 +1966,7 @@ Tables allow stream processor to work with stored events. By defining a schema f
 The syntax for a new table definition is as follows:
 
 ```
-define table <table name> (<attribute name> <attribute type>, <attribute name> <attribute type>, ... );
+CREATE TABLE <table name> (<attribute name> <attribute type>, <attribute name> <attribute type>, ... );
 ```
 
 The following parameters are configured in a table definition:
@@ -2048,22 +1983,21 @@ The following parameters are configured in a table definition:
 The following defines a table named `RoomTypeTable` with `roomNo` and `type` attributes of data types `int` and `string` respectively.
 
 ```
-define table RoomTypeTable ( roomNo int, type string );
+CREATE TABLE RoomTypeTable ( roomNo int, type string );
 ```
 
 ### Primary Keys
 
 Tables can be configured with primary keys to avoid the duplication of data.
 
-Primary keys are configured by including the `@PrimaryKey( 'key1', 'key2' )` annotation to the table definition. Each event table configuration can have only one `@PrimaryKey` annotation. The number of attributes supported differ based on the table implementations. When more than one attribute is used for the primary key, the uniqueness of the events stored in the table is determined based on the combination of values for those attributes.
+Primary keys are configured by including the `PrimaryKey` property to the table definition. Each event table configuration can have only one `PrimaryKey` property. The number of attributes supported differ based on the table implementations. When more than one attribute is used for the primary key, the uniqueness of the events stored in the table is determined based on the combination of values for those attributes.
 
 **Examples**
 
 This query creates an event table with the `symbol` attribute as the primary key. Therefore each entry in this table must have a unique value for `symbol` attribute.
 
 ```
-@PrimaryKey('symbol')
-define table StockTable (symbol string, price float, volume long);
+CREATE TABLE StockTable WITH (PrimaryKey='symbol', Index='key1', Index='key2') (symbol string, price float, volume long);
 ```
 
 ### Indexes
@@ -2080,7 +2014,7 @@ This query creates an indexed event table named `RoomTypeTable` with the `roomNo
 
 ```
 @Index('roomNo')
-define table RoomTypeTable (roomNo int, type string);
+CREATE TABLE RoomTypeTable (roomNo int, type string);
 ```
 
 ### Store
@@ -2089,24 +2023,22 @@ Store is a table that refers to data/events stored in data stores outside of str
 
 **Purpose**
 
-Store allows stream processor to search, retrieve and manipulate data stored in c8db through stream queries.
+Store allows stream processor to search, retrieve and manipulate data stored in database through stream queries.
 
 **Syntax**
 
 The syntax for a defining store and it's associated table definition is as follows:
 
 ```
-@store(type='store_type', static.option.key1='static_option_value1', static.option.keyN='static_option_valueN')
-define table TableName (attribute1 Type1, attributeN TypeN);
+CREATE TABLE TableName WITH (store.type='store_type', static.option.key1='static_option_value1', static.option.keyN='static_option_valueN') (attribute1 Type1, attributeN TypeN);
 ```
 
 **Example**
 
-The following defines a c8db having a table `RoomTypeTable` with columns `roomNo` of `INTEGER` and `type` of `VARCHAR(255)` mapped to Stream data types `int` and `string` respectively.
+The following defines a database having a table `RoomTypeTable` with columns `roomNo` of `INTEGER` and `type` of `VARCHAR(255)` mapped to Stream data types `int` and `string` respectively.
 
 ```
-@Store(type="c8db", collection="RoomTypeTable")
-define table RoomTypeTable ( roomNo int, type string );
+CREATE TABLE RoomTypeTable WITH (Store.type="database", collection="RoomTypeTable") ( roomNo int, type string );
 ```
 
 **Operators on Table**
@@ -2124,9 +2056,9 @@ This allows events to be inserted into tables. This is similar to inserting even
 **Syntax**
 
 ```
+insert into <table>
 select <attribute name>, <attribute name>, ...
 from <input stream>
-insert into <table>
 ```
 
 Similar to streams, you need to use the `current events`, `expired events` or the `all events` keyword between `insert` and `into` keywords in order to insert only the specific event types.
@@ -2138,9 +2070,9 @@ For more information, see [Event Type](#event-type)
 This query inserts all the events from the `TempStream` stream to the `TempTable` table.
 
 ```
+insert into TempTable
 select *
-from TempStream
-insert into TempTable;
+from TempStream;
 ```
 
 ### Join (Table)
@@ -2153,10 +2085,10 @@ This allows a stream to retrieve information from a table in a streaming manner.
 **Syntax**
 
 ```
+insert into <output stream>
 select (<input stream>|<table>).<attribute name>, (<input stream>|<table>).<attribute name>, ...
 from <input stream> join <table>
     on <condition>
-insert into <output stream>
 ```
 
 !!! Note
@@ -2168,14 +2100,14 @@ insert into <output stream>
 This Stream App performs a join to retrieve the room type from `RoomTypeTable` table based on the room number, so that it can filter the events related to `server-room`s.
 
 ```
-define table RoomTypeTable (roomNo int, type string);
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE TABLE RoomTypeTable (roomNo int, type string);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
+insert into ServerRoomTempStream
 select deviceID, RoomTypeTable.type as roomType, type, temp
     having roomType == 'server-room'
 from TempStream join RoomTypeTable
-    on RoomTypeTable.roomNo == TempStream.roomNo
-insert into ServerRoomTempStream;
+    on RoomTypeTable.roomNo == TempStream.roomNo;
 ```
 
 **Supported join types**
@@ -2223,9 +2155,9 @@ To execute delete for specific event types, use the `current events`, `expired e
 In this example, the script deletes a record in the `RoomTypeTable` table if it has a value for the `roomNo` attribute that matches the value for the `roomNumber` attribute of an event in the `DeleteStream` stream.
 
 ```
-define table RoomTypeTable (roomNo int, type string);
+CREATE TABLE RoomTypeTable (roomNo int, type string);
 
-define stream DeleteStream (roomNumber int);
+CREATE STREAM DeleteStream (roomNumber int);
 
 from DeleteStream
 delete RoomTypeTable
@@ -2261,8 +2193,8 @@ To execute an update for specific event types use the `current events`, `expired
 This stream application updates the room occupancy in the `RoomOccupancyTable` table for each room number based on new arrivals and exits from the `UpdateStream` stream.
 
 ```
-define table RoomOccupancyTable (roomNo int, people int);
-define stream UpdateStream (roomNumber int, arrival int, exit int);
+CREATE TABLE RoomOccupancyTable (roomNo int, people int);
+CREATE STREAM UpdateStream (roomNumber int, arrival int, exit int);
 
 select *
 from UpdateStream
@@ -2302,8 +2234,8 @@ To execute update upon specific event types use the `current events`, `expired e
 The following query update for events in the `UpdateTable` event table that have room numbers that match the same in the `UpdateStream` stream. When such events are found in the event table, they are updated. When a room number available in the stream is not found in the event table, it is inserted from the stream.
 
 ```
-define table RoomAssigneeTable (roomNo int, type string, assignee string);
-define stream RoomAssigneeStream (roomNumber int, type string, assignee string);
+CREATE TABLE RoomAssigneeTable (roomNo int, type string, assignee string);
+CREATE STREAM RoomAssigneeStream (roomNumber int, type string, assignee string);
 
 select roomNumber as roomNo, type, assignee
 from RoomAssigneeStream
@@ -2319,9 +2251,9 @@ This allows the stream to check whether the expected value exists in the table a
 **Syntax**
 
 ```
+insert into <output stream>
 select <attribute name>, <attribute name>, ...
 from <input stream>[<condition> in <table>]
-insert into <output stream>
 ```
 
 The `condition` element specifies the basis on which events are selected to be compared. When constructing the `condition`, the table attribute must be always referred to with the table name as shown below:
@@ -2334,11 +2266,11 @@ The `condition` element specifies the basis on which events are selected to be c
 This Stream application filters only room numbers that are listed in the `ServerRoomTable` table.
 
 ```
-define table ServerRoomTable (roomNo int);
-define stream TempStream (deviceID long, roomNo int, temp double);
+CREATE TABLE ServerRoomTable (roomNo int);
+CREATE STREAM TempStream (deviceID long, roomNo int, temp double);
 
-from TempStream[ServerRoomTable.roomNo == roomNo in ServerRoomTable]
-insert into ServerRoomTempStream;
+insert into ServerRoomTempStream
+from TempStream[ServerRoomTable.roomNo == roomNo in ServerRoomTable];
 ```
 
 ## Named Aggregation
@@ -2346,7 +2278,7 @@ insert into ServerRoomTempStream;
 Named aggregation allows you to obtain aggregates in an incremental manner for a specified set of time periods.
 
 This not only allows you to calculate aggregations with varied time granularity, but also allows you to access them in an interactive
- manner for reports, dashboards, and for further processing. Its schema is defined via the **aggregation definition**.
+ manner for reports, dashboards, and for further processing. Its schema is defined via the *aggregation definition*.
 
 **Purpose**
 
@@ -2360,10 +2292,7 @@ Furthermore, this ensures that the aggregations are not lost due to unexpected s
 **Syntax**
 
 ```
-@store(type="<store type>", ...)
-@purge(enable="<true or false>",interval=<purging interval>,@retentionPeriod(<granularity> = <retention period>, ...) )
-
-define aggregation <aggregator name>
+CREATE AGGREGATION <aggregator name> WITH (store.type='<store type>', purge.enable='<true or false>', purge.interval='<purging interval>', purge.retention.period='<retention period>')
 from <input stream>
 select <attribute name>, <aggregate function>(<attribute name>) as <attribute name>, ...
     group by <attribute name>
@@ -2373,9 +2302,9 @@ The above syntax includes the following:
 
 |Item                          |Description
 ---------------                |---------
-|`@store`                      |This annotation is used to refer to the data store where the calculated <br/>aggregate results are stored. This annotation is optional. When <br/>no annotation is provided, the data is stored in the `in-memory` store.
-|`@purge`                      |This annotation is used to configure purging in aggregation granularities.<br/> If this annotation is not provided, the default purging mentioned above is applied.<br/> If you want to disable automatic data purging, you can use this annotation as follows:</br>'@purge(enable=false)</br>/You should disable data purging if the aggregation query in included in the Stream application for read-only purposes.
-|`@retentionPeriod`            |This annotation is used to specify the length of time the data needs to be retained when carrying out data purging.<br/> If this annotation is not provided, the default retention period is applied.
+|`store`                      |This annotation is used to refer to the data store where the calculated <br/>aggregate results are stored. This annotation is optional. When <br/>no annotation is provided, the data is stored in the `in-memory` store.
+|`purge`                      |This annotation is used to configure purging in aggregation granularities.<br/> If this annotation is not provided, the default purging mentioned above is applied.<br/> If you want to disable automatic data purging, you can use this annotation as follows:</br>`purge.enable='false'`</br>/You should disable data purging if the aggregation query in included in the Stream application for read-only purposes.
+|`purge.retention.Period`            |This annotation is used to specify the length of time the data needs to be retained when carrying out data purging.<br/> If this annotation is not provided, the default retention period is applied.
 |`<aggregator name>`           |This specifies a unique name for the aggregation so that it can be referred <br/>when accessing aggregate results.
 |`<input stream>`              |The stream that feeds the aggregation. **Note! this stream should be <br/>already defined.**
 |`group by <attribute name>`   |The `group by` clause is optional. If it is included in a Stream application, aggregate values <br/> are calculated per each `group by` attribute. If it is not used, all the<br/> events are aggregated together.
@@ -2404,10 +2333,9 @@ The above syntax includes the following:
 This Stream Application defines an aggregation named `TradeAggregation` to calculate the average and sum for the `price` attribute of events arriving at the `TradeStream` stream. These aggregates are calculated per every time granularity in the second-year range.
 
 ```sql
-define stream TradeStream (symbol string, price double, volume long, timestamp long);
+CREATE STREAM TradeStream (symbol string, price double, volume long, timestamp long);
 
-@purge(enable='true', interval='10 sec',@retentionPeriod(sec='120 sec',min='24 hours',hours='30 days',days='1 year',months='all',years='all'))
-define aggregation TradeAggregation
+CREATE AGGREGATION TradeAggregation WITH (purge.enable='true', purge.interval='10 sec', purge.retentionPeriod.sec='120 sec', purge.retentionPeriod.min='24 hours', purge.retentionPeriod.hours='30 days', purge.retentionPeriod.days='1 year', purge.retentionPeriod.months='all', purge.retentionPeriod.years='all')
   from TradeStream
   select symbol, avg(price) as avgPrice, sum(price) as total
     group by symbol
@@ -2422,8 +2350,7 @@ Distributed Aggregation allows you to partially process aggregations in differen
 
 ```
 @store(type="<store type>", ...)
-@PartitionById
-define aggregation <aggregator name>
+CREATE AGGREGATION <aggregator name> WITH (PartitionById.enable='false')
 select <attribute name>, <aggregate function>(<attribute name>) as <attribute name>, ...
     group by <attribute name>
     aggregate by <timestamp attribute> every <time periods> ;
@@ -2434,7 +2361,7 @@ Following table includes the `annotation` to be used to enable distributed aggre
 
 Item | Description
 ------|------
-`@PartitionById` | If the annotation is given, then the distributed aggregation is enabled. Further this can be disabled by using `enable` element, </br>`@PartitionById(enable='false')`.</br>
+`@artitionById` | If the property is given, then the distributed aggregation is enabled. Further this can be disabled by using `enable` element, </br>`PartitionById.enable='false'`.</br>
 
 
 Further, following system properties are also available,
@@ -2483,52 +2410,52 @@ The timestamp of the aggregations can be accessed through the `AGG_TIMESTAMP` at
 Following aggregation definition will be used for the examples.
 
 ```
-define stream TradeStream (symbol string, price double, volume long, timestamp long);
+CREATE STREAM TradeStream (symbol string, price double, volume long, timestamp long);
 
-define aggregation TradeAggregation
-  from TradeStream
-  select AGG_TIMESTAMP, symbol, avg(price) as avgPrice, sum(price) as total
+CREATE AGGREGATION TradeAggregation
+select AGG_TIMESTAMP, symbol, avg(price) as avgPrice, sum(price) as total
     group by symbol
-    aggregate by timestamp every sec ... year;
+    aggregate by timestamp every sec ... year
+from TradeStream;
 ```
 
 This query retrieves daily aggregations within the time range `"2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30"` (Please note that +05:30 can be omitted if timezone is GMT)
 
 ```
-define stream StockStream (symbol string, value int);
+CREATE STREAM StockStream (symbol string, value int);
 
+insert into AggregateStockStream
+select S.symbol, T.total, T.avgPrice
 from StockStream as S join TradeAggregation as T
   on S.symbol == T.symbol
   within "2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30"
-  per "days"
-select S.symbol, T.total, T.avgPrice
-insert into AggregateStockStream;
+  per "days";
 ```
 
 This query retrieves hourly aggregations within the day `2014-02-15`.
 
 ```
-define stream StockStream (symbol string, value int);
+CREATE STREAM StockStream (symbol string, value int);
 
+insert into AggregateStockStream
+select S.symbol, T.total, T.avgPrice
 from StockStream as S join TradeAggregation as T
   on S.symbol == T.symbol
   within "2014-02-15 **:**:** +05:30"
-  per "hours"
-select S.symbol, T.total, T.avgPrice
-insert into AggregateStockStream;
+  per "hours";
 ```
 
 This query retrieves all aggregations per `perValue` stream attribute within the time period between timestamps `1496200000000` and `1596434876000`.
 
 ```
-define stream StockStream (symbol string, value int, perValue string);
+CREATE STREAM StockStream (symbol string, value int, perValue string);
 
+insert into AggregateStockStream
+select S.symbol, T.total, T.avgPrice
 from StockStream as S join TradeAggregation as T
   on S.symbol == T.symbol
   within 1496200000000L, 1596434876000L
-  per S.perValue
-select S.symbol, T.total, T.avgPrice
-insert into AggregateStockStream;
+  per S.perValue;
 ```
 
 **Supported join types**
@@ -2560,7 +2487,7 @@ A named window is a window that can be shared across multiple queries. Events ca
 The syntax for a named window is as follows:
 
 ```
-define window <window name> (<attribute name> <attribute type>, <attribute name> <attribute type>, ... ) <window type>(<parameter>, <parameter>, …) <event type>;
+CREATE WINDOW <window name> (<attribute name> <attribute type>, <attribute name> <attribute type>, ... ) <window type>(<parameter>, <parameter>, …) <event type>;
 ```
 
 The following parameters are configured in a table definition:
@@ -2581,7 +2508,7 @@ The following parameters are configured in a table definition:
     In this query, the event type is not specified. Therefore, it returns both current and expired events as the output.
 
     ```
-    define window SensorWindow (name string, value float, roomNo int, deviceID string) timeBatch(1 second);
+    CREATE WINDOW SensorWindow (name string, value float, roomNo int, deviceID string) timeBatch(1 second);
     ```
 
 + Returning an output only when events expire from the window.
@@ -2589,7 +2516,7 @@ The following parameters are configured in a table definition:
     In this query, the event type of the window is `expired events`. Therefore, it only returns the events that have expired from the window as the output.
 
     ```
-    define window SensorWindow (name string, value float, roomNo int, deviceID string) timeBatch(1 second) output expired events;
+    CREATE WINDOW SensorWindow (name string, value float, roomNo int, deviceID string) timeBatch(1 second) output expired events;
     ```
 
 **Operators on Named Windows**
@@ -2603,9 +2530,9 @@ This allows events to be inserted into windows. This is similar to inserting eve
 **Syntax**
 
 ```
+insert into <window>
 select <attribute name>, <attribute name>, ...
 from <input stream>
-insert into <window>
 ```
 
 To insert only events of a specific event type, add the `current events`, `expired events` or the `all events` keyword between `insert` and `into` keywords (similar to how it is done for streams).
@@ -2617,12 +2544,12 @@ For more information, see [Event Type](#event-type).
 This query inserts all events from the `TempStream` stream to the `OneMinTempWindow` window.
 
 ```
-define stream TempStream(tempId string, temp double);
-define window OneMinTempWindow(tempId string, temp double) time(1 min);
+CREATE STREAM TempStream(tempId string, temp double);
+CREATE WINDOW OneMinTempWindow(tempId string, temp double) time(1 min);
 
+insert into OneMinTempWindow
 select *
-from TempStream
-insert into OneMinTempWindow;
+from TempStream;
 ```
 
 ### Join (Window)
@@ -2635,10 +2562,10 @@ To allow a stream to retrieve information from a window based on a condition.
 **Syntax**
 
 ```sql
+insert into <output stream>
 select (<input stream>|<window>).<attribute name>, (<input stream>|<window>).<attribute name>, ...
 from <input stream> join <window>
     on <condition>
-insert into <output stream>
 ```
 
 **Example**
@@ -2646,13 +2573,13 @@ insert into <output stream>
 This Stream Application performs a join count the number of temperature events having more then 40 degrees within the last 2 minutes.
 
 ```
-define window TwoMinTempWindow (roomNo int, temp double) time(2 min);
-define stream CheckStream (requestId string);
+CREATE WINDOW TwoMinTempWindow (roomNo int, temp double) time(2 min);
+CREATE STREAM CheckStream (requestId string);
 
+insert into HighTempCountStream
 select requestId, count(T.temp) as count
 from CheckStream as C join TwoMinTempWindow as T
-    on T.temp > 40
-insert into HighTempCountStream;
+    on T.temp > 40;
 ```
 
 **Supported join types**
@@ -2689,9 +2616,9 @@ Note !!!
 **Syntax**
 
 ```sql
+insert into <output stream>
 select <attribute name>, <attribute name>, ...
 from <window>
-insert into <output stream>
 ```
 
 **Example**
@@ -2699,11 +2626,11 @@ insert into <output stream>
 This Stream Application calculates the maximum temperature within the last 5 minutes.
 
 ```
-define window FiveMinTempWindow (roomNo int, temp double) time(5 min);
+CREATE WINDOW FiveMinTempWindow (roomNo int, temp double) time(5 min);
 
+insert into MaxSensorReadingStream
 select max(temp) as maxValue, roomNo
-from FiveMinTempWindow
-insert into MaxSensorReadingStream;
+from FiveMinTempWindow;
 ```
 
 ## Trigger
@@ -2721,13 +2648,13 @@ A trigger can be performed for a `'start'` operation, for a given `<time interva
 The syntax for a trigger definition is as follows.
 
 ```
-define trigger <trigger name> at ('start'| every <time interval>| '<cron expression>');
+CREATE TRIGGER <trigger name> at ('start'| every <time interval>| '<cron expression>');
 ```
 
 Similar to streams, triggers can be used as inputs. They adhere to the following stream definition and produce the `triggered_time` attribute of the `long` type.
 
 ```
-define stream <trigger name> (triggered_time long);
+CREATE STREAM <trigger name> (triggered_time long);
 ```
 
 The following types of triggeres are currently supported:
@@ -2746,7 +2673,7 @@ The following types of triggeres are currently supported:
     The following query triggers events every 5 minutes.
 
     ```
-    define trigger FiveMinTriggerStream at every 5 min;
+    CREATE TRIGGER FiveMinTriggerStream at every 5 min;
     ```
 
 + Triggering events at a specific time on specified days
@@ -2754,7 +2681,7 @@ The following types of triggeres are currently supported:
     The following query triggers an event at 10.15 AM on every weekdays.
 
     ```
-    define trigger FiveMinTriggerStream at '0 15 10 ? * MON-FRI';
+    CREATE TRIGGER FiveMinTriggerStream at '0 15 10 ? * MON-FRI';
     ```
 
 ## Script
@@ -2799,11 +2726,11 @@ define function concatFn[javascript] return string {
     return responce;
 };
 
-define stream TempStream(deviceID long, roomNo int, temp double);
+CREATE STREAM TempStream(deviceID long, roomNo int, temp double);
 
+insert into DeviceTempStream
 select concatFn(roomNo,'-',deviceID) as id, temp
-from TempStream
-insert into DeviceTempStream;
+from TempStream;
 ```
 
 ## Store Query
@@ -2816,8 +2743,8 @@ Store queries allow you to execute the following operations on Stream tables, wi
 
 Queries supported for tables:
 
-* SELECT
 * INSERT
+* SELECT
 * DELETE
 * UPDATE
 * UPDATE OR INSERT
@@ -2859,9 +2786,9 @@ select <attribute name>, <attribute name>, ...
 This query retrieves room numbers and types of the rooms starting from room no 10.
 
 ```
+select roomNo, type
 from roomTypeTable
 on roomNo >= 10;
-select roomNo, type
 ```
 
 ### _(Aggregation)_ Select
@@ -2888,32 +2815,32 @@ select <attribute name>, <attribute name>, ...
 Following aggregation definition will be used for the examples.
 
 ```
-define stream TradeStream (symbol string, price double, volume long, timestamp long);
+CREATE STREAM TradeStream (symbol string, price double, volume long, timestamp long);
 
-define aggregation TradeAggregation
-  from TradeStream
+CREATE AGGREGATION TradeAggregation
   select symbol, avg(price) as avgPrice, sum(price) as total
     group by symbol
-    aggregate by timestamp every sec ... year;
+    aggregate by timestamp every sec ... year
+  from TradeStream;
 ```
 
 This query retrieves daily aggregations within the time range `"2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30"` (Please note that +05:30 can be omitted if timezone is GMT)
 
 ```
+select symbol, total, avgPrice 
 from TradeAggregation
   within "2014-02-15 00:00:00 +05:30", "2014-03-16 00:00:00 +05:30"
-  per "days"
-select symbol, total, avgPrice ;
+  per "days";
 ```
 
 This query retrieves hourly aggregations of "FB" symbol within the day `2014-02-15`.
 
 ```
+select symbol, total, avgPrice
 from TradeAggregation
   on symbol == "FB"
   within "2014-02-15 **:**:** +05:30"
-  per "hours"
-select symbol, total, avgPrice;
+  per "hours";
 ```
 
 ### Insert
@@ -2923,8 +2850,8 @@ This allows you to insert a new record to the table with the attribute values yo
 **Syntax**
 
 ```
-select <attribute name>, <attribute name>, ...
-insert into <table>;
+insert into <table>
+select <attribute name>, <attribute name>, ...;
 ```
 
 **Example**
@@ -2933,8 +2860,8 @@ This store query inserts a new record to the table `RoomOccupancyTable`, with th
 
 
 ```
-select 10 as roomNo, 2 as people
 insert into RoomOccupancyTable
+select 10 as roomNo, 2 as people
 ```
 
 ### Delete
