@@ -213,6 +213,7 @@ nav:
       - GeoSpatial: cep/reference/geospatial.md
       - Query Guide: cep/reference/query-guide.md
       - Functions: cep/reference/functions.md
+      - Query Language Syntax Update: cep/reference/query-language-update.md
       - Extensions:
         - Execution:
           - Context: cep/reference/extensions/execution/context.md
