@@ -121,7 +121,7 @@ Let's say we have two vertex collections, `Users` and `Groups`. Documents in the
 
 We can use an edge collection to store relations between users and groups. Since multiple users may be in an arbitrary number of groups, this is an **m:n** relation. The edge collection can be called `UsersInGroups` with i.e. one edge with `_from` pointing to `Users/John` and `_to` pointing to `Groups/BowlingGroupHappyPin`. This makes the user **John** a member of the group **Bowling Group Happy Pin**. Attributes of this relation may contain qualifiers to this relation, like the permissions of **John** in this group, the date when he joined the group etc.
 
-![User in group example](../images/graph_user_in_group.png)
+<!-- ![User in group example](images/graph_user_in_group.png) -->
 
 So roughly put, if you use documents and their attributes in a sentence, nouns would typically be vertices, verbs become the edges.
 
@@ -145,7 +145,7 @@ You can use the `add samples` tab in the `create graph` window in the web interf
 ### The Knows\_Graph
 
 A set of persons knowing each other:
-![Persons relation Example Graph](../images/knows_graph.png)
+![Persons relation Example Graph](images/knows_graph.png)
 
 The *knows* graph consists of one *vertex collection* `persons` connected via one *edge collection* `knows`.
 It will contain five persons *Alice*, *Bob*, *Charlie*, *Dave* and *Eve*.
@@ -164,7 +164,7 @@ We will have the following directed relations:
 
 A set of persons and their relations:
 
-![Social Example Graph](../images/social_graph.png)
+![Social Example Graph](images/social_graph.png)
 
 This example has female and male persons as *vertices* in two *vertex collections* - `female` and `male`. The *edges* are their connections in the `relation` *edge collection*.
 
@@ -172,7 +172,7 @@ This example has female and male persons as *vertices* in two *vertex collection
 
 A set of european cities, and their fictional traveling distances as connections:
 
-![Cities Example Graph](../images/cities_graph.png)
+![Cities Example Graph](images/cities_graph.png)
 
 The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. 
 
@@ -180,7 +180,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
 
-![Traversal Graph](../images/traversal_graph.png)
+![Traversal Graph](images/traversal_graph.png)
 
 The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
 
@@ -195,13 +195,13 @@ The vertices in this graph are train stations of cities in Europe and
 North America and the edges represent train connections between them,
 with the travel time for both directions as edge weight.
 
-![Train Connection Map](../images/train_map.png)
+![Train Connection Map](images/train_map.png)
 
 See the [k Shortest Paths page](../documents/c8ql/query-patterns/graphs-kshortest-paths) for query examples.
 
 ### The World Graph
 
-![World Graph](../images/world_graph.png)
+<!-- ![World Graph](images/world_graph.png) -->
 
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
 
@@ -211,7 +211,7 @@ It is used to demonstrate raw traversal operations.
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](../documents/c8ql/query-patterns/multiple-path-search) use case.
 
-![Mps Graph](../images/mps_graph.png)
+<!-- ![Mps Graph](images/mps_graph.png) -->
 
 The example graph consists of *vertices* in the `mps_verts` collection and *edges* in the `mps_edges` collection. It is a simple traversal graph with start node *A* and end node *C*.
 
@@ -225,7 +225,7 @@ A lot of graph functions accept a vertex (or edge) example as parameter as defin
 
 Examples will explain the API on the [the city graph](graphs.html#the-city-graph):
 
-![Social Example Graph](../images/cities_graph.png)
+![Social Example Graph](images/cities_graph.png)
 
 ### Get vertex *from* of an edge
 
