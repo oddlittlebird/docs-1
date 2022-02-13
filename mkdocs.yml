@@ -328,6 +328,6 @@ nav:
 
 
 # Google Analytics
-google_analytics:
-  - UA-133170545-1
-  - auto
+# google_analytics:
+#   - UA-133170545-1
+#   - auto
