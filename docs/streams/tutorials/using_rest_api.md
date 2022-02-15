@@ -43,7 +43,7 @@ It provides,
     # Constants
 
     FEDERATION = "gdn.paas.macrometa.io"
-    FED_URL = "https://{}".format(FEDERATION)
+    FED_URL = "https://api-{}".format(FEDERATION)
     EMAIL = "nemo@nautilus.com"
     PASSWORD = "xxxxxx"
     FABRIC = "_system"
@@ -80,17 +80,17 @@ It provides,
 
     # Create a stream
     # Note:- For a global stream pass global=true and global=false for local stream
-    url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "'?global=true"
+    url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "?global=true"
     resp = session.post(url)
     print("\nStream Created: ", resp.text)
 
     # Publish Messages
-    /# Send message in body
-    url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "/publish'?global=true"
+    # Send message in body
+    url = FED_URL + "/_fabric/" + FABRIC + "/streams/" + STREAM_NAME + "/publish?global=true"
     resp = session.post(url)
     print("\nStream Created: ", resp.text)
 
-    or
+    # or
 
     stream_type = "c8local"
     producerurl = "wss://" + FEDERATION + "/_ws/ws/v2/producer/persistent/" + TENANT_NAME +\

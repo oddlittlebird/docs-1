@@ -442,7 +442,6 @@ Query as API (aka RESTQL) enables developers to quickly convert saved C8QL queri
 
 
 === "Python"
-
     ``` py
     from c8 import C8Client
 

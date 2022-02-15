@@ -258,19 +258,15 @@ In this example, we update a stream application to store the input data into its
 
 ``` py
 
-client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
+from c8 import C8Client
 
-# For the "mytenant" tenant, connect to "test" fabric as tenant admin.
-# This returns an API wrapper for the "test" fabric on tenant 'mytenant'
-# Note that the 'mytenant' tenant should already exist.
-tenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
-fabric = tenant.useFabric('_system')
+client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, email='nemo@nautilus.com', password='xxxxx', geofabric='_system')
 
 # To operate on created apps, you need to create an instance of the app
-app = fabric.stream_app("Sample-Cargo-App")
+app = client.stream_app("Sample-Cargo-App")
 
 # Update the app using
-data = "@App:name('Sample-Cargo-App') @App:qlVersion("2")
+data = """@App:name('Sample-Cargo-App') @App:qlVersion('2')
 
 	-- Stream
 CREATE SOURCE STREAM srcCargoStream (weight int);
@@ -282,7 +278,7 @@ CREATE TABLE destCargoTable (weight int, totalWeight long);
 @info(name='Query')
 INSERT INTO destCargoTable
 SELECT weight, sum(weight) as totalWeight
-FROM srcCargoStream;"
+FROM srcCargoStream;"""
 regions = []
 result = fabric.update(data,regions)
 print(result)
@@ -373,16 +369,10 @@ Refer example at the end of the page.
 
     ``` py
 
-    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
-
-    # For the "mytenant" tenant, connect to "test" fabric as tenant admin.
-    # This returns an API wrapper for the "test" fabric on tenant 'mytenant'
-    # Note that the 'mytenant' tenant should already exist.
-    tenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
-    fabric = tenant.useFabric('_system')
+    client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, email='nemo@nautilus.com', password='xxxxx', geo_fabric='_system')
 
     # To operate on created apps, you need to create an instance of the app
-    app = fabric.stream_app("Sample-Cargo-App")
+    app = client.create_stream_app("Sample-Cargo-App")
 
     # fire query on app using
     q = "select * from SampleCargoAppDestTable limit 3"
@@ -512,12 +502,10 @@ The following example uses the code snippets provided in this tutorial.
 
     try:
         print("--- Connecting to C8")
-        client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443)
+        client = C8Client(protocol='https', host='gdn.paas.macrometa.io', port=443, email='nemo@nautilus.com', password='xxxxx')
 
-        demotenant = client.tenant(email='nemo@nautilus.com', password='xxxxx')
         print("--- Get geo fabric details")
-        fabric = demotenant.useFabric('_system')
-        print(fabric.fabrics_detail())
+        print(client.get_fabric_details())
 
         stream_app_definition = """
         @App:name('Sample-Cargo-App')
@@ -557,17 +545,17 @@ The following example uses the code snippets provided in this tutorial.
         """
 
         print("--- Validating Stream Application Definition")
-        result = fabric.validate_stream_app(stream_app_definition)
+        result = client.validate_stream_app(stream_app_definition)
         assert result is not False, "Stream application definition is invalid."
 
         # The stream app will be created by default in the local region. Optionally, you can send dclist to deploy stream
         # app in all / selected regions
         print("--- Creating Stream Application")
-        result = fabric.create_stream_app(stream_app_definition, dclist=[])
+        result = client.create_stream_app(stream_app_definition, dclist=[])
         assert result is not False, "Unable to create stream application"
 
         print("--- Getting Stream Application instance `Sample-Cargo-App`")
-        app = fabric.stream_app("Sample-Cargo-App")
+        app = client.get_stream_app("Sample-Cargo-App")
         result = app.get()
         assert result is not False, "Unable to access stream application `Sample-Cargo-App`"
 
@@ -647,7 +635,7 @@ The following example uses the code snippets provided in this tutorial.
         assert result is not False, "Unable to delete Stream Application `Sample-Cargo-App`"
 
         print("--- You can try out several Stream Apps which are pre-loaded and ready to run.")
-        result = fabric.get_samples_stream_app()
+        result = client.get_stream_app_samples()
         assert result is not False, "Unable to load Sample Stream Applications"
         print('Sample Stream Applications')
         print(result)

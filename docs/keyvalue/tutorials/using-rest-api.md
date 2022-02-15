@@ -63,15 +63,15 @@ Create a KV collection.
 
     ```py
     # Create a collection
-
+    COLLECTION_NAME = "students"
     url = FED_URL + "/_api/kv/" + COLLECTION_NAME
 
     resp = session.post(url, data = json.dumps(payload))
-    resp = json.loads(resp.text)
-    if "error" in resp.keys():
+    resp = resp.json()
+    if 'error' in resp and resp['error']:
         print("ERROR: " + resp['errorMessage'])
     else:
-        print("\nCollection Created: ", resp.text)
+        print("\nCollection Created: ", resp["name"])
 
 
     ```
