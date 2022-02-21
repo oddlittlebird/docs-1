@@ -16,11 +16,13 @@ A collection name identifies a collection in a database. It is a string and is u
 
 ## GeoFabric
 
-Macrometa GDN can handle multiple Geofabrics in the same server instance. Geofabrics can be used to logically group and separate data. A Macrometa GDN Geofabrics consists of collections and dedicated geofabric-specific worker processes within each region the geo-fabric is present.
+Macrometa GDN can handle multiple GeoFabrics in the same server instance. GeoFabrics can be used to logically group and separate data. A Macrometa GDN GeoFabric consists of collections and dedicated worker processes within each region the GeoFabric is present.
 
-A geofabric contains its own collections (which cannot be accessed from other geofabrics). Each Macrometa GDN geofabric contains its own system collections (e.g. _users, _replication, ...).
+A GeoFabric contains its own collections (which cannot be accessed from other GeoFabrics). Each Macrometa GDN GeoFabric contains its own system collections (e.g. _users, _replication, ...).
 
-There will always be at least one geofabric in Macrometa GDN. This is the default geofabric, named _system. This geofabric cannot be dropped, and provides special operations for creating, dropping, and enumerating geofabrics. Users can create additional geofabric and give them unique names to access them later. Geofabric management operations cannot be initiated from out of user-defined geofabrics.
+By default, there is always at least one GeoFabric in Macrometa GDN named `_system`. This geofabric cannot be dropped, and provides special operations for creating, dropping, and enumerating GeoFabrics. You can create GeoFabrics and give them unique names to access them later. GeoFabric management operations can only be performed in the `_system` GeoFabric.
+
+For more information about GeoFabrics, refer to our blog post [Introducing GeoFabrics](https://www.macrometa.com/blog/introducing-geofabrics).
 
 ## GeoFabric Name
 
