@@ -302,7 +302,7 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
-    - Macrometa OTT app: demos/ott-app.md
+    - OTT App: demos/ott-app.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Data Privacy: demos/data-privacy.md
     - Bookstore: demos/cf-bookstore.md

@@ -1,4 +1,4 @@
-# Macrometa OTT app
+# Macrometa OTT App
 
 A geo-distributed Netflix clone running at the edge with low latency providing superior experience to users.
 
