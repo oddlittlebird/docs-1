@@ -118,7 +118,6 @@ nav:
       - Tutorials:
         - Using Rest API: keyvalue/tutorials/using-rest-api.md
         - Bulk Update with RestQL: keyvalue/tutorials/bulk-update-restql.md
-        # - ToDo App (CloudFlare): keyvalue/tutorials/todo-app-cfworkers.md
     - Documents:
       - Quick Start: documents/quickstart.md
       - Tutorials:
@@ -303,7 +302,7 @@ nav:
   - Demos & Tutorials:
     - Address Book: demos/address-book.md
     - Crypto Trading: demos/crypto-trading.md
-    - MetaFlix: demos/meta-flix.md
+    - Macrometa OTT app: demos/ott-app.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
     - Data Privacy: demos/data-privacy.md
     - Bookstore: demos/cf-bookstore.md
@@ -319,6 +318,7 @@ nav:
     - Credit Card Fraud: demos/credit-card-fraud.md
     - Polling App (Gatsby): demos/jamstack-gatsby.md
     - Working with Cloudflare Workers: demos/cloudflare-workers.md
+    - ToDo App (CloudFlare): demos/todo-app-cfworkers.md
     - Dynamo Mode: demos/dynamo.md
     - C8QL Examples: demos/c8ql-examples.md
     # - Task Tracking App (Netlify): demos/task-tracking.md
