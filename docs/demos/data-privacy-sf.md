@@ -5,18 +5,25 @@ Macrometa Lead Management Portal is a lead management `admin` and `user` portal 
 
 ## Setup
 
-| **Federation**                                        | **Email**                              | **Passsword** | **App**|
-| ----------------------------------------------------- | -------------------------------------- | ------------- |--------------|
-| [Global Data Network](https://gdn.paas.macrometa.io/) | demo@macrometa.io | `xxxx`    | [User Management Portal](https://sf-pii.macrometa.io/) |
+| **Federation**                                        | **Email**                              | **Passsword** |
+| ----------------------------------------------------- | -------------------------------------- | ------------- |
+| [Global Data Network](https://gdn.paas.macrometa.io/) | demo@macrometa.io | `dexxxxxxx`    |
+
+| **Salesforce Web Console URL**                                        | **Email**                              | **Passsword** |
+| ----------------------------------------------------- | -------------------------------------- | ------------- |
+| [Salesforce web console](https://macrometa-dev-ed.lightning.force.com/) | salesforce@macrometa.com | `Welxxxxx3!`    |
+
 
 **Dataset: [sf-pii-users.csv](../demos/datasets/sf-pii-users.csv)**
 
 
-## Solution
+## Solution Architecture
+
+<img title="Solution Architecture" alt="Solution Architecture" src="../images/sf-pii-architecture.png">
 
 * Fabrics
-    * `pii_eu` -- EU Fabric
-    * `pii_global` - Global Fabric
+    * `pii_eu_sf` -- EU Fabric
+    * `pii_global_sf` - Global Fabric
 
 * Stream Workers
     * `DataAnonymizer`
@@ -27,7 +34,7 @@ Macrometa Lead Management Portal is a lead management `admin` and `user` portal 
     * EU - `sharedrecords`
     * EU - `audit`
     * Global - `users`
-    * Global - `locations`
+    * Global - `user_lead_info`
 
 **GitHub**
 
