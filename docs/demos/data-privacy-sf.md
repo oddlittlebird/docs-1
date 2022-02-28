@@ -5,6 +5,10 @@ Macrometa Lead Management Portal is a lead management `admin` and `user` portal 
 
 ## Setup
 
+* **Dashboard: https://sf-pii.macrometa.io/**
+* **Dataset: [sf-pii-users.csv](../demos/datasets/sf-pii-users.csv)**
+
+
 | **Federation**                                        | **Email**                              | **Passsword** |
 | ----------------------------------------------------- | -------------------------------------- | ------------- |
 | [Global Data Network](https://gdn.paas.macrometa.io/) | demo@macrometa.io | `dexxxxxxx`    |
@@ -13,8 +17,6 @@ Macrometa Lead Management Portal is a lead management `admin` and `user` portal 
 | ----------------------------------------------------- | -------------------------------------- | ------------- |
 | [Salesforce web console](https://macrometa-dev-ed.lightning.force.com/) | salesforce@macrometa.com | `Welxxxxx3!`    |
 
-
-**Dataset: [sf-pii-users.csv](../demos/datasets/sf-pii-users.csv)**
 
 
 ## Solution Architecture
