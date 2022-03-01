@@ -154,7 +154,7 @@ Validate the stream application for syntax errors before saving.
 	"""
 
     print("--- Validating Stream Application Definition")
-    print(client.validate_stream_app(data=script_app))
+    print(client.validate_stream_app(data=stream_app_definition))
     ```
 
 === "Javascript"
@@ -211,7 +211,7 @@ By default, the stream application saves in the local region. Optionally, you ca
 
     ``` py
     print("--- Creating Stream Application")
-    print(client.create_stream_app(data=script_app))
+    print(client.create_stream_app(data=stream_app_definition))
     ```
 
 === "Javascript"
