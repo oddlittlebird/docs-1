@@ -42,4 +42,4 @@ To enable unique URLs for each GeoFabric:
 
 1. Log into an administrator account in the `_system` GeoFabric.
 2. Click **TENANTS** to navigate to the Tenants management page.
-3. Select the **Enable GeoFabrics** check box.
+3. On the **Platform Limits** tab, select the **Enable GeoFabrics** check box.
