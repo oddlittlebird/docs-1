@@ -1,4 +1,4 @@
-# PostHog Analytics
+# PostHog Analytics Integration
 
 You can use [PostHog](https://posthog.com) with your Macrometa GDN tenants to quickly and easily capture usage data for your applications and make them readily available to anybody who needs it.
 
@@ -11,7 +11,7 @@ You can use [PostHog](https://posthog.com) with your Macrometa GDN tenants to qu
 
 To enable PostHog analytics in your tenant:
 
-1. Follow the Integrate PostHog documentation for [JavaScript](https://posthog.com/docs/self-host/configure/securing-posthog) or [Node.js](https://posthog.com/docs/integrate/server/node). **``JAMES: Any specifics we need to mention here, or can they follow these steps as-is?``**
+1. Follow the Integrate PostHog documentation for [JavaScript](https://posthog.com/docs/self-host/configure/securing-posthog) or [Node.js](https://posthog.com/docs/integrate/server/node).
 2. In Macrometa GDN, log into an administrator account in the `_system` GeoFabric.
 3. Click **TENANTS** to navigate to the Tenants management page.
 4. On the **Platform Limits** tab, select the **Enable PostHog Analytics** check box.
