@@ -304,6 +304,7 @@ nav:
     - Crypto Trading: demos/crypto-trading.md
     - OTT App: demos/ott-app.md
     - Realtime Log Analytics: demos/realtime-log-analytics.md
+    - PostHog Analytics Integration: demos/posthog.md
     - Salesforce Edge Caching & Privacy: demos/data-privacy-sf.md
     - Data Privacy: demos/data-privacy.md
     - Bookstore: demos/cf-bookstore.md
