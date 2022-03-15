@@ -25,7 +25,7 @@ Refer to the following sections for more details:
 * [Define Trigger](#define-trigger)
 * [Define Sinks](#define-sinks)
 * [Define Sources](#define-sources)
-* [Define Stores](#define-stoes)
+* [Define Stores](#define-stores)
 * [Define Named Windows](#define-named-windows)
 * [Define Functions](#define-functions)
 * [Define Stream As Select](#define-stream-as-select)
