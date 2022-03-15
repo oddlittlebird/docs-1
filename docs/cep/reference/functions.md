@@ -23,7 +23,7 @@ EXAMPLE 1
 ```js
     insert into alertStream
     select and(isFraud) as isFraudTransaction
-    from cscStream#window.lengthBatch(10);
+    from cscStream WINDOW TUMBLING_LENGTH(10);
 ```
 
 This will returns the result for AND operation of isFraud values as a boolean value for event chunk expiry by window length batch.
@@ -49,7 +49,7 @@ EXAMPLE 1
 ```js
     insert into barStream
     select avg(temp) as avgTemp
-    from fooStream#window.timeBatch;
+    from fooStream WINDOW TUMBLING_TIME;
 ```
 
 avg(temp) returns the average temp value for all the events based on their arrival and expiry.
@@ -76,7 +76,7 @@ EXAMPLE 1
 ```js
     insert into barStream
     select count() as count
-    from fooStream#window.timeBatch(10 sec);
+    from fooStream WINDOW TUMBLING_TIME(10 sec);
 ```
 
 This will return the count of all the events for time batch in 10 seconds.
@@ -138,7 +138,7 @@ EXAMPLE 1
 ```js
     insert into barStream
     select max(temp) as maxTemp
-    from fooStream#window.timeBatch(10 sec);
+    from fooStream WINDOW TUMBLING_TIME(10 sec);
 ```
 
 max(temp) returns the maximum temp value recorded for all the events based on their arrival and expiry.
@@ -242,7 +242,7 @@ EXAMPLE 1
 ```js
     insert into alertStream
     select or(isFraud) as isFraudTransaction
-    from cscStream#window.lengthBatch(10);
+    from cscStream WINDOW TUMBLING_LENGTH(10);
 ```
 
 This will returns the result for OR operation of isFraud values as a boolean value for event chunk expiry by window length batch.
@@ -322,7 +322,7 @@ EXAMPLE 1
 
     insert into distinctStockStream
     select unionSet(initialSet) as distinctSymbols
-    from initStream#window.timeBatch(10 sec);
+    from initStream WINDOW TUMBLING_TIME(10 sec);
 ```
 
 `distinctStockStream` will return the set object which contains the distinct set of stock symbols received during a sliding window of 10 seconds.
@@ -854,7 +854,7 @@ EXAMPLE 1
 
     insert into distinctStockStream
     select union(initialSet) as distinctSymbols
-    from initStream#window.timeBatch(10 sec);
+    from initStream WINDOW TUMBLING_TIME(10 sec);
 
     insert into sizeStream
     select sizeOfSet(distinctSymbols) sizeOfSymbolSet
@@ -984,7 +984,7 @@ EXAMPLE 1
     CREATE STREAM consumerItemStream (itemId string, price float)
     insert into outputStream
     select price, str:groupConcat(itemId) as itemIds
-    from consumerItemStream#window.batch()
+    from consumerItemStream WINDOW TUMBLING()
     group by price;
 
 This will output comma separated items IDs that have the same price for each incoming batch of events.
@@ -1163,7 +1163,7 @@ EXAMPLE 1
 
     @info(name = 'query1')
     select cardNo, price
-    from purchase[price >= 30]#window.frequent(2)
+    from purchase[price >= 30] WINDOW FREQUENT(2)
     insert all events into PotentialFraud;
 
 This will returns the 2 most frequent events.
@@ -1172,7 +1172,7 @@ EXAMPLE 2
 
     @info(name = 'query1')
     select cardNo, price
-    from purchase[price >= 30]#window.frequent(2, cardNo)
+    from purchase[price >= 30] WINDOW FREQUENT(2, cardNo)
     insert all events into PotentialFraud;
 
 This will returns the 2 latest events with the most frequently appeared card numbers.
@@ -1337,7 +1337,7 @@ EXAMPLE 1
     @info(name='query1)
     insert into OutputStream
     select user, sum(quantity) as totalQuantity, sum(price) as totalPrice
-    from PurchaseEventStream#window.session(5 sec, user)
+    from PurchaseEventStream WINDOW SESSION(5 sec, user)
     group by user;
 
 From the events arriving at the PurchaseEventStream, a session window with 5 seconds session gap is processed based on `user` attribute as the session group identification key. All events falling into the same session are aggregated based on `user` attribute, and outputted to the OutputStream.
@@ -1349,7 +1349,7 @@ EXAMPLE 2
     @info(name='query2)
     insert into OutputStream
     select user, sum(quantity) as totalQuantity, sum(price) as totalPrice
-    from PurchaseEventStream#window.session(5 sec, user, 2 sec)
+    from PurchaseEventStream WINDOW SESSION(5 sec, user, 2 sec)
     group by user;
 
 From the events arriving at the PurchaseEventStream, a session window with 5 seconds session gap is processed based on `user` attribute as the session group identification key. This session window is kept active for 2 seconds after the session expiry to capture late (out of order) event arrivals. If the event timestamp falls in to the last session the session is reactivated. Then all events falling into the same session are aggregated based on `user` attribute, and outputted to the OutputStream.
@@ -1553,7 +1553,7 @@ QUERY PARAMETERS
 EXAMPLE 1
 
     select json:group("json") as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as
@@ -1565,7 +1565,7 @@ to the `OutputStream`.
 EXAMPLE 2
 
     select json:group("json", true) as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as
@@ -1576,7 +1576,7 @@ When we input events having values for the `json` as
 EXAMPLE 3
 
     select json:group("json", "result") as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as
@@ -1588,7 +1588,7 @@ to the `OutputStream`.
 EXAMPLE 4
 
     select json:group("json", "result", true) as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as `{"date":"2013-11-19","time":"10:30"}` and `{"date":"2013-11-19","time":"10:30"}`, it returns `{"result":[{"date":"2013-11-19","time":"10:30"}]}` to the `OutputStream`.
@@ -1615,7 +1615,7 @@ QUERY PARAMETERS
 EXAMPLE 1
 
     select json:groupAsObject("json") as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as `{"date":"2013-11-19","time":"10:30"}` and `{"date":"2013-11-19","time":"12:20"}`, it returns `[{"date":"2013-11-19","time":"10:30"}{"date":"2013-11-19","time":"12:20"}]` to the `OutputStream`.
@@ -1623,7 +1623,7 @@ When we input events having values for the `json` as `{"date":"2013-11-19","time
 EXAMPLE 2
 
     select json:groupAsObject("json", true) as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as `{"date":"2013-11-19","time":"10:30"}` and `{"date":"2013-11-19","time":"10:30"}`, it returns `[{"date":"2013-11-19","time":"10:30"}]` to the `OutputStream`.
@@ -1631,7 +1631,7 @@ When we input events having values for the `json` as `{"date":"2013-11-19","time
 EXAMPLE 3
 
     select json:groupAsObject("json", "result") as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as `{"date":"2013-11-19","time":"10:30"}` and `{"date":"2013-11-19","time":"12:20"}`, it returns `{"result":[{"date":"2013-11-19","time":"10:30"},{"date":"2013-11-19","time":"12:20"}}` to the `OutputStream`.
@@ -1639,7 +1639,7 @@ When we input events having values for the `json` as `{"date":"2013-11-19","time
 EXAMPLE 4
 
     select json:groupAsObject("json", "result", true) as groupedJSONArray
-    from InputStream#window.length(5)
+    from InputStream WINDOW SLIDING_LENGTH(5)
     input OutputStream;
 
 When we input events having values for the `json` as `{"date":"2013-11-19","time":"10:30"}` and `{"date":"2013-11-19","time":"10:30"}`, it returns `{"result":[{"date":"2013-11-19","time":"10:30"}]}` to the `OutputStream`.
@@ -2115,7 +2115,7 @@ EXAMPLE 1
 
     insert into OutputStream
     select list:collect(symbol) as stockSymbols
-    from StockStream#window.lengthBatch(10);
+    from StockStream WINDOW TUMBLING_LENGTH(10);
 
 For the window expiry of 10 events, the collect() function will collect attributes of `symbol` to a single list and return as stockSymbols.
 
@@ -2139,7 +2139,7 @@ EXAMPLE 1
 
     insert into OutputStream
     select list:merge(list) as stockSymbols
-    from StockStream#window.lengthBatch(2);
+    from StockStream WINDOW TUMBLING_LENGTH(2);
 
 For the window expiry of 2 events, the merge() function will collect attributes of `list` and merge them to a single list, returned as stockSymbols.
 
@@ -2619,7 +2619,7 @@ EXAMPLE 1
 
     insert into OutputStream
     select map:collect(symbol, price) as stockDetails
-    from StockStream#window.lengthBatch(10);
+    from StockStream WINDOW TUMBLING_LENGTH(10);
 
 For the window expiry of 10 events, the collect() function will collectattributes of `key` and `value` to a single map and return as stockDetails.
 
@@ -2641,7 +2641,7 @@ EXAMPLE 1
 
     insert into OutputStream
     select map:merge(map) as stockDetails
-    from StockStream#window.lengthBatch(2);
+    from StockStream WINDOW TUMBLING_LENGTH(2);
 
 For the window expiry of 2 events, the merge() function will collect attributes of `map` and merge them to a single map, returned as stockDetails.
 
@@ -3162,7 +3162,7 @@ EXAMPLE 1
 
     insert into TempStream
     select map:collect(symbol, price) as symbolPriceMap
-    from StockStream#window.lengthBatch(2);
+    from StockStream WINDOW TUMBLING_LENGTH(2);
 
     insert into SymbolStream
     select key, value
@@ -4464,7 +4464,7 @@ EXAMPLE 1
     @info(name = 'query1')
     insert into OutputStream
     select eventTime, symbol, sum(volume) as total
-    from StockStream#reorder:akslack(eventTime, volume, 20)#window.time(5 min);
+    from StockStream#reorder:akslack(eventTime, volume, 20) WINDOW SLIDING_TIME(5 min);
 
 The query reorders events based on the `eventTime` attribute value and
 optimises for aggregating `volume` attribute considering last 20
@@ -8075,7 +8075,7 @@ QUERY PARAMETERS
 
 EXAMPLE 1
 
-    from InputStream#window.time(5 min)
+    from InputStream WINDOW SLIDING_TIME(5 min)
     select str:groupConcat("key") as groupedKeys
     input OutputStream;
 
@@ -8084,7 +8084,7 @@ When we input events having values for the `key` as `'A'`, `'B'`, `'S'`,
 
 EXAMPLE 2
 
-    from InputStream#window.time(5 min)
+    from InputStream WINDOW SLIDING_TIME(5 min)
     select groupConcat("key","-",true,"ASC") as groupedKeys
     input OutputStream;
 
@@ -9104,7 +9104,7 @@ EXAMPLE 1
 
     CREATE STREAM LoginEvents (timestamp long, ip string);
 
-    from LoginEvents#window.unique:ever(ip)
+    from LoginEvents WINDOW UNIQUE:ever(ip)
     select count(ip) as ipCount
     insert events into UniqueIps;
 
@@ -9117,7 +9117,7 @@ EXAMPLE 2
 
     CREATE STREAM DriverChangeStream (trainID string, driver string);
 
-    from DriverChangeStream#window.unique:ever(trainID)
+    from DriverChangeStream WINDOW UNIQUE:ever(trainID)
     select trainID, driver
     insert expired events into PreviousDriverChangeStream;
 
@@ -9131,7 +9131,7 @@ EXAMPLE 3
     CREATE STREAM StockStream (symbol string, price float);
     CREATE STREAM PriceRequestStream(symbol string);
 
-    from StockStream#window.unique:ever(symbol) as s join PriceRequestStream as p
+    from StockStream WINDOW UNIQUE:ever(symbol) as s join PriceRequestStream as p
     on s.symbol == p.symbol
     select s.symbol as symbol, s.price as price
     insert events into PriceResponseStream;
@@ -9177,7 +9177,7 @@ EXAMPLE 1
 
     insert into UniqueIps 
     select timestamp, ip, count() as total
-    from LoginEvents#window.unique:externalTimeBatch(ip, timestamp, 1 sec, 0, 2 sec);
+    from LoginEvents WINDOW UNIQUE:externalTimeBatch(ip, timestamp, 1 sec, 0, 2 sec);
 
 In this query, the window holds the latest unique events that arrive
 from the `LoginEvent` stream during each second. The latest events are
@@ -9211,7 +9211,7 @@ EXAMPLE 1
     CREATE STREAM LoginEvents (timeStamp long, ip string);
 
     insert into UniqueIps 
-    from LoginEvents#window.unique:first(ip);
+    from LoginEvents WINDOW UNIQUE:first(ip);
 
 This returns the first set of unique items that arrive from the
 `LoginEvents` stream, and returns them to the `UniqueIps` stream.
@@ -9242,7 +9242,7 @@ EXAMPLE 1
 
     CREATE WINDOW CseEventWindow (symbol string, price float, volume int);
 
-    from CseEventStream#window.unique:firstLengthBatch(symbol, 10)
+    from CseEventStream WINDOW UNIQUE:firstLengthBatch(symbol, 10)
     select symbol, price, volume
     insert all events into OutputStream ;
 
@@ -9276,7 +9276,7 @@ EXAMPLE 1
 
     CREATE STREAM CseEventStream (symbol string, price float, volume int)
 
-    from CseEventStream#window.unique:firstTimeBatch(symbol,1 sec)
+    from CseEventStream WINDOW UNIQUE:firstTimeBatch(symbol,1 sec)
      select symbol, price, volume
     insert all events into OutputStream ;
 
@@ -9307,7 +9307,7 @@ EXAMPLE 1
 
     CREATE STREAM CseEventStream (symbol string, price float, volume int)
 
-    from CseEventStream#window.unique:length(symbol,10)
+    from CseEventStream WINDOW UNIQUE:length(symbol,10)
     select symbol, price, volume
     insert all events into OutputStream;
 
@@ -9344,7 +9344,7 @@ EXAMPLE 1
 
     CREATE WINDOW CseEventWindow (symbol string, price float, volume int);
 
-     from CseEventStream#window.unique:lengthBatch(symbol, 10)
+     from CseEventStream WINDOW UNIQUE:lengthBatch(symbol, 10)
     select symbol, price, volume
     insert expired events into OutputStream ;
 
@@ -9382,7 +9382,7 @@ EXAMPLE 1
 
     CREATE STREAM CseEventStream (symbol string, price float, volume int)
 
-    from CseEventStream#window.unique:time(symbol, 1 sec)
+    from CseEventStream WINDOW UNIQUE:time(symbol, 1 sec)
     select symbol, price, volume
     insert expired events into OutputStream ;
 
@@ -9419,7 +9419,7 @@ EXAMPLE 1
 
     CREATE STREAM CseEventStream (symbol string, price float, volume int)
 
-    from CseEventStream#window.unique:timeBatch(symbol, 1 sec)
+    from CseEventStream WINDOW UNIQUE:timeBatch(symbol, 1 sec)
     select symbol, price, volume
     insert all events into OutputStream ;
 
@@ -9455,7 +9455,7 @@ EXAMPLE 1
 
     CREATE STREAM CseEventStream (symbol string, price float, volume int)
 
-    from CseEventStream#window.unique:timeLengthBatch(symbol, 1 sec, 20)
+    from CseEventStream WINDOW UNIQUE:timeLengthBatch(symbol, 1 sec, 20)
     select symbol, price, volume
     insert all events into OutputStream;
 
