@@ -108,6 +108,7 @@ nav:
     - Quickstart: quickstart.md
     - Essentials: essentials.md
     - Authentication: authentication.md
+    - GeoFabrics: geofabrics.md
     - Troubleshooting: troubleshooting.md
     - Quotas and Limits: quotas.md
     - Drivers: apikeys.md
