@@ -780,7 +780,7 @@ FOR c IN Characters
 ]
 ```
 
-This is a bit too much information, so let's only return English labels using the [array expansion](../array-operators#array-expansion) notation:
+This is a bit too much information, so let's only return English labels using the [array expansion](../array-operators/#array-expansion) notation:
 
 ```js
 FOR c IN Characters
