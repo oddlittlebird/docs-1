@@ -626,7 +626,7 @@ In the main, C8QL is a declarative language. Queries express what results you wa
 
 It also aims to be client independent, meaning that the language and syntax are the same for all clients, no matter what programming language the clients use. Additionally, it supports complex query patterns and the various data models C8 offers.
 
-C8QL also supports several aggregation and string functions. For more information, see [C8QL Functions](../C8QL/Functions/README.md)
+C8QL also supports several aggregation and string functions. For more information, see [C8QL Functions](functions/overview/)
 
 ## How do browse vectors translate into document queries?
 

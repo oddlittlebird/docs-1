@@ -13,7 +13,7 @@ The optional `SEARCH` operation provides the capabilities to:
 - match documents located in different collections backed by a fast index
 - sort the result set based on how closely each document matched the search conditions
 
-See [Search Views](../../search/concepts.md#views) on how to set up a View.
+See [Search Views](../../../search/views/) on how to set up a View.
 
 ## General Syntax
 
@@ -104,11 +104,11 @@ FOR doc IN myView
 []
 ```
 
-You can use the special `includeAllFields` [View property](../../search/concepts.md#link-properties) to index all (sub-)fields of the source documents if desired.
+You can use the special `includeAllFields` [View property](../../../search/views/#view-properties) to index all (sub-)fields of the source documents if desired.
 
 ## Arrays and trackListPositions
 
-Array elements are indexed individually and can be searched for as if the attribute had each single value at the same time. They behave like a _disjunctive superposition_ of their values as long as the [**trackListPositions**](../../search/concepts.md#link-properties) View setting is `false` (default).
+Array elements are indexed individually and can be searched for as if the attribute had each single value at the same time. They behave like a _disjunctive superposition_ of their values as long as the [**trackListPositions**](../../../search/views/#view-properties) View setting is `false` (default).
 
 Therefore, array comparison operators such as `ALL IN` or `ANY ==` aren't really necessary. Consider the following document:
 
@@ -152,7 +152,7 @@ SEARCH doc.value.nested.deep == 2
 
 Conversely, there will be no match if an array index is specified but `trackListPositions` is disabled.
 
-String tokens (see [Analyzers](../../search/concepts.md#analyzers)) are also indexed individually, but not all Analyzer types return multiple tokens. If the Analyzer does, then comparison tests are done per token/word. For example, given the field `text` is analyzed with `"text_en"` and contains the string `"a quick brown fox jumps over the lazy dog"`, the following expression will be true:
+String tokens (see [Analyzers](../../../search/Analyzers/)) are also indexed individually, but not all Analyzer types return multiple tokens. If the Analyzer does, then comparison tests are done per token/word. For example, given the field `text` is analyzed with `"text_en"` and contains the string `"a quick brown fox jumps over the lazy dog"`, the following expression will be true:
 
 ```js
 ANALYZER(doc.text == 'fox', "text_en")
@@ -192,7 +192,7 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-If the (left-most) fields and their sorting directions match up with the [primary sort order](../../search/concepts.md#primary-sort-order) definition of the View then the `SORT` operation is optimized away.
+If the (left-most) fields and their sorting directions match up with the [primary sort order](../../../search/views/#primary-sort-order) definition of the View then the `SORT` operation is optimized away.
 
 Apart from simple sorting, it is possible to sort the matched View documents by relevance score (or a combination of score and attribute values if desired). The document search via the `SEARCH` keyword and the sorting via the [Search Scoring Functions](../functions/search.md#scoring-functions), namely `BM25()` and `TFIDF()`, are closely intertwined.
 
