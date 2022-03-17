@@ -12,7 +12,7 @@ Macrometa GDN currently uses 64bit unsigned integer values to maintain collectio
 
 ## Collection Name
 
-A collection name identifies a collection in a database. It is a string and is unique within the database. Unlike the collection identifier it is supplied by the creator of the collection. The collection name must consist of letters, digits, and the _ (underscore) and - (dash) characters only. Please refer to [NamingConventions](https://macrometacorp.github.io/docs-c8/reference/data-models/naming-conventions) for more information on valid collection names.
+A collection name identifies a collection in a database. It is a string and is unique within the database. Unlike the collection identifier it is supplied by the creator of the collection. The collection name must consist of letters, digits, and the _ (underscore) and - (dash) characters only. Refer to [Naming Conventions](../../naming-conventions/) for more information on valid collection names.
 
 ## GeoFabric
 
@@ -52,7 +52,7 @@ This behavior can be changed on a per-collection level by creating collections w
 
 Using `keyOptions` it is possible to disallow user-specified keys completely, or to force a specific regime for auto-generating the `_key` values.
 
-There are some restrictions for user-defined keys (see [NamingConventions for document keys](https://macrometacorp.github.io/docs-c8/reference/data-models/naming-conventions/#document-keys)).
+There are some restrictions for user-defined keys (see [Naming Conventions for document keys](../../naming-conventions/#document-keys).
 
 ## Document Revision
 
