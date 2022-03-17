@@ -116,6 +116,7 @@ nav:
       - Overview: gdnsl/overview.md
       - Commands: gdnsl/commands.md
     - Credits: credits.md
+    - Glossary: documents/appendix/glossary.md
   - Collections:
     - Key Value:
       - Quick Start: keyvalue/quickstart.md
@@ -124,6 +125,7 @@ nav:
         - Bulk Update with RestQL: keyvalue/tutorials/bulk-update-restql.md
     - Documents:
       - Quick Start: documents/quickstart.md
+      - Naming Conventions: documents/naming-conventions.md
       - Tutorials:
         - Using Rest API: documents/tutorials/using_rest_api.md
         - Working with Documents: documents/tutorials/working-with-documents.md
@@ -230,6 +232,7 @@ nav:
           - Time: cep/reference/extensions/execution/time.md
           - Unique: cep/reference/extensions/execution/unique.md
           - Streaming ML: cep/reference/extensions/execution/streamingml.md
+          - GeoSpatial: cep/reference/extensions/execution/geospatial.md
         - Connectors:
           - HTTP: cep/reference/extensions/io/http.md
           - Google Pub-Sub: cep/reference/extensions/io/gcp-pubsub.md

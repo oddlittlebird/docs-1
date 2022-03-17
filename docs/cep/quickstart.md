@@ -9,7 +9,7 @@ Macrometa GDN allows you to integrate streaming data and take appropriate action
 | *Act* | Take actions based on the findings. For example, running simple code, calling an external service, or triggering a complex integration. |
 | *Integrate* | Provide processed data for consumer consumption. |
 
-If you are new to Macrometa GDN, start by reading the [essentials](../../essentials.md) of Macrometa GDN.
+If you are new to Macrometa GDN, start by reading the [essentials](../essentials.md) of Macrometa GDN.
 
 ![GDN Essentials](images/gdn-cep-overview.png)
 
