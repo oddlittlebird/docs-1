@@ -31,11 +31,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.com/docs/license/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://macrometa.com/docs/quickstart/</loc>
          <lastmod>2022-03-17</lastmod>
          <changefreq>daily</changefreq>
@@ -721,11 +716,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://macrometa.com/docs/documents/indexing/which-index/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://macrometa.com/docs/documents/indexing/working-with-indexes/</loc>
          <lastmod>2022-03-17</lastmod>
          <changefreq>daily</changefreq>
@@ -867,31 +857,6 @@
     </url>
     <url>
          <loc>https://macrometa.com/docs/gdnsl/overview/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://macrometa.com/docs/gdnsl/tutorials/autoscaling/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://macrometa.com/docs/gdnsl/tutorials/gettingstarted/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://macrometa.com/docs/gdnsl/tutorials/management/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://macrometa.com/docs/gdnsl/tutorials/trafficsplitting/</loc>
-         <lastmod>2022-03-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://macrometa.com/docs/gdnsl/tutorials/workflows/</loc>
          <lastmod>2022-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
