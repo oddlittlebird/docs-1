@@ -656,7 +656,7 @@ It is rather a list of letters without an apparent meaning. The idea here is tha
 
 ### Importing traits
 
-Below you find the traits data. Follow the pattern shown in [Create documents](CRUD.md#create-documents) to import it:
+Below you find the traits data. Follow the pattern shown in [Create documents](examples.md#creating-documents) to import it:
 
 - Create a document collection *Traits*
 - Assign the data to a variable in C8QL, `LET data = [ ... ]`
@@ -780,7 +780,7 @@ FOR c IN Characters
 ]
 ```
 
-This is a bit too much information, so let's only return English labels using the [array expansion](../ArrayOperators.md#array-expansion) notation:
+This is a bit too much information, so let's only return English labels using the [array expansion](../array-operators.md#array-expansion) notation:
 
 ```js
 FOR c IN Characters
