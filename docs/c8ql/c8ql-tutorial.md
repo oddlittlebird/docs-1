@@ -1096,7 +1096,7 @@ If we had deeper family trees, it would only be a matter of changing the depth v
 
 ## Geospatial queries
 
-Geospatial coordinates consisting of a latitude and longitude value can be stored either as two separate attributes, or as a single attribute in the form of an array with both numeric values. C8 can [index such coordinates](geospatial/concepts/) for fast geospatial queries.
+Geospatial coordinates consisting of a latitude and longitude value can be stored either as two separate attributes, or as a single attribute in the form of an array with both numeric values. C8 can [index such coordinates](../../geospatial/concepts/) for fast geospatial queries.
 
 ### Locations data
 
