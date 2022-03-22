@@ -14,6 +14,8 @@ To get all relevant packages:
 pip3 install -r requirements.txt
 ```
 
+Also install the [minify plugin](https://github.com/byrnereese/mkdocs-minify-plugin).
+
 To build docs:
 
 ```bash
