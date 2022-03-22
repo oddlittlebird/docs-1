@@ -36,7 +36,7 @@ or
 python3 -m mkdocs serve
 ```
 
-After that connect to http://localhost:8080
+After that connect to http://localhost:8000
 
 > Note: Any changes to the docs once saved will get automatically built and visible in browser gui
 
